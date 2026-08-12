@@ -1,0 +1,22 @@
+{
+  "design_name": "Howe-style 3WM HFSS handoff",
+  "mixing_process": "3WM",
+  "unloaded_cells_each_side": 15,
+  "loaded_cells": 4,
+  "supercells": 1200,
+  "centered_cells": false,
+  "Istar_A": 0.002,
+  "Idc_A": 0.00022,
+  "Ip0_A": 0.0001,
+  "Is0_A": 0.0000014,
+  "base_frequency_start_GHz": 0.2,
+  "base_frequency_stop_GHz": 30.0,
+  "base_frequency_step_GHz": 0.002,
+  "pump_scan_start_GHz": 12.5,
+  "pump_scan_stop_GHz": 14.0,
+  "pump_scan_step_GHz": 0.1,
+  "signal_start_GHz": 2.0,
+  "signal_stop_GHz": 10.0,
+  "signal_step_GHz": 0.1,
+  "readout_band_GHz": [4.0, 8.0]
+}

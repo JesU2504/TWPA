@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" fill="#f8fafc"/>
+  <text x="600" y="38" text-anchor="middle" font-family="Arial" font-size="25" font-weight="bold" fill="#172033">13–3–13 HFSS physical supercell</text>
+  <text x="600" y="68" text-anchor="middle" font-family="Arial" font-size="16" fill="#475569">29 cells × 2 µm pitch = 58 µm total length</text>
+
+  <rect x="70" y="94" width="1060" height="318" rx="10" fill="#e0f2fe" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="80" y="245" width="1040" height="18" fill="#159bd3"/>
+
+  <g stroke="#159bd3" stroke-width="12">
+    <line x1="98" y1="125" x2="98" y2="382"/><line x1="134" y1="125" x2="134" y2="382"/><line x1="170" y1="125" x2="170" y2="382"/>
+    <line x1="206" y1="125" x2="206" y2="382"/><line x1="242" y1="125" x2="242" y2="382"/><line x1="278" y1="125" x2="278" y2="382"/>
+    <line x1="314" y1="125" x2="314" y2="382"/><line x1="350" y1="125" x2="350" y2="382"/><line x1="386" y1="125" x2="386" y2="382"/>
+    <line x1="422" y1="125" x2="422" y2="382"/><line x1="458" y1="125" x2="458" y2="382"/><line x1="494" y1="125" x2="494" y2="382"/>
+    <line x1="530" y1="125" x2="530" y2="382"/>
+    <line x1="566" y1="207" x2="566" y2="300"/><line x1="602" y1="207" x2="602" y2="300"/><line x1="638" y1="207" x2="638" y2="300"/>
+    <line x1="674" y1="125" x2="674" y2="382"/><line x1="710" y1="125" x2="710" y2="382"/><line x1="746" y1="125" x2="746" y2="382"/>
+    <line x1="782" y1="125" x2="782" y2="382"/><line x1="818" y1="125" x2="818" y2="382"/><line x1="854" y1="125" x2="854" y2="382"/>
+    <line x1="890" y1="125" x2="890" y2="382"/><line x1="926" y1="125" x2="926" y2="382"/><line x1="962" y1="125" x2="962" y2="382"/>
+    <line x1="998" y1="125" x2="998" y2="382"/><line x1="1034" y1="125" x2="1034" y2="382"/><line x1="1070" y1="125" x2="1070" y2="382"/>
+  </g>
+
+  <rect x="78" y="110" width="470" height="288" rx="8" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <rect x="548" y="190" width="108" height="127" rx="8" fill="none" stroke="#ef4444" stroke-width="3"/>
+  <rect x="656" y="110" width="432" height="288" rx="8" fill="none" stroke="#16a34a" stroke-width="3"/>
+  <text x="313" y="440" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#2563eb">13 long-stub cells</text>
+  <text x="602" y="440" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#ef4444">3 short</text>
+  <text x="872" y="440" text-anchor="middle" font-family="Arial" font-size="20" font-weight="bold" fill="#16a34a">13 long-stub cells</text>
+  <text x="313" y="468" text-anchor="middle" font-family="Arial" font-size="16" fill="#334155">12 µm arms; total Y span 25 µm</text>
+  <text x="602" y="468" text-anchor="middle" font-family="Arial" font-size="16" fill="#334155">3.9 µm arms</text>
+  <text x="872" y="468" text-anchor="middle" font-family="Arial" font-size="16" fill="#334155">12 µm arms; total Y span 25 µm</text>
+
+  <line x1="80" y1="495" x2="1120" y2="495" stroke="#172033" stroke-width="2"/>
+  <line x1="80" y1="486" x2="80" y2="504" stroke="#172033" stroke-width="2"/>
+  <line x1="1120" y1="486" x2="1120" y2="504" stroke="#172033" stroke-width="2"/>
+  <text x="600" y="514" text-anchor="middle" font-family="Arial" font-size="15" fill="#172033">x = −29 µm                                                                 x = +29 µm</text>
+</svg>

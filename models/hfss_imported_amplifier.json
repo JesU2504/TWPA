@@ -1,0 +1,123 @@
+{
+  "model": {
+    "Idc": 0.00022,
+    "Ip0": 0.0001,
+    "Iratio": 0.11,
+    "Istar": 0.002,
+    "N": 1200,
+    "N_tot": 40800,
+    "Z0_ref": 50.0,
+    "alpha": 1.0121,
+    "cells": [
+      {
+        "C": 2.978074311365045e-14,
+        "L": 5.5293422258173953e-11,
+        "Lf": 1.23846759188166e-10,
+        "N": 15,
+        "Z0_ref": 50.0,
+        "centered": false,
+        "delta": 0.0,
+        "name": "LCLfBaseCell"
+      },
+      {
+        "C": 1.0978262398510854e-14,
+        "L": 5.410286880647288e-11,
+        "Lf": 4.927760988291253e-11,
+        "N": 4,
+        "Z0_ref": 50.0,
+        "centered": false,
+        "delta": 0.0,
+        "name": "LCLfBaseCell"
+      },
+      {
+        "C": 2.978074311365045e-14,
+        "L": 5.5293422258173953e-11,
+        "Lf": 1.23846759188166e-10,
+        "N": 15,
+        "Z0_ref": 50.0,
+        "centered": false,
+        "delta": 0.0,
+        "name": "LCLfBaseCell"
+      }
+    ],
+    "chi": 0.0003087639561308171,
+    "epsilon": 108.68491255804763,
+    "name": "TWPA",
+    "xi": 247011.16490465368
+  },
+  "paper_figures": [
+    "HFSS handoff"
+  ],
+  "provenance": {
+    "amplifier_config": {
+      "Idc_A": 0.00022,
+      "Ip0_A": 0.0001,
+      "Is0_A": 1.4e-06,
+      "Istar_A": 0.002,
+      "base_frequency_start_GHz": 0.2,
+      "base_frequency_step_GHz": 0.002,
+      "base_frequency_stop_GHz": 30.0,
+      "centered_cells": false,
+      "design_name": "Howe-style 3WM HFSS handoff",
+      "loaded_cells": 4,
+      "mixing_process": "3WM",
+      "pump_scan_start_GHz": 12.5,
+      "pump_scan_step_GHz": 0.1,
+      "pump_scan_stop_GHz": 14.0,
+      "readout_band_GHz": [
+        4.0,
+        8.0
+      ],
+      "signal_start_GHz": 2.0,
+      "signal_step_GHz": 0.1,
+      "signal_stop_GHz": 10.0,
+      "supercells": 1200,
+      "unloaded_cells_each_side": 15
+    },
+    "amplifier_config_file": "/Users/lgsus/Desktop/TWPA/hfss_inputs/amplifier_config.json",
+    "cell_input": {
+      "acceptance_checks": {
+        "S21_fit_rmse_below_0p5db": true,
+        "impedance_ratio_selected_1p629_pm5pct": true,
+        "loaded_Z0_selected_70p20ohm_pm5pct": true,
+        "phase_fit_rmse_below_5deg": true,
+        "unloaded_Z0_selected_43p09ohm_pm5pct": true
+      },
+      "all_hfss_acceptance_checks_pass": true,
+      "hfss_validated": true,
+      "input_file": "/Users/lgsus/Desktop/TWPA/hfss_inputs/hfss_cell_parameters.csv",
+      "sources": [
+        "HFSS"
+      ]
+    },
+    "cells": {
+      "loaded": {
+        "C_fF": 10.978262398510854,
+        "L_pH": 54.102868806472884,
+        "Lf_pH": 49.277609882912536,
+        "Z0_ohm": 70.20100727735449,
+        "cell_type": "loaded",
+        "fit_phase_rmse_deg": 0.002501306531699172,
+        "fit_s21_rmse_db": 1.5266710872876778e-05,
+        "loss_tangent": 0.0,
+        "source": "HFSS",
+        "stub_length_um": 3.9
+      },
+      "unloaded": {
+        "C_fF": 29.780743113650452,
+        "L_pH": 55.293422258173955,
+        "Lf_pH": 123.846759188166,
+        "Z0_ohm": 43.08925347829123,
+        "cell_type": "unloaded",
+        "fit_phase_rmse_deg": 0.00535704728634735,
+        "fit_s21_rmse_db": 0.0005798699397446769,
+        "loss_tangent": 0.0,
+        "source": "HFSS",
+        "stub_length_um": 12.0
+      }
+    },
+    "status": "HFSS extracted",
+    "total_cells": 40800,
+    "warning": null
+  }
+}

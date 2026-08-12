@@ -1,0 +1,103 @@
+{
+  "input": {
+    "touchstone": "/Users/lgsus/Desktop/TWPA/hfss_inputs/supercell_13_3_13_coarse.s2p",
+    "frequency_points": 40,
+    "frequency_range_GHz": [
+      0.5,
+      20.0
+    ],
+    "reference_impedance_ohm": 50.0
+  },
+  "geometry": {
+    "pattern": "13/3/13",
+    "cells_per_supercell": 29,
+    "supercell_length_um": 58.0,
+    "repeats": 1407,
+    "full_device_cells": 40803,
+    "full_device_length_mm": 81.606
+  },
+  "measured_passive": {
+    "signal_band_worst_S11_dB": -24.913040893052095,
+    "signal_band_max_insertion_loss_dB": 0.01403396628877502,
+    "full_sweep_worst_S11_dB": -12.383245521867288,
+    "full_sweep_max_insertion_loss_dB": 0.25841419806083643,
+    "reciprocity_max_abs_S21_minus_S12": 5.23387347370847e-05,
+    "power_conservation_max_abs_error": 5.208909497711467e-05,
+    "best_match_frequency_GHz": 10.5,
+    "best_S11_dB": -41.637712732003976
+  },
+  "operating_points": {
+    "11.22_GHz": {
+      "S11_dB": -34.74609589835152,
+      "S21_dB": -0.0017309484887678972,
+      "S21_phase_unwrapped_deg": -144.19110036105047,
+      "group_delay_ps": 36.29153479306193
+    },
+    "13.13_GHz": {
+      "S11_dB": -23.0080141478238,
+      "S21_dB": -0.022138093158796897,
+      "S21_phase_unwrapped_deg": -169.23318928544896,
+      "group_delay_ps": 36.52167680711275
+    }
+  },
+  "model_comparison": {
+    "signal_band_4_8_GHz": {
+      "isolated_HFSS_cell_cascade": {
+        "S21_magnitude_error_max_dB": 0.31724002030796067,
+        "S21_phase_error_rms_deg": 0.5140165176861798,
+        "S21_phase_error_max_deg": 0.5967899136203334,
+        "model_worst_S11_dB": -11.38420063104827
+      },
+      "fitted_lumped_cell_cascade": {
+        "S21_magnitude_error_max_dB": 0.034010349932082365,
+        "S21_phase_error_rms_deg": 1.0924496982221943,
+        "S21_phase_error_max_deg": 1.3417471013343205,
+        "model_worst_S11_dB": -19.621371240889495
+      }
+    },
+    "pump_region_10_14_GHz": {
+      "isolated_HFSS_cell_cascade": {
+        "S21_magnitude_error_max_dB": 0.0402930312819702,
+        "S21_phase_error_rms_deg": 1.3561475117850175,
+        "S21_phase_error_max_deg": 2.10032669010508,
+        "model_worst_S11_dB": -18.794482320391314
+      },
+      "fitted_lumped_cell_cascade": {
+        "S21_magnitude_error_max_dB": 0.013345151803575643,
+        "S21_phase_error_rms_deg": 2.270706401344368,
+        "S21_phase_error_max_deg": 2.839805337909691,
+        "model_worst_S11_dB": -19.011639589272747
+      }
+    }
+  },
+  "three_wave_phase_mismatch": {
+    "pump_GHz": 13.13,
+    "signal_band_GHz": [
+      4.0,
+      8.0
+    ],
+    "measured_range_deg_per_supercell": [
+      1.0628804438479567,
+      1.2660466324066322
+    ],
+    "lumped_range_deg_per_supercell": [
+      1.2968297650363247,
+      1.5272925986911492
+    ],
+    "HFSS_minus_lumped_correction_deg_per_supercell": [
+      -0.26124596628452984,
+      -0.233949321188368
+    ],
+    "HFSS_minus_lumped_correction_rad_full_device": [
+      -6.415360392791334,
+      -5.7450426141226565
+    ]
+  },
+  "assessment": {
+    "passive_supercell_validated": true,
+    "lumped_model_magnitude_validated": true,
+    "dispersion_correction_material_for_full_device": true,
+    "next_required_HFSS_sweep": "3-14 GHz discrete, 0.1 GHz or finer",
+    "reason": "The local lumped-cell fit is accurate, but a sub-degree phase error per supercell accumulates over 1407 repeats and materially changes 3WM phase matching."
+  }
+}

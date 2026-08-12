@@ -1,0 +1,510 @@
+{
+  "status": "extended_model_with_fine_3_to_27_GHz_HFSS_phase_correction",
+  "operating_point": {
+    "pump_GHz": 12.7,
+    "Idc_A": 0.00036,
+    "Ip0_A": 0.00028,
+    "supercell_repeats": 1050
+  },
+  "mode_count": 8,
+  "included_modes": [
+    "p",
+    "s",
+    "i",
+    "ps",
+    "pi",
+    "p2",
+    "s2",
+    "i2"
+  ],
+  "models": {
+    "minimal_3wm": {
+      "case": "selected",
+      "pump_GHz": 12.7,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "minimal_3wm",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 21.257188877965802,
+      "peak_frequency_GHz": 5.599999999999994,
+      "mean_in_band_gain_db": 19.697364436174162,
+      "median_in_band_gain_db": 20.1594019749251,
+      "ripple_peak_to_peak_db": 5.590351418289362,
+      "ripple_std_db": 1.514870190544741,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 0.926829268292683,
+      "fraction_above_20db": 0.5365853658536586,
+      "bandwidth_regions_GHz": [
+        [
+          4.1,
+          7.299999999999988
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.2999999999999883,
+      "finite": true,
+      "minimum_in_band_gain_db": 15.66683745967644,
+      "maximum_in_band_gain_db": 21.257188877965802,
+      "pump_exit_power_fraction_median": 0.9938715974994528,
+      "pump_exit_power_fraction_min": 0.9922245470537323,
+      "pump_exit_power_fraction_max": 0.9985653103340113
+    },
+    "general_ideal": {
+      "case": "selected",
+      "pump_GHz": 12.7,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "general_ideal",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 43.23048580145209,
+      "peak_frequency_GHz": 7.099999999999989,
+      "mean_in_band_gain_db": 33.179340430222396,
+      "median_in_band_gain_db": 32.324566497908116,
+      "ripple_peak_to_peak_db": 22.738753392981415,
+      "ripple_std_db": 6.0849581034245315,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          6.999999999999989,
+          7.299999999999988
+        ],
+        [
+          7.499999999999988,
+          7.599999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.5999999999999979,
+      "finite": true,
+      "minimum_in_band_gain_db": 20.491732408470675,
+      "maximum_in_band_gain_db": 43.23048580145209,
+      "pump_exit_power_fraction_median": 0.24775487687714523,
+      "pump_exit_power_fraction_min": 0.0021203915808593126,
+      "pump_exit_power_fraction_max": 0.8424032924397019
+    },
+    "general_loss_only": {
+      "case": "selected",
+      "pump_GHz": 12.7,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "general_loss_only",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.41700659183885,
+      "peak_frequency_GHz": 7.199999999999989,
+      "mean_in_band_gain_db": 33.11400925262035,
+      "median_in_band_gain_db": 33.75906456204783,
+      "ripple_peak_to_peak_db": 29.3149342689668,
+      "ripple_std_db": 5.960250735610996,
+      "fraction_above_15db": 0.975609756097561,
+      "fraction_above_17db": 0.975609756097561,
+      "fraction_above_20db": 0.975609756097561,
+      "bandwidth_regions_GHz": [
+        [
+          5.599999999999994,
+          5.599999999999994
+        ],
+        [
+          7.199999999999989,
+          7.299999999999988
+        ],
+        [
+          7.599999999999987,
+          7.699999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.4999999999999982,
+      "finite": true,
+      "minimum_in_band_gain_db": 13.102072322872049,
+      "maximum_in_band_gain_db": 42.41700659183885,
+      "pump_exit_power_fraction_median": 0.25059134744954753,
+      "pump_exit_power_fraction_min": 0.0002975556235323651,
+      "pump_exit_power_fraction_max": 0.8123317096237267
+    },
+    "general": {
+      "case": "selected",
+      "pump_GHz": 12.7,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "general",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.32876831830233,
+      "peak_frequency_GHz": 7.699999999999987,
+      "mean_in_band_gain_db": 34.23291375498653,
+      "median_in_band_gain_db": 34.280845351116945,
+      "ripple_peak_to_peak_db": 19.511601824557292,
+      "ripple_std_db": 4.943902157953037,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          5.599999999999994,
+          5.599999999999994
+        ],
+        [
+          7.199999999999989,
+          7.399999999999988
+        ],
+        [
+          7.599999999999987,
+          7.7999999999999865
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.6999999999999975,
+      "finite": true,
+      "minimum_in_band_gain_db": 22.817166493745038,
+      "maximum_in_band_gain_db": 42.32876831830233,
+      "pump_exit_power_fraction_median": 0.25415100144428837,
+      "pump_exit_power_fraction_min": 0.005219984424505143,
+      "pump_exit_power_fraction_max": 0.7187734121344651
+    }
+  },
+  "nearby_general_model": [
+    {
+      "case": "selected",
+      "pump_GHz": 12.7,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "general",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.32876831830233,
+      "peak_frequency_GHz": 7.699999999999987,
+      "mean_in_band_gain_db": 34.23291375498653,
+      "median_in_band_gain_db": 34.280845351116945,
+      "ripple_peak_to_peak_db": 19.511601824557292,
+      "ripple_std_db": 4.943902157953037,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          5.599999999999994,
+          5.599999999999994
+        ],
+        [
+          7.199999999999989,
+          7.399999999999988
+        ],
+        [
+          7.599999999999987,
+          7.7999999999999865
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.6999999999999975,
+      "finite": true,
+      "minimum_in_band_gain_db": 22.817166493745038,
+      "maximum_in_band_gain_db": 42.32876831830233,
+      "pump_exit_power_fraction_median": 0.25415100144428837,
+      "pump_exit_power_fraction_min": 0.005219984424505143,
+      "pump_exit_power_fraction_max": 0.7187734121344651
+    },
+    {
+      "case": "nearby_pump",
+      "pump_GHz": 12.68,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "general",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.55065161094948,
+      "peak_frequency_GHz": 7.499999999999988,
+      "mean_in_band_gain_db": 33.33710621001119,
+      "median_in_band_gain_db": 33.09179552350904,
+      "ripple_peak_to_peak_db": 22.68609839837037,
+      "ripple_std_db": 5.377977289135534,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 0.975609756097561,
+      "bandwidth_regions_GHz": [
+        [
+          7.199999999999989,
+          7.199999999999989
+        ],
+        [
+          7.399999999999988,
+          7.499999999999988
+        ],
+        [
+          7.699999999999987,
+          7.699999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.3999999999999986,
+      "finite": true,
+      "minimum_in_band_gain_db": 19.86455321257911,
+      "maximum_in_band_gain_db": 42.55065161094948,
+      "pump_exit_power_fraction_median": 0.19635941180565847,
+      "pump_exit_power_fraction_min": 0.0012190497827563092,
+      "pump_exit_power_fraction_max": 0.8029387082210732
+    },
+    {
+      "case": "nearby_pump",
+      "pump_GHz": 12.72,
+      "Idc_A": 0.00036,
+      "Ip0_A": 0.00028,
+      "model": "general",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 43.04146625317258,
+      "peak_frequency_GHz": 7.199999999999989,
+      "mean_in_band_gain_db": 34.27849293226624,
+      "median_in_band_gain_db": 35.275845376935315,
+      "ripple_peak_to_peak_db": 18.848715397085584,
+      "ripple_std_db": 4.844750761572423,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          5.399999999999995,
+          5.399999999999995
+        ],
+        [
+          7.199999999999989,
+          7.199999999999989
+        ],
+        [
+          7.499999999999988,
+          7.499999999999988
+        ],
+        [
+          7.7999999999999865,
+          7.7999999999999865
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.3999999999999986,
+      "finite": true,
+      "minimum_in_band_gain_db": 24.192750856086995,
+      "maximum_in_band_gain_db": 43.04146625317258,
+      "pump_exit_power_fraction_median": 0.13898387559526212,
+      "pump_exit_power_fraction_min": 0.0008791345154205246,
+      "pump_exit_power_fraction_max": 0.729615468543794
+    }
+  ],
+  "ideal_mode_ablation": {
+    "basic_3_modes": {
+      "configuration": "basic_3_modes",
+      "mode_count": 3,
+      "included_modes": "p+s+i",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 19.67852614798286,
+      "peak_frequency_GHz": 5.599999999999994,
+      "mean_in_band_gain_db": 18.095126460190603,
+      "median_in_band_gain_db": 18.591657155766526,
+      "ripple_peak_to_peak_db": 5.640216131019233,
+      "ripple_std_db": 1.5314822996927606,
+      "fraction_above_15db": 0.9512195121951219,
+      "fraction_above_17db": 0.7560975609756098,
+      "fraction_above_20db": 0.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.1,
+          7.299999999999988
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.2999999999999883,
+      "finite": true,
+      "minimum_in_band_gain_db": 14.038310016963628,
+      "maximum_in_band_gain_db": 19.67852614798286,
+      "pump_exit_power_fraction_median": 0.9957904009324142,
+      "pump_exit_power_fraction_min": 0.9946255631485199,
+      "pump_exit_power_fraction_max": 0.9990264422858202
+    },
+    "add_pump_harmonic": {
+      "configuration": "add_pump_harmonic",
+      "mode_count": 4,
+      "included_modes": "p+s+i+p2",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.28102285613681,
+      "peak_frequency_GHz": 7.399999999999988,
+      "mean_in_band_gain_db": 34.94949804773421,
+      "median_in_band_gain_db": 39.58443872424614,
+      "ripple_peak_to_peak_db": 32.05343995160477,
+      "ripple_std_db": 8.111715414940317,
+      "fraction_above_15db": 0.9512195121951219,
+      "fraction_above_17db": 0.9512195121951219,
+      "fraction_above_20db": 0.926829268292683,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          4.499999999999998
+        ],
+        [
+          6.3999999999999915,
+          7.599999999999987
+        ],
+        [
+          7.899999999999986,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 2.0999999999999925,
+      "finite": true,
+      "minimum_in_band_gain_db": 10.227582904532039,
+      "maximum_in_band_gain_db": 42.28102285613681,
+      "pump_exit_power_fraction_median": 0.35093158121100765,
+      "pump_exit_power_fraction_min": 0.14543511018525498,
+      "pump_exit_power_fraction_max": 0.9687095884475544
+    },
+    "add_sum_conversions": {
+      "configuration": "add_sum_conversions",
+      "mode_count": 5,
+      "included_modes": "p+s+i+ps+pi",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 43.502286028159006,
+      "peak_frequency_GHz": 7.099999999999989,
+      "mean_in_band_gain_db": 33.85725245688601,
+      "median_in_band_gain_db": 38.697197993080195,
+      "ripple_peak_to_peak_db": 45.28767119835794,
+      "ripple_std_db": 11.841662199881911,
+      "fraction_above_15db": 0.8780487804878049,
+      "fraction_above_17db": 0.8780487804878049,
+      "fraction_above_20db": 0.8780487804878049,
+      "bandwidth_regions_GHz": [
+        [
+          4.799999999999997,
+          4.799999999999997
+        ],
+        [
+          5.399999999999995,
+          5.899999999999993
+        ],
+        [
+          6.299999999999992,
+          6.3999999999999915
+        ],
+        [
+          6.599999999999991,
+          6.599999999999991
+        ],
+        [
+          6.89999999999999,
+          7.199999999999989
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 1.399999999999995,
+      "finite": true,
+      "minimum_in_band_gain_db": -1.7853851701989378,
+      "maximum_in_band_gain_db": 43.502286028159006,
+      "pump_exit_power_fraction_median": 0.4066157628215881,
+      "pump_exit_power_fraction_min": 0.1448765776501184,
+      "pump_exit_power_fraction_max": 0.9999256117907627
+    },
+    "add_signal_idler_harmonics": {
+      "configuration": "add_signal_idler_harmonics",
+      "mode_count": 5,
+      "included_modes": "p+s+i+s2+i2",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.11271679973023,
+      "peak_frequency_GHz": 7.099999999999989,
+      "mean_in_band_gain_db": 33.709125924257265,
+      "median_in_band_gain_db": 35.658736365197285,
+      "ripple_peak_to_peak_db": 29.304767162929075,
+      "ripple_std_db": 6.642370422822557,
+      "fraction_above_15db": 0.9512195121951219,
+      "fraction_above_17db": 0.9512195121951219,
+      "fraction_above_20db": 0.926829268292683,
+      "bandwidth_regions_GHz": [
+        [
+          6.89999999999999,
+          7.199999999999989
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.3999999999999986,
+      "finite": true,
+      "minimum_in_band_gain_db": 12.807949636801153,
+      "maximum_in_band_gain_db": 42.11271679973023,
+      "pump_exit_power_fraction_median": 0.701119943963608,
+      "pump_exit_power_fraction_min": 0.2431918163502719,
+      "pump_exit_power_fraction_max": 0.9987111883098612
+    },
+    "all_8_modes": {
+      "configuration": "all_8_modes",
+      "mode_count": 8,
+      "included_modes": "p+s+i+ps+pi+p2+s2+i2",
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 43.23048580145209,
+      "peak_frequency_GHz": 7.099999999999989,
+      "mean_in_band_gain_db": 33.179340430222396,
+      "median_in_band_gain_db": 32.324566497908116,
+      "ripple_peak_to_peak_db": 22.738753392981415,
+      "ripple_std_db": 6.0849581034245315,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          6.999999999999989,
+          7.299999999999988
+        ],
+        [
+          7.499999999999988,
+          7.599999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.5999999999999979,
+      "finite": true,
+      "minimum_in_band_gain_db": 20.491732408470675,
+      "maximum_in_band_gain_db": 43.23048580145209,
+      "pump_exit_power_fraction_median": 0.24775487687714523,
+      "pump_exit_power_fraction_min": 0.0021203915808593126,
+      "pump_exit_power_fraction_max": 0.8424032924397019
+    }
+  },
+  "general_model_nominal_pass": false,
+  "limitations": [
+    "HFSS phase correction uses 0.1 GHz samples from 3-14 GHz and 0.2 GHz samples from 14-27 GHz.",
+    "Only one order of pump, signal/idler harmonics and conversion modes is included.",
+    "The nonlinear model still represents the full line by repeating the simulated 13-3-13 physical supercell.",
+    "Each signal frequency is solved as a separate single-tone experiment."
+  ],
+  "hfss_cell_provenance": {
+    "input_file": "/Users/lgsus/Desktop/TWPA/hfss_inputs/hfss_cell_parameters.csv",
+    "hfss_validated": true,
+    "sources": [
+      "HFSS"
+    ],
+    "acceptance_checks": {
+      "unloaded_Z0_selected_43p09ohm_pm5pct": true,
+      "loaded_Z0_selected_70p20ohm_pm5pct": true,
+      "impedance_ratio_selected_1p629_pm5pct": true,
+      "S21_fit_rmse_below_0p5db": true,
+      "phase_fit_rmse_below_5deg": true
+    },
+    "all_hfss_acceptance_checks_pass": true
+  }
+}

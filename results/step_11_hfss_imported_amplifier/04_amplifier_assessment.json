@@ -1,0 +1,54 @@
+{
+  "amplifier_checks": {
+    "at_least_80pct_above_17db": false,
+    "finite_gain": true,
+    "mean_4to8_gain_at_least_15db": false,
+    "pump_outside_4to8_GHz": true,
+    "ripple_no_more_than_3db": true
+  },
+  "best_operating_point": {
+    "band_GHz": [
+      4.0,
+      8.0
+    ],
+    "bandwidth_regions_GHz": [
+      [
+        2.0,
+        2.0
+      ]
+    ],
+    "finite": true,
+    "fraction_above_15db": 0.0,
+    "fraction_above_17db": 0.0,
+    "fraction_above_20db": 0.0,
+    "mean_in_band_gain_db": 0.07720738813535198,
+    "median_in_band_gain_db": 0.08922952707345035,
+    "peak_frequency_GHz": 2.0,
+    "peak_gain_db": 27.581881911546375,
+    "pump_GHz": 13.999999999999995,
+    "ripple_peak_to_peak_db": 0.11825051422572065,
+    "ripple_std_db": 0.04205305891719381,
+    "total_3db_bandwidth_GHz": 0.10000000000000009
+  },
+  "dc_current_A": 0.00022,
+  "hfss_checks": {
+    "S21_fit_rmse_below_0p5db": true,
+    "impedance_ratio_selected_1p629_pm5pct": true,
+    "loaded_Z0_selected_70p20ohm_pm5pct": true,
+    "phase_fit_rmse_below_5deg": true,
+    "unloaded_Z0_selected_43p09ohm_pm5pct": true
+  },
+  "input_status": "HFSS extracted",
+  "mixing_process": "3WM",
+  "not_simulated": [
+    "quantum noise",
+    "qubit fidelity",
+    "package and launch",
+    "fabrication variation",
+    "cryogenic measurement chain"
+  ],
+  "pump_current_A": 0.0001,
+  "pump_power_50ohm_dbm": -36.020599913279625,
+  "ready_for_hardware_review": false,
+  "total_cells": 40800
+}

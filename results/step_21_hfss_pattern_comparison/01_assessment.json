@@ -1,0 +1,146 @@
+{
+  "status": "physical_HFSS_supercell_comparison",
+  "bands": {
+    "signal_4_8_GHz": [
+      4.0,
+      8.0
+    ],
+    "pump_12p6_13p0_GHz": [
+      12.6,
+      13.0
+    ],
+    "sum_products_16p7_21p4_GHz": [
+      16.7,
+      21.4
+    ],
+    "second_pump_25_26_GHz": [
+      25.0,
+      26.0
+    ]
+  },
+  "available_patterns": [
+    "13-3-13",
+    "16-2-16",
+    "15-4-15"
+  ],
+  "skipped_patterns_missing_exports": [],
+  "patterns": {
+    "13-3-13": {
+      "overlap_max_complex_error": 0.0,
+      "reciprocity_max_complex_error": 0.00016011048236103895,
+      "maximum_singular_value": 1.0000800584456015,
+      "passivity_excess": 8.005844560154962e-05,
+      "median_group_delay_ps": 36.35578589071497,
+      "median_delay_ps_per_mm": 626.8238946674994,
+      "signal_4_8_GHz": {
+        "S21_min_dB": -0.014086658641870042,
+        "S21_max_dB": -0.008555972546708472,
+        "S11_max_dB": -24.896791843099276,
+        "S22_max_dB": -24.896791843099173
+      },
+      "pump_12p6_13p0_GHz": {
+        "S21_min_dB": -0.019618013512862704,
+        "S21_max_dB": -0.013369907549102727,
+        "S11_max_dB": -23.462561784293253,
+        "S22_max_dB": -23.462561784293293
+      },
+      "sum_products_16p7_21p4_GHz": {
+        "S21_min_dB": -0.2808368968119136,
+        "S21_max_dB": -0.14110647644338445,
+        "S11_max_dB": -12.03296551888294,
+        "S22_max_dB": -12.032965518882934
+      },
+      "second_pump_25_26_GHz": {
+        "S21_min_dB": -0.2212895972182283,
+        "S21_max_dB": -0.1843780159339335,
+        "S11_max_dB": -13.036539441062269,
+        "S22_max_dB": -13.036539441062267
+      },
+      "linear_3wm_phase_mismatch_at_12p8_GHz": {
+        "definition": "k_p-k_s-k_i in rad/mm, with f_i=f_p-f_s",
+        "minimum_rad_per_mm": 0.29903782533914836,
+        "maximum_rad_per_mm": 0.34895846085529314,
+        "mean_absolute_rad_per_mm": 0.3357384661320657,
+        "peak_to_peak_rad_per_mm": 0.049920635516144785
+      }
+    },
+    "16-2-16": {
+      "overlap_max_complex_error": 0.0,
+      "reciprocity_max_complex_error": 0.0004405233638140453,
+      "maximum_singular_value": 1.0002202859395108,
+      "passivity_excess": 0.00022028593951084474,
+      "median_group_delay_ps": 42.33023361891663,
+      "median_delay_ps_per_mm": 622.5034355723034,
+      "signal_4_8_GHz": {
+        "S21_min_dB": -0.042515245983893966,
+        "S21_max_dB": -0.023123853748395932,
+        "S11_max_dB": -20.113635862980242,
+        "S22_max_dB": -20.113635862980242
+      },
+      "pump_12p6_13p0_GHz": {
+        "S21_min_dB": -0.03845415807958076,
+        "S21_max_dB": -0.027025113006888358,
+        "S11_max_dB": -20.547715255957954,
+        "S22_max_dB": -20.54771525595789
+      },
+      "sum_products_16p7_21p4_GHz": {
+        "S21_min_dB": -0.193871426278736,
+        "S21_max_dB": -0.1180728612180891,
+        "S11_max_dB": -13.599280596943249,
+        "S22_max_dB": -13.599280596943206
+      },
+      "second_pump_25_26_GHz": {
+        "S21_min_dB": -0.006667907512371267,
+        "S21_max_dB": -0.00022267098017737504,
+        "S11_max_dB": -28.143573029955157,
+        "S22_max_dB": -28.1435730299552
+      },
+      "linear_3wm_phase_mismatch_at_12p8_GHz": {
+        "definition": "k_p-k_s-k_i in rad/mm, with f_i=f_p-f_s",
+        "minimum_rad_per_mm": 0.29887938328499075,
+        "maximum_rad_per_mm": 0.36636164025138385,
+        "mean_absolute_rad_per_mm": 0.34809257436850866,
+        "peak_to_peak_rad_per_mm": 0.0674822569663931
+      }
+    },
+    "15-4-15": {
+      "overlap_max_complex_error": 0.0,
+      "reciprocity_max_complex_error": 0.00017074790195705644,
+      "maximum_singular_value": 1.0000853775953338,
+      "passivity_excess": 8.537759533377987e-05,
+      "median_group_delay_ps": 42.467698998455106,
+      "median_delay_ps_per_mm": 624.5249852713986,
+      "signal_4_8_GHz": {
+        "S21_min_dB": -0.042349421115612185,
+        "S21_max_dB": -0.014798745218384167,
+        "S11_max_dB": -20.130523870986284,
+        "S22_max_dB": -20.130523870986234
+      },
+      "pump_12p6_13p0_GHz": {
+        "S21_min_dB": -0.12333936155114229,
+        "S21_max_dB": -0.09677278439657241,
+        "S11_max_dB": -15.528348685443055,
+        "S22_max_dB": -15.528348685443106
+      },
+      "sum_products_16p7_21p4_GHz": {
+        "S21_min_dB": -0.4588398584741056,
+        "S21_max_dB": -0.3520210792298233,
+        "S11_max_dB": -9.988631334004126,
+        "S22_max_dB": -9.988631334004154
+      },
+      "second_pump_25_26_GHz": {
+        "S21_min_dB": -0.10735243578987713,
+        "S21_max_dB": -0.0668836021599977,
+        "S11_max_dB": -16.1232918230667,
+        "S22_max_dB": -16.12329182306665
+      },
+      "linear_3wm_phase_mismatch_at_12p8_GHz": {
+        "definition": "k_p-k_s-k_i in rad/mm, with f_i=f_p-f_s",
+        "minimum_rad_per_mm": 0.4262608150292948,
+        "maximum_rad_per_mm": 0.5340934899056293,
+        "mean_absolute_rad_per_mm": 0.504742161013854,
+        "peak_to_peak_rad_per_mm": 0.10783267487633452
+      }
+    }
+  }
+}

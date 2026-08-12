@@ -1,0 +1,631 @@
+{
+  "selection_policy": "Meet mean>=15 dB, >=80% of 4-8 GHz above 17 dB, and ripple<=3 dB; then select mean gain nearest 20 dB, lower ripple, and lower total current.",
+  "evaluated_points": 2268,
+  "qualified_count": 29,
+  "selected": {
+    "unloaded_cells_each_side": 13,
+    "loaded_cells": 3,
+    "supercells": 1407,
+    "pump_GHz": 13.129999999999994,
+    "Idc_A": 0.00035,
+    "Ip0_A": 0.00033999999999999997,
+    "band_GHz": [
+      4.0,
+      8.0
+    ],
+    "peak_gain_db": 35.10101667186218,
+    "peak_frequency_GHz": 6.249999999999992,
+    "mean_in_band_gain_db": 34.24433086585919,
+    "median_in_band_gain_db": 34.469750317592414,
+    "ripple_peak_to_peak_db": 2.657951112513416,
+    "ripple_std_db": 0.7841295131020967,
+    "fraction_above_15db": 1.0,
+    "fraction_above_17db": 1.0,
+    "fraction_above_20db": 1.0,
+    "bandwidth_regions_GHz": [
+      [
+        4.0,
+        7.999999999999986
+      ]
+    ],
+    "total_3db_bandwidth_GHz": 4.049999999999986,
+    "finite": true
+  },
+  "top_qualified": [
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.129999999999994,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 35.10101667186218,
+      "peak_frequency_GHz": 6.249999999999992,
+      "mean_in_band_gain_db": 34.24433086585919,
+      "median_in_band_gain_db": 34.469750317592414,
+      "ripple_peak_to_peak_db": 2.657951112513416,
+      "ripple_std_db": 0.7841295131020967,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.059999999999995,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 35.07436497607359,
+      "peak_frequency_GHz": 6.149999999999992,
+      "mean_in_band_gain_db": 34.301305012031705,
+      "median_in_band_gain_db": 34.51998649306419,
+      "ripple_peak_to_peak_db": 2.701047550536053,
+      "ripple_std_db": 0.729475199072918,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.979999999999997,
+      "Idc_A": 0.000325,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 35.48183053269274,
+      "peak_frequency_GHz": 5.699999999999994,
+      "mean_in_band_gain_db": 34.70587104043655,
+      "median_in_band_gain_db": 34.94652647886989,
+      "ripple_peak_to_peak_db": 2.983034988422361,
+      "ripple_std_db": 0.7704506644617384,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.069999999999995,
+      "Idc_A": 0.000325,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 35.475544418203306,
+      "peak_frequency_GHz": 6.149999999999992,
+      "mean_in_band_gain_db": 34.70751281452456,
+      "median_in_band_gain_db": 34.954511068153714,
+      "ripple_peak_to_peak_db": 2.7453391652804484,
+      "ripple_std_db": 0.7348252844407319,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.959999999999997,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.0003,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 35.62288930073703,
+      "peak_frequency_GHz": 6.0999999999999925,
+      "mean_in_band_gain_db": 34.9010224680022,
+      "median_in_band_gain_db": 35.12988889433447,
+      "ripple_peak_to_peak_db": 2.7313446447484324,
+      "ripple_std_db": 0.7072321806341926,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.979999999999997,
+      "Idc_A": 0.0003,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 36.65571563687496,
+      "peak_frequency_GHz": 5.749999999999994,
+      "mean_in_band_gain_db": 35.92587325958925,
+      "median_in_band_gain_db": 36.15725284565308,
+      "ripple_peak_to_peak_db": 2.8046326766629974,
+      "ripple_std_db": 0.7262162915993995,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.949999999999998,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.0003,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 36.687327186597244,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 36.039204769715106,
+      "median_in_band_gain_db": 36.22225547241406,
+      "ripple_peak_to_peak_db": 2.2063996910560277,
+      "ripple_std_db": 0.5958520793778868,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.969999999999997,
+      "Idc_A": 0.000325,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 36.924114540796054,
+      "peak_frequency_GHz": 6.149999999999992,
+      "mean_in_band_gain_db": 36.24995320426388,
+      "median_in_band_gain_db": 36.43952646561941,
+      "ripple_peak_to_peak_db": 2.397487945432168,
+      "ripple_std_db": 0.6320868439676939,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.049999999999995,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 36.89461872924406,
+      "peak_frequency_GHz": 6.649999999999991,
+      "mean_in_band_gain_db": 36.25854383156386,
+      "median_in_band_gain_db": 36.419150919225835,
+      "ripple_peak_to_peak_db": 2.04790288415694,
+      "ripple_std_db": 0.5752137395831598,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.119999999999994,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.413000798116485,
+      "peak_frequency_GHz": 7.099999999999989,
+      "mean_in_band_gain_db": 36.61412835392758,
+      "median_in_band_gain_db": 36.78119042267949,
+      "ripple_peak_to_peak_db": 2.3712820573410127,
+      "ripple_std_db": 0.6859642135000984,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.109999999999994,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 38.440104669409976,
+      "peak_frequency_GHz": 7.849999999999986,
+      "mean_in_band_gain_db": 36.69018751993758,
+      "median_in_band_gain_db": 36.38276160459989,
+      "ripple_peak_to_peak_db": 2.952131057123175,
+      "ripple_std_db": 1.0590205336533958,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.059999999999995,
+      "Idc_A": 0.000325,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.35962956297003,
+      "peak_frequency_GHz": 6.3999999999999915,
+      "mean_in_band_gain_db": 36.72701836493783,
+      "median_in_band_gain_db": 36.89581954810207,
+      "ripple_peak_to_peak_db": 2.01300307248696,
+      "ripple_std_db": 0.5737137958940275,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.939999999999998,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.0003,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.49878752377287,
+      "peak_frequency_GHz": 6.649999999999991,
+      "mean_in_band_gain_db": 36.88994364212531,
+      "median_in_band_gain_db": 37.02166266373855,
+      "ripple_peak_to_peak_db": 1.8550415236857773,
+      "ripple_std_db": 0.5319548402486889,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.039999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.88125236847993,
+      "peak_frequency_GHz": 7.149999999999989,
+      "mean_in_band_gain_db": 37.09477527124784,
+      "median_in_band_gain_db": 37.23873517289212,
+      "ripple_peak_to_peak_db": 2.171367923659467,
+      "ripple_std_db": 0.6566479129535183,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 13.029999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 38.59457355319605,
+      "peak_frequency_GHz": 7.649999999999987,
+      "mean_in_band_gain_db": 37.23143982185182,
+      "median_in_band_gain_db": 37.09823117121376,
+      "ripple_peak_to_peak_db": 2.6513225617394554,
+      "ripple_std_db": 0.942170621987055,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.969999999999997,
+      "Idc_A": 0.0003,
+      "Ip0_A": 0.00033999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.93842172759857,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 37.291980373978475,
+      "median_in_band_gain_db": 37.47205228554014,
+      "ripple_peak_to_peak_db": 2.2195365997518692,
+      "ripple_std_db": 0.5968021090948842,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.959999999999997,
+      "Idc_A": 0.000325,
+      "Ip0_A": 0.00031999999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.894166256218654,
+      "peak_frequency_GHz": 6.3999999999999915,
+      "mean_in_band_gain_db": 37.29394990577066,
+      "median_in_band_gain_db": 37.43254844114129,
+      "ripple_peak_to_peak_db": 1.8325944162851826,
+      "ripple_std_db": 0.5389349722153942,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.929999999999998,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.0003,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 38.17687230034571,
+      "peak_frequency_GHz": 6.9499999999999895,
+      "mean_in_band_gain_db": 37.471534969384514,
+      "median_in_band_gain_db": 37.59697324192999,
+      "ripple_peak_to_peak_db": 1.9943007672220077,
+      "ripple_std_db": 0.5892440065796918,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.909999999999998,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.0003,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 39.168360370618565,
+      "peak_frequency_GHz": 7.699999999999987,
+      "mean_in_band_gain_db": 37.67294668318157,
+      "median_in_band_gain_db": 37.4990019366437,
+      "ripple_peak_to_peak_db": 2.7672974445391105,
+      "ripple_std_db": 1.0118009282555007,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    },
+    {
+      "unloaded_cells_each_side": 13,
+      "loaded_cells": 3,
+      "supercells": 1407,
+      "pump_GHz": 12.919999999999998,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.0003,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 38.74044286140494,
+      "peak_frequency_GHz": 7.349999999999988,
+      "mean_in_band_gain_db": 37.72225460062537,
+      "median_in_band_gain_db": 37.76843196140907,
+      "ripple_peak_to_peak_db": 2.3138689235848133,
+      "ripple_std_db": 0.7792199510250505,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.049999999999986,
+      "finite": true
+    }
+  ],
+  "hfss_provenance": {
+    "input_file": "/Users/lgsus/Desktop/TWPA/hfss_inputs/hfss_cell_parameters.csv",
+    "hfss_validated": true,
+    "sources": [
+      "HFSS"
+    ],
+    "acceptance_checks": {
+      "unloaded_Z0_selected_43p09ohm_pm5pct": true,
+      "loaded_Z0_selected_70p20ohm_pm5pct": true,
+      "impedance_ratio_selected_1p629_pm5pct": true,
+      "S21_fit_rmse_below_0p5db": true,
+      "phase_fit_rmse_below_5deg": true
+    },
+    "all_hfss_acceptance_checks_pass": true
+  }
+}
