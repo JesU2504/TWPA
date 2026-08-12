@@ -1,0 +1,903 @@
+{
+  "status": "physical_HFSS_eight_mode_pattern_scan",
+  "pattern": "15-4-15",
+  "geometry": {
+    "unloaded_cells_left": 15,
+    "loaded_cells": 4,
+    "unloaded_cells_right": 15,
+    "cells_per_supercell": 34,
+    "supercell_length_um": 68.0
+  },
+  "hfss_files": [
+    "supercell_15_4_15_fine_3_14GHz.s2p",
+    "supercell_15_4_15_aux_14_27GHz.s2p"
+  ],
+  "dispersion_extraction": {
+    "method": "ABCD eigenvalue Bloch extraction",
+    "frequency_range_GHz": [
+      3.0,
+      27.0
+    ],
+    "cells_per_supercell": 34,
+    "reference_impedance_ohm": 50.0,
+    "maximum_reciprocity_error": 0.00017573634550860362,
+    "maximum_bloch_reflection_magnitude": 1.0000000000000002,
+    "maximum_attenuation_neper_per_supercell": 0.21051055690957715
+  },
+  "best_passive_linear_mismatch": {
+    "pump_GHz": 11.979999999999979,
+    "mean_abs_mismatch_rad_per_mm": 0.014083013817462789,
+    "minimum_mismatch_rad_per_mm": -0.015484354634285324,
+    "maximum_mismatch_rad_per_mm": 0.023724647319561143,
+    "peak_to_peak_mismatch_rad_per_mm": 0.03920900195384647
+  },
+  "evaluated_coarse_points": 468,
+  "coarse_grid": {
+    "supercell_repeats": [
+      900,
+      1200,
+      1600,
+      2200
+    ],
+    "pump_GHz": [
+      11.0,
+      13.4,
+      0.2
+    ],
+    "Idc_uA": [
+      250,
+      350,
+      450
+    ],
+    "Ip0_uA": [
+      150,
+      220,
+      290
+    ],
+    "signal_GHz": [
+      4.0,
+      8.0,
+      0.5
+    ]
+  },
+  "selected_dense_candidate": {
+    "pattern": "15-4-15",
+    "supercell_repeats": 900,
+    "device_length_mm": 61.2,
+    "pump_GHz": 11.999999999999996,
+    "Idc_A": 0.00045,
+    "Ip0_A": 0.00021999999999999998,
+    "band_GHz": [
+      4.0,
+      8.0
+    ],
+    "peak_gain_db": 27.19232875944008,
+    "peak_frequency_GHz": 6.199999999999992,
+    "mean_in_band_gain_db": 25.809949225867733,
+    "median_in_band_gain_db": 26.098342297622068,
+    "ripple_peak_to_peak_db": 4.295754771841384,
+    "ripple_std_db": 1.0786713300604156,
+    "fraction_above_15db": 1.0,
+    "fraction_above_17db": 1.0,
+    "fraction_above_20db": 1.0,
+    "bandwidth_regions_GHz": [
+      [
+        4.1,
+        4.1
+      ],
+      [
+        4.249999999999999,
+        5.949999999999993
+      ],
+      [
+        6.049999999999993,
+        6.549999999999991
+      ],
+      [
+        6.84999999999999,
+        7.999999999999986
+      ]
+    ],
+    "total_3db_bandwidth_GHz": 3.5499999999999874,
+    "finite": true,
+    "minimum_in_band_gain_db": 22.896573987598696,
+    "maximum_in_band_gain_db": 27.19232875944008,
+    "strict_pass": false
+  },
+  "strict_pass": false,
+  "top_dense_candidates": [
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00021999999999999998,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 27.19232875944008,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 25.809949225867733,
+      "median_in_band_gain_db": 26.098342297622068,
+      "ripple_peak_to_peak_db": 4.295754771841384,
+      "ripple_std_db": 1.0786713300604156,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.1,
+          4.1
+        ],
+        [
+          4.249999999999999,
+          5.949999999999993
+        ],
+        [
+          6.049999999999993,
+          6.549999999999991
+        ],
+        [
+          6.84999999999999,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.5499999999999874,
+      "finite": true,
+      "minimum_in_band_gain_db": 22.896573987598696,
+      "maximum_in_band_gain_db": 27.19232875944008,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00015,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 26.773926975214223,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 25.207142433890503,
+      "median_in_band_gain_db": 25.47618074875217,
+      "ripple_peak_to_peak_db": 4.545527673703127,
+      "ripple_std_db": 1.000022975013558,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.299999999999999,
+          6.599999999999991
+        ],
+        [
+          6.84999999999999,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.5499999999999874,
+      "finite": true,
+      "minimum_in_band_gain_db": 22.228399301511097,
+      "maximum_in_band_gain_db": 26.773926975214223,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00029,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 28.249146692715147,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 26.619733812600096,
+      "median_in_band_gain_db": 26.83119436958809,
+      "ripple_peak_to_peak_db": 4.679175032541892,
+      "ripple_std_db": 0.9711832897073561,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.299999999999999,
+          4.349999999999999
+        ],
+        [
+          4.449999999999998,
+          7.899999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.599999999999987,
+      "finite": true,
+      "minimum_in_band_gain_db": 23.569971660173255,
+      "maximum_in_band_gain_db": 28.249146692715147,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00021999999999999998,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 27.80013278669871,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 26.102234653912973,
+      "median_in_band_gain_db": 26.272346141141032,
+      "ripple_peak_to_peak_db": 4.94033291126653,
+      "ripple_std_db": 1.0348446487476126,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.299999999999999,
+          4.349999999999999
+        ],
+        [
+          4.449999999999998,
+          7.849999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.5499999999999874,
+      "finite": true,
+      "minimum_in_band_gain_db": 22.85979987543218,
+      "maximum_in_band_gain_db": 27.80013278669871,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00029,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 27.441525245248243,
+      "peak_frequency_GHz": 7.349999999999988,
+      "mean_in_band_gain_db": 25.956074854208328,
+      "median_in_band_gain_db": 26.32197665178213,
+      "ripple_peak_to_peak_db": 4.989080513502106,
+      "ripple_std_db": 1.167648823733245,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.1,
+          4.1
+        ],
+        [
+          4.249999999999999,
+          5.949999999999993
+        ],
+        [
+          6.049999999999993,
+          6.549999999999991
+        ],
+        [
+          6.84999999999999,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.5499999999999874,
+      "finite": true,
+      "minimum_in_band_gain_db": 22.452444731746137,
+      "maximum_in_band_gain_db": 27.441525245248243,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00015,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 26.355045359426907,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 24.5338461015057,
+      "median_in_band_gain_db": 24.76238999045101,
+      "ripple_peak_to_peak_db": 5.492545684159097,
+      "ripple_std_db": 1.2181608294260957,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.299999999999999,
+          4.299999999999999
+        ],
+        [
+          4.449999999999998,
+          7.649999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.2999999999999883,
+      "finite": true,
+      "minimum_in_band_gain_db": 20.86249967526781,
+      "maximum_in_band_gain_db": 26.355045359426907,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00025,
+      "Ip0_A": 0.00029,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 25.988790956910115,
+      "peak_frequency_GHz": 6.199999999999992,
+      "mean_in_band_gain_db": 24.092031053391594,
+      "median_in_band_gain_db": 24.462367832950736,
+      "ripple_peak_to_peak_db": 5.988496020837829,
+      "ripple_std_db": 1.4460413679756285,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.499999999999998,
+          7.599999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.149999999999989,
+      "finite": true,
+      "minimum_in_band_gain_db": 20.000294936072287,
+      "maximum_in_band_gain_db": 25.988790956910115,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 900,
+      "device_length_mm": 61.2,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00025,
+      "Ip0_A": 0.00021999999999999998,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 25.235014582906366,
+      "peak_frequency_GHz": 5.799999999999994,
+      "mean_in_band_gain_db": 23.240404067072916,
+      "median_in_band_gain_db": 23.71652297478065,
+      "ripple_peak_to_peak_db": 6.280314869686478,
+      "ripple_std_db": 1.5487742571639271,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 0.9506172839506173,
+      "bandwidth_regions_GHz": [
+        [
+          4.499999999999998,
+          4.549999999999998
+        ],
+        [
+          4.649999999999998,
+          7.449999999999988
+        ],
+        [
+          7.549999999999987,
+          7.599999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.049999999999989,
+      "finite": true,
+      "minimum_in_band_gain_db": 18.95469971321989,
+      "maximum_in_band_gain_db": 25.235014582906366,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1200,
+      "device_length_mm": 81.6,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00015,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 27.239316576649763,
+      "peak_frequency_GHz": 7.099999999999989,
+      "mean_in_band_gain_db": 25.24166477081944,
+      "median_in_band_gain_db": 25.837212016761157,
+      "ripple_peak_to_peak_db": 6.419574953252731,
+      "ripple_std_db": 1.5847867820438193,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.599999999999998,
+          5.949999999999993
+        ],
+        [
+          6.049999999999993,
+          6.549999999999991
+        ],
+        [
+          6.79999999999999,
+          7.949999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.149999999999989,
+      "finite": true,
+      "minimum_in_band_gain_db": 20.819741623397032,
+      "maximum_in_band_gain_db": 27.239316576649763,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1200,
+      "device_length_mm": 81.6,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00025,
+      "Ip0_A": 0.00029,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 29.298125721489384,
+      "peak_frequency_GHz": 5.799999999999994,
+      "mean_in_band_gain_db": 27.154650798562997,
+      "median_in_band_gain_db": 27.808309758343462,
+      "ripple_peak_to_peak_db": 7.404634716790724,
+      "ripple_std_db": 1.8400661527108255,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.649999999999998,
+          5.949999999999993
+        ],
+        [
+          6.049999999999993,
+          6.599999999999991
+        ],
+        [
+          6.74999999999999,
+          7.599999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 2.84999999999999,
+      "finite": true,
+      "minimum_in_band_gain_db": 21.89349100469866,
+      "maximum_in_band_gain_db": 29.298125721489384,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1200,
+      "device_length_mm": 81.6,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00035,
+      "Ip0_A": 0.00021999999999999998,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 27.614134857343995,
+      "peak_frequency_GHz": 5.249999999999996,
+      "mean_in_band_gain_db": 25.249110073385257,
+      "median_in_band_gain_db": 25.474528851198016,
+      "ripple_peak_to_peak_db": 8.679143756891772,
+      "ripple_std_db": 1.7746718042978196,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 0.9753086419753086,
+      "bandwidth_regions_GHz": [
+        [
+          4.749999999999997,
+          5.949999999999993
+        ],
+        [
+          6.049999999999993,
+          6.549999999999991
+        ],
+        [
+          6.79999999999999,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 3.049999999999989,
+      "finite": true,
+      "minimum_in_band_gain_db": 18.934991100452223,
+      "maximum_in_band_gain_db": 27.614134857343995,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 2200,
+      "device_length_mm": 149.6,
+      "pump_GHz": 11.999999999999996,
+      "Idc_A": 0.00025,
+      "Ip0_A": 0.00029,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 28.427021316514995,
+      "peak_frequency_GHz": 5.349999999999995,
+      "mean_in_band_gain_db": 20.23375711744647,
+      "median_in_band_gain_db": 19.498802882450104,
+      "ripple_peak_to_peak_db": 11.069786716878536,
+      "ripple_std_db": 2.0749524647751976,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 0.37037037037037035,
+      "bandwidth_regions_GHz": [
+        [
+          5.349999999999995,
+          5.349999999999995
+        ],
+        [
+          6.649999999999991,
+          6.649999999999991
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.09999999999999964,
+      "finite": true,
+      "minimum_in_band_gain_db": 17.35723459963646,
+      "maximum_in_band_gain_db": 28.427021316514995,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1600,
+      "device_length_mm": 108.8,
+      "pump_GHz": 13.399999999999991,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00029,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 42.81829629825854,
+      "peak_frequency_GHz": 7.7999999999999865,
+      "mean_in_band_gain_db": 36.5455919522586,
+      "median_in_band_gain_db": 37.17806793131003,
+      "ripple_peak_to_peak_db": 15.102724702683187,
+      "ripple_std_db": 3.319024294545076,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.399999999999999,
+          4.399999999999999
+        ],
+        [
+          4.599999999999998,
+          4.599999999999998
+        ],
+        [
+          5.649999999999994,
+          5.649999999999994
+        ],
+        [
+          6.199999999999992,
+          6.199999999999992
+        ],
+        [
+          6.74999999999999,
+          6.74999999999999
+        ],
+        [
+          7.049999999999989,
+          7.049999999999989
+        ],
+        [
+          7.2499999999999885,
+          7.299999999999988
+        ],
+        [
+          7.449999999999988,
+          7.449999999999988
+        ],
+        [
+          7.549999999999987,
+          7.549999999999987
+        ],
+        [
+          7.699999999999987,
+          7.699999999999987
+        ],
+        [
+          7.7999999999999865,
+          7.7999999999999865
+        ],
+        [
+          7.949999999999986,
+          7.949999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 0.6499999999999977,
+      "finite": true,
+      "minimum_in_band_gain_db": 27.71557159557535,
+      "maximum_in_band_gain_db": 42.81829629825854,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1600,
+      "device_length_mm": 108.8,
+      "pump_GHz": 13.199999999999992,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00021999999999999998,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 39.93286364271745,
+      "peak_frequency_GHz": 7.499999999999988,
+      "mean_in_band_gain_db": 34.979913400534784,
+      "median_in_band_gain_db": 35.820870701817896,
+      "ripple_peak_to_peak_db": 20.880295164984453,
+      "ripple_std_db": 3.8151544340115793,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 0.9876543209876543,
+      "bandwidth_regions_GHz": [
+        [
+          4.599999999999998,
+          4.599999999999998
+        ],
+        [
+          4.899999999999997,
+          4.949999999999997
+        ],
+        [
+          5.049999999999996,
+          5.049999999999996
+        ],
+        [
+          5.399999999999995,
+          5.399999999999995
+        ],
+        [
+          5.499999999999995,
+          5.599999999999994
+        ],
+        [
+          5.699999999999994,
+          5.749999999999994
+        ],
+        [
+          6.199999999999992,
+          6.199999999999992
+        ],
+        [
+          6.349999999999992,
+          6.349999999999992
+        ],
+        [
+          6.499999999999991,
+          6.549999999999991
+        ],
+        [
+          6.649999999999991,
+          6.74999999999999
+        ],
+        [
+          6.84999999999999,
+          6.84999999999999
+        ],
+        [
+          6.999999999999989,
+          7.2499999999999885
+        ],
+        [
+          7.349999999999988,
+          7.349999999999988
+        ],
+        [
+          7.499999999999988,
+          7.549999999999987
+        ],
+        [
+          7.749999999999987,
+          7.749999999999987
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 1.399999999999995,
+      "finite": true,
+      "minimum_in_band_gain_db": 19.052568477732997,
+      "maximum_in_band_gain_db": 39.93286364271745,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1200,
+      "device_length_mm": 81.6,
+      "pump_GHz": 13.399999999999991,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00021999999999999998,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 39.74052550279736,
+      "peak_frequency_GHz": 7.299999999999988,
+      "mean_in_band_gain_db": 33.915376366716636,
+      "median_in_band_gain_db": 35.858063008273284,
+      "ripple_peak_to_peak_db": 22.133112226621844,
+      "ripple_std_db": 5.317355243084025,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 0.9506172839506173,
+      "bandwidth_regions_GHz": [
+        [
+          4.499999999999998,
+          4.499999999999998
+        ],
+        [
+          4.749999999999997,
+          4.849999999999997
+        ],
+        [
+          5.049999999999996,
+          5.049999999999996
+        ],
+        [
+          5.149999999999996,
+          5.199999999999996
+        ],
+        [
+          5.299999999999995,
+          5.5499999999999945
+        ],
+        [
+          5.699999999999994,
+          5.749999999999994
+        ],
+        [
+          6.449999999999991,
+          6.449999999999991
+        ],
+        [
+          6.69999999999999,
+          6.69999999999999
+        ],
+        [
+          6.9499999999999895,
+          6.9499999999999895
+        ],
+        [
+          7.099999999999989,
+          7.099999999999989
+        ],
+        [
+          7.299999999999988,
+          7.449999999999988
+        ],
+        [
+          7.849999999999986,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 1.3499999999999952,
+      "finite": true,
+      "minimum_in_band_gain_db": 17.607413276175517,
+      "maximum_in_band_gain_db": 39.74052550279736,
+      "strict_pass": false
+    },
+    {
+      "pattern": "15-4-15",
+      "supercell_repeats": 1600,
+      "device_length_mm": 108.8,
+      "pump_GHz": 13.399999999999991,
+      "Idc_A": 0.00045,
+      "Ip0_A": 0.00015,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 36.0895816157964,
+      "peak_frequency_GHz": 7.849999999999986,
+      "mean_in_band_gain_db": 28.12362261585506,
+      "median_in_band_gain_db": 29.038494397897246,
+      "ripple_peak_to_peak_db": 31.223751545403644,
+      "ripple_std_db": 6.786462517891145,
+      "fraction_above_15db": 0.9382716049382716,
+      "fraction_above_17db": 0.9259259259259259,
+      "fraction_above_20db": 0.9135802469135802,
+      "bandwidth_regions_GHz": [
+        [
+          5.249999999999996,
+          5.249999999999996
+        ],
+        [
+          5.449999999999995,
+          5.599999999999994
+        ],
+        [
+          6.249999999999992,
+          6.249999999999992
+        ],
+        [
+          6.3999999999999915,
+          6.3999999999999915
+        ],
+        [
+          6.599999999999991,
+          6.649999999999991
+        ],
+        [
+          6.74999999999999,
+          6.79999999999999
+        ],
+        [
+          6.999999999999989,
+          6.999999999999989
+        ],
+        [
+          7.149999999999989,
+          7.149999999999989
+        ],
+        [
+          7.299999999999988,
+          7.299999999999988
+        ],
+        [
+          7.399999999999988,
+          7.549999999999987
+        ],
+        [
+          7.7999999999999865,
+          7.949999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 1.099999999999996,
+      "finite": true,
+      "minimum_in_band_gain_db": 4.865830070392752,
+      "maximum_in_band_gain_db": 36.0895816157964,
+      "strict_pass": false
+    }
+  ],
+  "hfss_cell_fit_provenance": {
+    "input_file": "/Users/lgsus/Desktop/TWPA/hfss_inputs/hfss_cell_parameters.csv",
+    "hfss_validated": true,
+    "sources": [
+      "HFSS"
+    ],
+    "acceptance_checks": {
+      "unloaded_Z0_selected_43p09ohm_pm5pct": true,
+      "loaded_Z0_selected_70p20ohm_pm5pct": true,
+      "impedance_ratio_selected_1p629_pm5pct": true,
+      "S21_fit_rmse_below_0p5db": true,
+      "phase_fit_rmse_below_5deg": true
+    },
+    "all_hfss_acceptance_checks_pass": true
+  },
+  "cautions": [
+    "Measured Bloch parameters replace solver k, alpha, and gamma only inside 3-27 GHz.",
+    "Port-launch de-embedding remains unavailable in the supplied HFSS exports.",
+    "The nonlinear model includes p, s, i, p2, ps, pi, s2, and i2 modes.",
+    "The coarse scan nominates candidates; reported selection comes from 0.05 GHz dense verification."
+  ]
+}
