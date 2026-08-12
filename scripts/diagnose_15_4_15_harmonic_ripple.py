@@ -26,10 +26,9 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
-from analyze_hfss_supercell import phase_delay, read_touchstone  # noqa: E402
-from fit_hfss_unit_cells import lclf_s  # noqa: E402
+from analyze_hfss_supercell import read_touchstone  # noqa: E402
+from hfss_bloch import apply_bloch_parameters  # noqa: E402
 from scan_hfss_loading_pattern import make_cell  # noqa: E402
-from scan_physical_hfss_pattern import cascade_cells  # noqa: E402
 from twpa_project_utils import gain_metrics, load_hfss_cell_parameters  # noqa: E402
 from twpasolver import TWPAnalysis  # noqa: E402
 from twpasolver.logger import log  # noqa: E402
@@ -106,20 +105,6 @@ def build_analysis() -> tuple[TWPAnalysis, dict[str, object]]:
     measured_f = np.concatenate((f1, f2[1:]))
     measured_s = np.concatenate((s1, s2[1:]), axis=0)
 
-    def fitted(role: str) -> np.ndarray:
-        row = cells[role]
-        return lclf_s(
-            measured_f * 1e9,
-            row["L_pH"] * 1e-12,
-            row["C_fF"] * 1e-15,
-            row["Lf_pH"] * 1e-12,
-        )
-
-    lumped = cascade_cells(fitted("unloaded"), fitted("loaded"), 15, 4, 15)
-    measured_phase, _ = phase_delay(measured_s[:, 1, 0], measured_f)
-    lumped_phase, _ = phase_delay(lumped[:, 1, 0], measured_f)
-    correction_samples = ((-measured_phase) - (-lumped_phase)) / 34
-
     twpa = TWPA(
         cells=[
             make_cell(cells["unloaded"], 15),
@@ -133,12 +118,10 @@ def build_analysis() -> tuple[TWPAnalysis, dict[str, object]]:
     )
     analysis = TWPAnalysis(twpa=twpa, f_arange=(0.2, 30.0, 0.002), unit="GHz")
     analysis.update_base_data()
-    dense_f = np.asarray(analysis.data["freqs"])
-    correction = np.zeros_like(dense_f)
-    valid = (dense_f >= measured_f[0]) & (dense_f <= measured_f[-1])
-    correction[valid] = np.interp(dense_f[valid], measured_f, correction_samples)
-    analysis.data["k"] = np.asarray(analysis.data["k"]) + correction
-    return analysis, provenance
+    bloch_provenance = apply_bloch_parameters(
+        analysis.data, measured_f, measured_s, 34
+    )
+    return analysis, {**provenance, "bloch_extraction": bloch_provenance}
 
 
 def phase_mismatches(analysis: TWPAnalysis, signal: np.ndarray) -> dict[str, np.ndarray]:
@@ -180,7 +163,7 @@ def metrics(signal: np.ndarray, gain: np.ndarray) -> dict[str, object]:
 
 def main() -> None:
     log.setLevel(logging.WARNING)
-    output = ROOT / "results" / "step_24_15_4_15_harmonic_diagnosis"
+    output = ROOT / "results" / "bloch_corrected" / "step_24_15_4_15_harmonic_diagnosis"
     output.mkdir(parents=True, exist_ok=True)
     analysis, provenance = build_analysis()
 
@@ -278,7 +261,7 @@ def main() -> None:
         writer.writerows(zip(signal, *(mismatch[key] for key in mismatch)))
 
     assessment = {
-        "status": "15_4_15_s2_i2_split_and_phase_mismatch_diagnosis",
+        "status": "15_4_15_Bloch_corrected_s2_i2_diagnosis",
         "operating_point": {
             "pump_GHz": PUMP,
             "device_length_mm": 61.2,

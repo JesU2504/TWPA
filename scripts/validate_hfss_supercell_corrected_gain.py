@@ -21,16 +21,15 @@ sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
 from analyze_hfss_supercell import (  # noqa: E402
     SUPERCELL_CELLS,
-    cascade_pattern,
-    phase_delay,
     read_touchstone,
 )
-from fit_hfss_unit_cells import lclf_s  # noqa: E402
+from hfss_bloch import apply_bloch_parameters  # noqa: E402
 from scan_hfss_loading_pattern import make_cell  # noqa: E402
 from twpa_project_utils import gain_metrics, load_hfss_cell_parameters  # noqa: E402
 from twpasolver import TWPAnalysis  # noqa: E402
 from twpasolver.logger import log  # noqa: E402
 from twpasolver.models import TWPA  # noqa: E402
+from twpasolver.modes_rwa import ModeArrayFactory  # noqa: E402
 
 
 PUMP_CANDIDATE_GHZ = 13.13
@@ -49,26 +48,11 @@ def qualified(metrics: dict[str, float]) -> bool:
 def main() -> None:
     log.setLevel(logging.WARNING)
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / "step_13_hfss_supercell_validation"
+    output = ROOT / "results" / "bloch_corrected" / "step_13_hfss_supercell_validation"
     output.mkdir(parents=True, exist_ok=True)
 
     cells, provenance = load_hfss_cell_parameters(inputs / "hfss_cell_parameters.csv")
     measured_f, measured_s = read_touchstone(inputs / "supercell_13_3_13_coarse.s2p")
-
-    def fitted_cell(role: str) -> np.ndarray:
-        row = cells[role]
-        return lclf_s(
-            measured_f * 1e9,
-            row["L_pH"] * 1e-12,
-            row["C_fF"] * 1e-15,
-            row["Lf_pH"] * 1e-12,
-        )
-
-    lumped_supercell = cascade_pattern(fitted_cell("unloaded"), fitted_cell("loaded"))
-    measured_phase, _ = phase_delay(measured_s[:, 1, 0], measured_f)
-    lumped_phase, _ = phase_delay(lumped_supercell[:, 1, 0], measured_f)
-    # TWPAnalysis k is positive propagation phase per physical 2 um cell.
-    k_correction = ((-measured_phase) - (-lumped_phase)) / SUPERCELL_CELLS
 
     twpa = TWPA(
         cells=[
@@ -99,13 +83,10 @@ def main() -> None:
     )
     baseline_metrics = gain_metrics(signals, baseline_gain)
 
-    dense_f = np.asarray(analysis.data["freqs"])
-    correction_dense = np.zeros_like(dense_f)
-    valid = (dense_f >= measured_f[0]) & (dense_f <= measured_f[-1])
-    correction_dense[valid] = np.interp(
-        dense_f[valid], measured_f, k_correction
+    bloch_provenance = apply_bloch_parameters(
+        analysis.data, measured_f, measured_s, SUPERCELL_CELLS
     )
-    analysis.data["k"] = np.asarray(analysis.data["k"]) + correction_dense
+    analysis.add_mode_array("basic_3wm", ModeArrayFactory.create_basic(analysis.data))
 
     corrected_candidate_gain = np.asarray(
         analysis.gain(
@@ -175,7 +156,7 @@ def main() -> None:
         )
 
     report = {
-        "status": "provisional_from_0p5GHz_spaced_HFSS_phase_data",
+        "status": "provisional_from_0p5GHz_spaced_HFSS_Bloch_data",
         "fixed_bias": {"Idc_A": IDC_A, "Ip0_A": IPUMP_A},
         "candidate_pump_GHz": PUMP_CANDIDATE_GHZ,
         "uncorrected_candidate": baseline_metrics,
@@ -187,10 +168,11 @@ def main() -> None:
             "selected": best,
         },
         "interpretation": (
-            "The physical-supercell phase correction changes the predicted gain "
-            "and removes the previous <=3 dB-ripple qualification. A finer HFSS "
-            "dispersion sweep is required before a final current/pump optimization."
+            "Physical-supercell Bloch parameters change the predicted gain and "
+            "remove the previous <=3 dB-ripple qualification at 13.13 GHz. A finer "
+            "HFSS sweep is required before a final current/pump optimization."
         ),
+        "bloch_extraction": bloch_provenance,
         "hfss_cell_provenance": provenance,
     }
     (output / "05_corrected_gain_assessment.json").write_text(

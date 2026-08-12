@@ -15,9 +15,106 @@ from twpa_project_utils import (  # noqa: E402
     gain_metrics,
     load_hfss_cell_parameters,
 )
+from hfss_bloch import apply_bloch_parameters, extract_bloch_parameters  # noqa: E402
 
 
 class ProjectTests(unittest.TestCase):
+    def test_bloch_extraction_recovers_matched_transmission_line(self):
+        phase = np.linspace(0.2, 7.0, 101)
+        impedance = 50.0
+        abcd = np.empty((len(phase), 2, 2), dtype=complex)
+        abcd[:, 0, 0] = np.cos(phase)
+        abcd[:, 0, 1] = 1j * impedance * np.sin(phase)
+        abcd[:, 1, 0] = 1j * np.sin(phase) / impedance
+        abcd[:, 1, 1] = np.cos(phase)
+        denominator = (
+            abcd[:, 0, 0]
+            + abcd[:, 0, 1] / impedance
+            + abcd[:, 1, 0] * impedance
+            + abcd[:, 1, 1]
+        )
+        s = np.empty_like(abcd)
+        s[:, 0, 0] = (
+            abcd[:, 0, 0]
+            + abcd[:, 0, 1] / impedance
+            - abcd[:, 1, 0] * impedance
+            - abcd[:, 1, 1]
+        ) / denominator
+        s[:, 1, 0] = 2 / denominator
+        s[:, 0, 1] = 2 / denominator
+        s[:, 1, 1] = (
+            -abcd[:, 0, 0]
+            + abcd[:, 0, 1] / impedance
+            - abcd[:, 1, 0] * impedance
+            + abcd[:, 1, 1]
+        ) / denominator
+
+        extracted = extract_bloch_parameters(s)
+        np.testing.assert_allclose(extracted.phase, phase, atol=1e-12)
+        np.testing.assert_allclose(extracted.impedance, impedance, atol=1e-10)
+        np.testing.assert_allclose(extracted.reflection, 0, atol=1e-12)
+        np.testing.assert_allclose(extracted.attenuation, 0, atol=1e-12)
+
+    def test_bloch_extraction_removes_port_mismatch_phase(self):
+        phase = np.linspace(0.3, 2.8, 51)
+        line_impedance = 70.0
+        reference_impedance = 50.0
+        abcd = np.empty((len(phase), 2, 2), dtype=complex)
+        abcd[:, 0, 0] = np.cos(phase)
+        abcd[:, 0, 1] = 1j * line_impedance * np.sin(phase)
+        abcd[:, 1, 0] = 1j * np.sin(phase) / line_impedance
+        abcd[:, 1, 1] = np.cos(phase)
+        denominator = (
+            abcd[:, 0, 0]
+            + abcd[:, 0, 1] / reference_impedance
+            + abcd[:, 1, 0] * reference_impedance
+            + abcd[:, 1, 1]
+        )
+        s = np.empty_like(abcd)
+        s[:, 0, 0] = (
+            abcd[:, 0, 0]
+            + abcd[:, 0, 1] / reference_impedance
+            - abcd[:, 1, 0] * reference_impedance
+            - abcd[:, 1, 1]
+        ) / denominator
+        s[:, 1, 0] = 2 / denominator
+        s[:, 0, 1] = 2 / denominator
+        s[:, 1, 1] = (
+            -abcd[:, 0, 0]
+            + abcd[:, 0, 1] / reference_impedance
+            - abcd[:, 1, 0] * reference_impedance
+            + abcd[:, 1, 1]
+        ) / denominator
+
+        transmission_phase = -np.unwrap(np.angle(s[:, 1, 0]))
+        self.assertGreater(np.max(np.abs(transmission_phase - phase)), 1e-3)
+        extracted = extract_bloch_parameters(s, z0=reference_impedance)
+        np.testing.assert_allclose(extracted.phase, phase, atol=1e-12)
+        np.testing.assert_allclose(extracted.impedance, line_impedance, atol=1e-10)
+        expected_gamma = (line_impedance - reference_impedance) / (
+            line_impedance + reference_impedance
+        )
+        np.testing.assert_allclose(extracted.reflection, expected_gamma, atol=1e-12)
+
+    def test_apply_bloch_parameters_replaces_only_measured_band(self):
+        frequencies = np.arange(1.0, 6.0)
+        phase = np.array([0.4, 0.8, 1.2])
+        s = np.zeros((3, 2, 2), dtype=complex)
+        s[:, 1, 0] = np.exp(-1j * phase)
+        s[:, 0, 1] = s[:, 1, 0]
+        data = {
+            "freqs": frequencies,
+            "k": np.full(5, -1.0),
+            "alpha": np.full(5, -2.0),
+            "gammas": np.full(5, 3.0 + 4.0j),
+        }
+        apply_bloch_parameters(data, np.array([2.0, 3.0, 4.0]), s, 2)
+        np.testing.assert_allclose(data["k"], [-1.0, 0.2, 0.4, 0.6, -1.0])
+        np.testing.assert_allclose(data["alpha"][1:4], 0, atol=1e-12)
+        np.testing.assert_allclose(data["gammas"][1:4], 0, atol=1e-12)
+        self.assertEqual(data["gammas"][0], 3.0 + 4.0j)
+        self.assertEqual(data["gammas"][-1], 3.0 + 4.0j)
+
     def test_cell_profile_counts(self):
         _, z = cell_profile([48, 78, 48], [15, 4, 15], repeats=2)
         self.assertEqual(len(z), 68)

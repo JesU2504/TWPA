@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mode ablation at the selected physical 15-4-15 operating point.
 
-The experiment holds geometry, HFSS correction, length, pump, and currents
+The experiment holds geometry, HFSS Bloch data, length, pump, and currents
 fixed. It tests each parasitic family alone and removes each family from the
 full eight-mode configuration. Both ideal propagation and the complete general
 model are reported so nonlinear coupling can be distinguished from the
@@ -25,10 +25,9 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
-from analyze_hfss_supercell import phase_delay, read_touchstone  # noqa: E402
-from fit_hfss_unit_cells import lclf_s  # noqa: E402
+from analyze_hfss_supercell import read_touchstone  # noqa: E402
+from hfss_bloch import apply_bloch_parameters  # noqa: E402
 from scan_hfss_loading_pattern import make_cell  # noqa: E402
-from scan_physical_hfss_pattern import cascade_cells  # noqa: E402
 from twpa_project_utils import gain_metrics, load_hfss_cell_parameters  # noqa: E402
 from twpasolver import TWPAnalysis  # noqa: E402
 from twpasolver.logger import log  # noqa: E402
@@ -81,7 +80,7 @@ def summarize(frequency: np.ndarray, gain: np.ndarray) -> dict[str, object]:
 def main() -> None:
     log.setLevel(logging.WARNING)
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / "step_23_15_4_15_mode_ablation"
+    output = ROOT / "results" / "bloch_corrected" / "step_23_15_4_15_mode_ablation"
     output.mkdir(parents=True, exist_ok=True)
 
     cells, provenance = load_hfss_cell_parameters(inputs / "hfss_cell_parameters.csv")
@@ -91,22 +90,6 @@ def main() -> None:
         raise ValueError("The 15-4-15 HFSS sweeps disagree at 14 GHz")
     measured_f = np.concatenate((f1, f2[1:]))
     measured_s = np.concatenate((s1, s2[1:]), axis=0)
-
-    def fitted_cell(role: str) -> np.ndarray:
-        row = cells[role]
-        return lclf_s(
-            measured_f * 1e9,
-            row["L_pH"] * 1e-12,
-            row["C_fF"] * 1e-15,
-            row["Lf_pH"] * 1e-12,
-        )
-
-    lumped = cascade_cells(
-        fitted_cell("unloaded"), fitted_cell("loaded"), 15, 4, 15
-    )
-    measured_phase, _ = phase_delay(measured_s[:, 1, 0], measured_f)
-    lumped_phase, _ = phase_delay(lumped[:, 1, 0], measured_f)
-    correction_samples = ((-measured_phase) - (-lumped_phase)) / 34
 
     twpa = TWPA(
         cells=[
@@ -121,11 +104,9 @@ def main() -> None:
     )
     analysis = TWPAnalysis(twpa=twpa, f_arange=(0.2, 30.0, 0.002), unit="GHz")
     analysis.update_base_data()
-    dense_f = np.asarray(analysis.data["freqs"])
-    correction = np.zeros_like(dense_f)
-    valid = (dense_f >= measured_f[0]) & (dense_f <= measured_f[-1])
-    correction[valid] = np.interp(dense_f[valid], measured_f, correction_samples)
-    analysis.data["k"] = np.asarray(analysis.data["k"]) + correction
+    bloch_provenance = apply_bloch_parameters(
+        analysis.data, measured_f, measured_s, 34
+    )
 
     mode_details: dict[str, dict[str, object]] = {}
     for label, (pump_harmonics, conversions, signal_harmonics) in CONFIGURATIONS.items():
@@ -249,7 +230,7 @@ def main() -> None:
         "status": "15_4_15_selected_point_mode_ablation",
         "operating_point": OPERATING_POINT,
         "experiment": {
-            "controlled_variables": "Same geometry, HFSS correction, length, pump, currents, signal grid, and solver settings for every case.",
+            "controlled_variables": "Same geometry, HFSS Bloch data, length, pump, currents, signal grid, and solver settings for every case.",
             "individual_additions": [
                 "basic_plus_p2",
                 "basic_plus_ps_pi",
@@ -266,6 +247,7 @@ def main() -> None:
         "ranking_by_ripple_reduction_when_removed": ranking,
         "ideal_model_metrics": model_rows("general_ideal"),
         "hfss_cell_fit_provenance": provenance,
+        "bloch_extraction": bloch_provenance,
         "interpretation_caution": (
             "Mode families interact nonlinearly. A leave-one-out change measures "
             "that family's contribution in the presence of the others; it is not "

@@ -2,7 +2,7 @@
 """Scan a physically simulated HFSS loading pattern with the eight-mode model.
 
 Unlike the older one-off scripts, this script keeps the loading counts,
-supercell length, Touchstone files, and HFSS phase correction consistent for
+supercell length, Touchstone files, and HFSS Bloch parameters consistent for
 each pattern.  It is intended for comparisons between 13-3-13, 16-2-16, and
 the paper-baseline 15-4-15 supercells.
 """
@@ -25,8 +25,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
-from analyze_hfss_supercell import abcd_to_s, phase_delay, read_touchstone  # noqa: E402
-from fit_hfss_unit_cells import lclf_s, s_to_abcd  # noqa: E402
+from analyze_hfss_supercell import read_touchstone  # noqa: E402
+from hfss_bloch import apply_bloch_parameters, extract_bloch_parameters  # noqa: E402
 from scan_hfss_loading_pattern import make_cell  # noqa: E402
 from twpa_project_utils import gain_metrics, load_hfss_cell_parameters  # noqa: E402
 from twpasolver import TWPAnalysis  # noqa: E402
@@ -46,20 +46,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--pattern", choices=PATTERNS, default="15-4-15")
     return parser.parse_args()
-
-
-def cascade_cells(
-    unloaded_s: np.ndarray, loaded_s: np.ndarray, left: int, loaded: int, right: int
-) -> np.ndarray:
-    unloaded_abcd = s_to_abcd(unloaded_s)
-    loaded_abcd = s_to_abcd(loaded_s)
-    matrices = [
-        np.linalg.matrix_power(unloaded_abcd[index], left)
-        @ np.linalg.matrix_power(loaded_abcd[index], loaded)
-        @ np.linalg.matrix_power(unloaded_abcd[index], right)
-        for index in range(len(unloaded_s))
-    ]
-    return abcd_to_s(np.asarray(matrices))
 
 
 def measure(frequency: np.ndarray, gain: np.ndarray) -> dict[str, object]:
@@ -95,7 +81,7 @@ def main() -> None:
 
     log.setLevel(logging.WARNING)
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / f"step_22_{slug}_physical_nonlinear_scan"
+    output = ROOT / "results" / "bloch_corrected" / f"step_22_{slug}_physical_nonlinear_scan"
     output.mkdir(parents=True, exist_ok=True)
 
     cells, provenance = load_hfss_cell_parameters(inputs / "hfss_cell_parameters.csv")
@@ -106,27 +92,13 @@ def main() -> None:
     measured_f = np.concatenate((f1, f2[1:]))
     measured_s = np.concatenate((s1, s2[1:]), axis=0)
 
-    def fitted_cell(role: str) -> np.ndarray:
-        row = cells[role]
-        return lclf_s(
-            measured_f * 1e9,
-            row["L_pH"] * 1e-12,
-            row["C_fF"] * 1e-15,
-            row["Lf_pH"] * 1e-12,
-        )
-
-    lumped = cascade_cells(
-        fitted_cell("unloaded"), fitted_cell("loaded"), left, loaded, right
-    )
-    measured_phase, _ = phase_delay(measured_s[:, 1, 0], measured_f)
-    lumped_phase, _ = phase_delay(lumped[:, 1, 0], measured_f)
-    correction_samples = ((-measured_phase) - (-lumped_phase)) / cell_count
+    measured_bloch = extract_bloch_parameters(measured_s)
 
     # Passive scan: useful for seeing where the physical structure most nearly
     # phase matches before nonlinear phase shifts are included.
     passive_signals = np.arange(4.0, 8.0001, 0.05)
     passive_pumps = np.arange(11.0, 13.4001, 0.02)
-    k_per_mm = -measured_phase / (length_um / 1000.0)
+    k_per_mm = measured_bloch.phase / (length_um / 1000.0)
     passive_rows: list[dict[str, float]] = []
     passive_curves: list[np.ndarray] = []
     for pump in passive_pumps:
@@ -168,11 +140,7 @@ def main() -> None:
         analysis.twpa.Idc = float(idc)
         analysis.twpa.Ip0 = float(ip)
         analysis.update_base_data()
-        dense_f = np.asarray(analysis.data["freqs"])
-        correction = np.zeros_like(dense_f)
-        valid = (dense_f >= measured_f[0]) & (dense_f <= measured_f[-1])
-        correction[valid] = np.interp(dense_f[valid], measured_f, correction_samples)
-        analysis.data["k"] = np.asarray(analysis.data["k"]) + correction
+        apply_bloch_parameters(analysis.data, measured_f, measured_s, cell_count)
         modes = ModeArrayFactory.create_extended_3wm(
             analysis.data,
             n_pump_harmonics=1,
@@ -282,6 +250,17 @@ def main() -> None:
             f"supercell_{slug}_fine_3_14GHz.s2p",
             f"supercell_{slug}_aux_14_27GHz.s2p",
         ],
+        "dispersion_extraction": apply_bloch_parameters(
+            {
+                "freqs": measured_f.copy(),
+                "k": np.zeros_like(measured_f),
+                "alpha": np.zeros_like(measured_f),
+                "gammas": np.zeros_like(measured_f, dtype=complex),
+            },
+            measured_f,
+            measured_s,
+            cell_count,
+        ),
         "best_passive_linear_mismatch": best_passive,
         "evaluated_coarse_points": len(rows),
         "coarse_grid": {
@@ -296,7 +275,8 @@ def main() -> None:
         "top_dense_candidates": dense_rows,
         "hfss_cell_fit_provenance": provenance,
         "cautions": [
-            "The HFSS phase correction is applied only inside the measured 3-27 GHz range.",
+            "Measured Bloch parameters replace solver k, alpha, and gamma only inside 3-27 GHz.",
+            "Port-launch de-embedding remains unavailable in the supplied HFSS exports.",
             "The nonlinear model includes p, s, i, p2, ps, pi, s2, and i2 modes.",
             "The coarse scan nominates candidates; reported selection comes from 0.05 GHz dense verification.",
         ],

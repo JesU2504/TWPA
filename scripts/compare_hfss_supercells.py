@@ -21,9 +21,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
 from analyze_hfss_supercell import read_touchstone  # noqa: E402
+from hfss_bloch import extract_bloch_parameters  # noqa: E402
 
 
 PATTERNS = {
@@ -76,8 +77,8 @@ def join_sweeps(fine_path: Path, aux_path: Path) -> tuple[np.ndarray, np.ndarray
 
 def metrics(f: np.ndarray, s: np.ndarray, length_um: float, overlap_error: float) -> dict[str, object]:
     s11, s21, s12, s22 = s[:, 0, 0], s[:, 1, 0], s[:, 0, 1], s[:, 1, 1]
-    phase = np.unwrap(np.angle(s21))
-    group_delay = -np.gradient(phase, f * 1e9) / (2 * np.pi)
+    bloch_phase = extract_bloch_parameters(s).phase
+    group_delay = np.gradient(bloch_phase, f * 1e9) / (2 * np.pi)
     singular_max = np.array([np.linalg.svd(matrix, compute_uv=False)[0] for matrix in s])
     result: dict[str, object] = {
         "overlap_max_complex_error": overlap_error,
@@ -100,7 +101,7 @@ def metrics(f: np.ndarray, s: np.ndarray, length_um: float, overlap_error: float
 
 def main() -> None:
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / "step_21_hfss_pattern_comparison"
+    output = ROOT / "results" / "bloch_corrected" / "step_21_hfss_pattern_comparison"
     output.mkdir(parents=True, exist_ok=True)
 
     missing_required = [
@@ -131,12 +132,12 @@ def main() -> None:
     }
     for label, config in available_patterns.items():
         f, s, overlap = join_sweeps(inputs / str(config["fine"]), inputs / str(config["aux"]))
-        phase = np.unwrap(np.angle(s[:, 1, 0]))
-        delay = -np.gradient(phase, f * 1e9) / (2 * np.pi)
+        phase = extract_bloch_parameters(s).phase
+        delay = np.gradient(phase, f * 1e9) / (2 * np.pi)
         data[label] = {"f": f, "s": s, "phase": phase, "delay": delay}
         assessment["patterns"][label] = metrics(f, s, float(config["length_um"]), overlap)
 
-        k_per_mm = -phase / (float(config["length_um"]) / 1000.0)
+        k_per_mm = phase / (float(config["length_um"]) / 1000.0)
         signal_k = np.interp(SIGNAL_GHZ, f, k_per_mm)
         idler_k = np.interp(PUMP_GHZ - SIGNAL_GHZ, f, k_per_mm)
         pump_k = float(np.interp(PUMP_GHZ, f, k_per_mm))
@@ -162,7 +163,7 @@ def main() -> None:
         interpolated[label] = {
             "s11": np.interp(common_f, f, db(s[:, 0, 0])),
             "s21": np.interp(common_f, f, db(s[:, 1, 0])),
-            "phase_per_mm": np.interp(common_f, f, -phase) / (float(config["length_um"]) / 1000.0),
+            "phase_per_mm": np.interp(common_f, f, phase) / (float(config["length_um"]) / 1000.0),
             "delay_per_mm": np.interp(common_f, f, delay * 1e12) / (float(config["length_um"]) / 1000.0),
         }
     csv_fields = ["frequency_GHz"]
@@ -171,7 +172,7 @@ def main() -> None:
             [
                 f"S11_{label.replace('-', '_')}_dB",
                 f"S21_{label.replace('-', '_')}_dB",
-                f"phase_delay_{label.replace('-', '_')}_rad_per_mm",
+                f"bloch_phase_{label.replace('-', '_')}_rad_per_mm",
                 f"group_delay_{label.replace('-', '_')}_ps_per_mm",
             ]
         )

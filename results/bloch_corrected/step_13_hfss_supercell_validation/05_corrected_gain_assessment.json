@@ -1,0 +1,115 @@
+{
+  "status": "provisional_from_0p5GHz_spaced_HFSS_Bloch_data",
+  "fixed_bias": {
+    "Idc_A": 0.00035,
+    "Ip0_A": 0.00034
+  },
+  "candidate_pump_GHz": 13.13,
+  "uncorrected_candidate": {
+    "band_GHz": [
+      4.0,
+      8.0
+    ],
+    "peak_gain_db": 35.165072356646256,
+    "peak_frequency_GHz": 6.299999999999992,
+    "mean_in_band_gain_db": 34.29399776344418,
+    "median_in_band_gain_db": 34.53121197254076,
+    "ripple_peak_to_peak_db": 2.6491604833218716,
+    "ripple_std_db": 0.7995965964116871,
+    "fraction_above_15db": 1.0,
+    "fraction_above_17db": 1.0,
+    "fraction_above_20db": 1.0,
+    "bandwidth_regions_GHz": [
+      [
+        4.0,
+        7.999999999999986
+      ]
+    ],
+    "total_3db_bandwidth_GHz": 4.099999999999985,
+    "finite": true
+  },
+  "HFSS_corrected_candidate": {
+    "band_GHz": [
+      4.0,
+      8.0
+    ],
+    "peak_gain_db": 22.199484198552312,
+    "peak_frequency_GHz": 7.999999999999986,
+    "mean_in_band_gain_db": 16.29396353588089,
+    "median_in_band_gain_db": 15.545858631802878,
+    "ripple_peak_to_peak_db": 8.067659135246082,
+    "ripple_std_db": 2.1873148548181063,
+    "fraction_above_15db": 0.5853658536585366,
+    "fraction_above_17db": 0.2926829268292683,
+    "fraction_above_20db": 0.0975609756097561,
+    "bandwidth_regions_GHz": [
+      [
+        7.599999999999987,
+        7.999999999999986
+      ]
+    ],
+    "total_3db_bandwidth_GHz": 0.4999999999999982,
+    "finite": true
+  },
+  "HFSS_corrected_pump_scan": {
+    "range_GHz": [
+      13.05,
+      13.25
+    ],
+    "step_GHz": 0.01,
+    "qualified_count": 2,
+    "selected": {
+      "pump_GHz": 13.229999999999997,
+      "band_GHz": [
+        4.0,
+        8.0
+      ],
+      "peak_gain_db": 37.05408412964021,
+      "peak_frequency_GHz": 6.89999999999999,
+      "mean_in_band_gain_db": 36.2414606622067,
+      "median_in_band_gain_db": 36.43488310658072,
+      "ripple_peak_to_peak_db": 2.783489657228408,
+      "ripple_std_db": 0.75716354608137,
+      "fraction_above_15db": 1.0,
+      "fraction_above_17db": 1.0,
+      "fraction_above_20db": 1.0,
+      "bandwidth_regions_GHz": [
+        [
+          4.0,
+          7.999999999999986
+        ]
+      ],
+      "total_3db_bandwidth_GHz": 4.099999999999985,
+      "finite": true,
+      "qualified": true
+    }
+  },
+  "interpretation": "Physical-supercell Bloch parameters change the predicted gain and remove the previous <=3 dB-ripple qualification at 13.13 GHz. A finer HFSS sweep is required before a final current/pump optimization.",
+  "bloch_extraction": {
+    "method": "ABCD eigenvalue Bloch extraction",
+    "frequency_range_GHz": [
+      0.5,
+      20.0
+    ],
+    "cells_per_supercell": 29,
+    "reference_impedance_ohm": 50.0,
+    "maximum_reciprocity_error": 5.2589570907590755e-05,
+    "maximum_bloch_reflection_magnitude": 1.0,
+    "maximum_attenuation_neper_per_supercell": 0.09686563115874028
+  },
+  "hfss_cell_provenance": {
+    "input_file": "/Users/lgsus/Desktop/TWPA/hfss_inputs/hfss_cell_parameters.csv",
+    "hfss_validated": true,
+    "sources": [
+      "HFSS"
+    ],
+    "acceptance_checks": {
+      "unloaded_Z0_selected_43p09ohm_pm5pct": true,
+      "loaded_Z0_selected_70p20ohm_pm5pct": true,
+      "impedance_ratio_selected_1p629_pm5pct": true,
+      "S21_fit_rmse_below_0p5db": true,
+      "phase_fit_rmse_below_5deg": true
+    },
+    "all_hfss_acceptance_checks_pass": true
+  }
+}
