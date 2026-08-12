@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare minimal and extended nonlinear models with HFSS-corrected phase."""
+"""Compare minimal and extended nonlinear models with HFSS Bloch parameters."""
 
 from __future__ import annotations
 
@@ -21,11 +21,9 @@ sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
 from analyze_hfss_supercell import (  # noqa: E402
     SUPERCELL_CELLS,
-    cascade_pattern,
-    phase_delay,
     read_touchstone,
 )
-from fit_hfss_unit_cells import lclf_s  # noqa: E402
+from hfss_bloch import apply_bloch_parameters  # noqa: E402
 from scan_hfss_loading_pattern import make_cell  # noqa: E402
 from twpa_project_utils import gain_metrics, load_hfss_cell_parameters  # noqa: E402
 from twpasolver import TWPAnalysis  # noqa: E402
@@ -48,7 +46,7 @@ MODELS = (
 def main() -> None:
     log.setLevel(logging.WARNING)
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / OUTPUT_STEP
+    output = ROOT / "results" / "bloch_corrected" / OUTPUT_STEP
     output.mkdir(parents=True, exist_ok=True)
 
     cells, provenance = load_hfss_cell_parameters(inputs / "hfss_cell_parameters.csv")
@@ -67,20 +65,6 @@ def main() -> None:
     measured_f = np.concatenate((fine_f, auxiliary_f[1:]))
     measured_s = np.concatenate((fine_s, auxiliary_s[1:]), axis=0)
 
-    def fitted_cell(role: str) -> np.ndarray:
-        row = cells[role]
-        return lclf_s(
-            measured_f * 1e9,
-            row["L_pH"] * 1e-12,
-            row["C_fF"] * 1e-15,
-            row["Lf_pH"] * 1e-12,
-        )
-
-    lumped_supercell = cascade_pattern(fitted_cell("unloaded"), fitted_cell("loaded"))
-    measured_phase, _ = phase_delay(measured_s[:, 1, 0], measured_f)
-    lumped_phase, _ = phase_delay(lumped_supercell[:, 1, 0], measured_f)
-    k_correction_samples = ((-measured_phase) - (-lumped_phase)) / SUPERCELL_CELLS
-
     twpa = TWPA(
         cells=[
             make_cell(cells["unloaded"], 13),
@@ -95,13 +79,10 @@ def main() -> None:
     analysis = TWPAnalysis(twpa=twpa, f_arange=(0.2, 30.0, 0.002), unit="GHz")
     analysis.update_base_data()
 
-    dense_f = np.asarray(analysis.data["freqs"])
-    correction = np.zeros_like(dense_f)
-    valid = (dense_f >= measured_f[0]) & (dense_f <= measured_f[-1])
-    correction[valid] = np.interp(
-        dense_f[valid], measured_f, k_correction_samples
+    apply_bloch_parameters(
+        analysis.data, measured_f, measured_s, SUPERCELL_CELLS
     )
-    analysis.data["k"] = np.asarray(analysis.data["k"]) + correction
+    analysis.add_mode_array("basic_3wm", ModeArrayFactory.create_basic(analysis.data))
 
     # Eight forward modes: pump, signal, idler, sum-frequency conversions,
     # second pump harmonic, and second signal/idler harmonics.
@@ -252,7 +233,7 @@ def main() -> None:
             and float(general_selected["ripple_peak_to_peak_db"]) <= 3.0
         ),
         "limitations": [
-            "HFSS phase correction uses 0.1 GHz samples from 3-14 GHz and 0.2 GHz samples from 14-27 GHz.",
+            "HFSS Bloch extraction uses 0.1 GHz samples from 3-14 GHz and 0.2 GHz samples from 14-27 GHz.",
             "Only one order of pump, signal/idler harmonics and conversion modes is included.",
             "The nonlinear model still represents the full line by repeating the simulated 13-3-13 physical supercell.",
             "Each signal frequency is solved as a separate single-tone experiment.",

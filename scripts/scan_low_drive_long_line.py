@@ -18,8 +18,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
-from analyze_hfss_supercell import SUPERCELL_CELLS, cascade_pattern, phase_delay, read_touchstone  # noqa: E402
-from fit_hfss_unit_cells import lclf_s  # noqa: E402
+from analyze_hfss_supercell import SUPERCELL_CELLS, read_touchstone  # noqa: E402
+from hfss_bloch import apply_bloch_parameters  # noqa: E402
 from scan_hfss_loading_pattern import make_cell  # noqa: E402
 from twpa_project_utils import gain_metrics, load_hfss_cell_parameters  # noqa: E402
 from twpasolver import TWPAnalysis  # noqa: E402
@@ -51,22 +51,13 @@ def score(r: dict[str, object]) -> tuple[float, ...]:
 def main() -> None:
     log.setLevel(logging.WARNING)
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / "step_20_low_drive_long_line"
+    output = ROOT / "results" / "bloch_corrected" / "step_20_low_drive_long_line"
     output.mkdir(parents=True, exist_ok=True)
     cells, provenance = load_hfss_cell_parameters(inputs / "hfss_cell_parameters.csv")
     f1, s1 = read_touchstone(inputs / "supercell_13_3_13_fine_3_14GHz.s2p")
     f2, s2 = read_touchstone(inputs / "supercell_13_3_13_aux_14_27GHz.s2p")
     measured_f = np.concatenate((f1, f2[1:]))
     measured_s = np.concatenate((s1, s2[1:]), axis=0)
-
-    def cell_s(role: str) -> np.ndarray:
-        row = cells[role]
-        return lclf_s(measured_f * 1e9, row["L_pH"] * 1e-12, row["C_fF"] * 1e-15, row["Lf_pH"] * 1e-12)
-
-    lumped = cascade_pattern(cell_s("unloaded"), cell_s("loaded"))
-    measured_phase, _ = phase_delay(measured_s[:, 1, 0], measured_f)
-    lumped_phase, _ = phase_delay(lumped[:, 1, 0], measured_f)
-    correction_samples = ((-measured_phase) - (-lumped_phase)) / SUPERCELL_CELLS
 
     twpa = TWPA(
         cells=[make_cell(cells["unloaded"], 13), make_cell(cells["loaded"], 3), make_cell(cells["unloaded"], 13)],
@@ -77,11 +68,9 @@ def main() -> None:
     def prepare(n: int, idc: float, ip: float) -> None:
         analysis.twpa.N, analysis.twpa.Idc, analysis.twpa.Ip0 = int(n), float(idc), float(ip)
         analysis.update_base_data()
-        dense_f = np.asarray(analysis.data["freqs"])
-        correction = np.zeros_like(dense_f)
-        mask = (dense_f >= measured_f[0]) & (dense_f <= measured_f[-1])
-        correction[mask] = np.interp(dense_f[mask], measured_f, correction_samples)
-        analysis.data["k"] = np.asarray(analysis.data["k"]) + correction
+        apply_bloch_parameters(
+            analysis.data, measured_f, measured_s, SUPERCELL_CELLS
+        )
         modes = ModeArrayFactory.create_extended_3wm(
             analysis.data, n_pump_harmonics=1, n_frequency_conversion=1, n_signal_harmonics=1
         )

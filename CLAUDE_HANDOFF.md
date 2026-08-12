@@ -1,5 +1,15 @@
 # KI-TWPA project — independent technical review brief
 
+> **Update after review (2026-08-12):** The production scripts no longer add an
+> HFSS-minus-lumped correction derived from finite-network S21 phase. They now
+> extract branch-continuous complex Bloch eigenvalues and Bloch impedance from
+> each measured supercell ABCD matrix and replace solver `k`, `alpha`, and
+> `gammas` within 3--27 GHz. Historical results described below are preserved;
+> corrected outputs are under `results/bloch_corrected/`. At the former
+> 15-4-15 operating point, the corrected eight-mode result is 25.20--41.32 dB
+> (16.11 dB ripple), so the point still fails the 3 dB flatness target. Port
+> launch de-embedding still requires a new HFSS export.
+
 ## Purpose of this review
 
 We are trying to design and model a kinetic-inductance travelling-wave

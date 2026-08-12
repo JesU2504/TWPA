@@ -24,9 +24,10 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path[:0] = [str(ROOT / "code"), str(ROOT / "scripts")]
 
 from fit_hfss_unit_cells import lclf_s, s_to_abcd  # noqa: E402
+from hfss_bloch import extract_bloch_parameters  # noqa: E402
 
 
 Z0 = 50.0
@@ -137,7 +138,7 @@ def write_csv(path: Path, header: list[str], columns: list[np.ndarray]) -> None:
 
 def main() -> None:
     inputs = ROOT / "hfss_inputs"
-    output = ROOT / "results" / "step_13_hfss_supercell_validation"
+    output = ROOT / "results" / "bloch_corrected" / "step_13_hfss_supercell_validation"
     output.mkdir(parents=True, exist_ok=True)
 
     f, measured = read_touchstone(inputs / "supercell_13_3_13_coarse.s2p")
@@ -169,6 +170,8 @@ def main() -> None:
     measured_phase, measured_delay = phase_delay(measured_s21, f)
     isolated_phase, _ = phase_delay(isolated_cascade[:, 1, 0], f)
     lumped_phase, _ = phase_delay(lumped_cascade[:, 1, 0], f)
+    measured_bloch = extract_bloch_parameters(measured)
+    lumped_bloch = extract_bloch_parameters(lumped_cascade)
 
     write_csv(
         output / "01_supercell_network.csv",
@@ -178,6 +181,7 @@ def main() -> None:
             "S21_dB",
             "S22_dB",
             "S21_phase_unwrapped_deg",
+            "Bloch_phase_unwrapped_deg",
             "group_delay_ps",
             "power_sum_port1",
         ],
@@ -187,6 +191,7 @@ def main() -> None:
             db(measured_s21),
             db(measured_s22),
             np.rad2deg(measured_phase),
+            np.rad2deg(measured_bloch.phase),
             measured_delay * 1e12,
             np.abs(measured_s11) ** 2 + np.abs(measured_s21) ** 2,
         ],
@@ -222,14 +227,14 @@ def main() -> None:
     signals = np.arange(4.0, 8.0001, 0.05)
     idlers = PUMP_GHZ - signals
 
-    def mismatch(phase: np.ndarray) -> np.ndarray:
-        pump_phase = float(interp(PUMP_GHZ, f, -phase))
-        signal_phase = interp(signals, f, -phase)
-        idler_phase = interp(idlers, f, -phase)
+    def mismatch(bloch_phase: np.ndarray) -> np.ndarray:
+        pump_phase = float(interp(PUMP_GHZ, f, bloch_phase))
+        signal_phase = interp(signals, f, bloch_phase)
+        idler_phase = interp(idlers, f, bloch_phase)
         return pump_phase - signal_phase - idler_phase
 
-    measured_mismatch = mismatch(measured_phase)
-    lumped_mismatch = mismatch(lumped_phase)
+    measured_mismatch = mismatch(measured_bloch.phase)
+    lumped_mismatch = mismatch(lumped_bloch.phase)
     correction = measured_mismatch - lumped_mismatch
     write_csv(
         output / "03_3wm_linear_phase_mismatch.csv",
@@ -276,6 +281,9 @@ def main() -> None:
             "S21_dB": float(interp(frequency, f, db(measured_s21))),
             "S21_phase_unwrapped_deg": float(
                 np.rad2deg(interp(frequency, f, measured_phase))
+            ),
+            "Bloch_phase_unwrapped_deg": float(
+                np.rad2deg(interp(frequency, f, measured_bloch.phase))
             ),
             "group_delay_ps": float(interp(frequency, f, measured_delay) * 1e12),
         }
@@ -356,8 +364,8 @@ def main() -> None:
             ),
             "next_required_HFSS_sweep": "3-14 GHz discrete, 0.1 GHz or finer",
             "reason": (
-                "The local lumped-cell fit is accurate, but a sub-degree phase error "
-                "per supercell accumulates over 1407 repeats and materially changes 3WM phase matching."
+                "ABCD/Bloch phase, rather than finite-network S21 phase, is used for "
+                "periodic dispersion. Port-launch de-embedding still requires a new HFSS export."
             ),
         },
     }
@@ -376,9 +384,10 @@ def main() -> None:
     ax.legend(fontsize=8)
 
     ax = axes[0, 1]
-    ax.plot(f, np.rad2deg(measured_phase), label="HFSS physical supercell")
-    ax.plot(f, np.rad2deg(lumped_phase), "--", label="fitted lumped cascade")
-    ax.set(xlabel="Frequency (GHz)", ylabel="Unwrapped S21 phase (deg)", title="Dispersion comparison")
+    ax.plot(f, np.rad2deg(measured_bloch.phase), label="HFSS Bloch phase")
+    ax.plot(f, np.rad2deg(lumped_bloch.phase), "--", label="fitted-cascade Bloch phase")
+    ax.plot(f, np.rad2deg(-measured_phase), ":", label="finite-network -S21 phase")
+    ax.set(xlabel="Frequency (GHz)", ylabel="Phase per supercell (deg)", title="Bloch dispersion comparison")
     ax.grid(True, alpha=0.3)
     ax.legend(fontsize=8)
 
