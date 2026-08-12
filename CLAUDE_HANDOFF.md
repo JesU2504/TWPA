@@ -9,6 +9,14 @@
 > 15-4-15 operating point, the corrected eight-mode result is 25.20--41.32 dB
 > (16.11 dB ripple), so the point still fails the 3 dB flatness target. Port
 > launch de-embedding still requires a new HFSS export.
+>
+> **16-2-16 refinement update:** A later Bloch-corrected eight-mode refinement
+> selected 950 supercells (64.6 mm), a 12.61 GHz pump, 200 uA DC bias, and
+> 120 uA pump current. On a 0.01 GHz signal grid it predicts 23.61--24.94 dB
+> gain over 4--8 GHz, or 1.33 dB ripple. All ten dense finalists satisfy the
+> 17 dB minimum and 3 dB ripple requirements. The selected point also passes
+> the ideal, loss-only, reflection-enabled, and controlled mode-ablation checks.
+> Results are in `results/bloch_corrected/step_25_16_2_16_refinement/`.
 
 ## Purpose of this review
 
