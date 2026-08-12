@@ -21,12 +21,17 @@ nonlinear workflows replace the solver's finite-network transmission phase,
 attenuation, and reflection with Bloch phase, evanescent attenuation, and
 Bloch-impedance mismatch throughout the measured 3--27 GHz band.
 
-The former 15-4-15 operating point remains highly rippled after this correction:
-the corrected eight-mode check gives 25.20--41.32 dB, or 16.11 dB ripple. This
-point has not yet been reoptimized under the corrected dispersion model. New
-results are written below `results/bloch_corrected/`; historical result folders
-are preserved for comparison. Port-launch de-embedding is still unavailable
-in the supplied 50-ohm-renormalized exports. See
+The corrected physical-pattern comparison selected 16-2-16. A staged
+eight-mode refinement followed by validation on a 0.01 GHz signal grid found a
+64.6 mm candidate at a 12.61 GHz pump, 200 µA DC bias, and 120 µA pump current.
+It gives 23.61--24.94 dB over 4--8 GHz, corresponding to 1.33 dB peak-to-peak
+ripple. All ten dense finalists pass the 17 dB minimum and 3 dB ripple targets.
+The selected point also passes ideal, loss-only, reflection-enabled, and
+leave-one-mode-family-out checks.
+
+Corrected results are written below `results/bloch_corrected/`; historical
+result folders are preserved for comparison. Port-launch de-embedding is still
+unavailable in the supplied 50-ohm-renormalized exports. See
 [`CLAUDE_HANDOFF.md`](CLAUDE_HANDOFF.md) for the detailed audit brief,
 assumptions, current problems, and results.
 
@@ -42,6 +47,8 @@ assumptions, current problems, and results.
 
 The Bloch extraction implementation is in `code/hfss_bloch.py`, with matched
 and mismatched transmission-line regression tests in `tests/test_twpa_project.py`.
+The staged 16-2-16 engineering refinement and 0.01 GHz final validation are in
+`scripts/refine_bloch_16_2_16.py`.
 
 ## Environment
 
