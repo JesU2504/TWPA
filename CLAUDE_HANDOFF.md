@@ -6,7 +6,8 @@
 > each measured supercell ABCD matrix and replace solver `k` and `gammas`
 > within 3--27 GHz. Extracted stopband evanescence is stored separately rather
 > than treated as dissipative `alpha`, because the supplied HFSS model is
-> lossless. Historical results described below are preserved;
+> lossless. Historical results described below remain part of the audit record,
+> while their superseded generated files are recoverable from Git history;
 > corrected outputs are under `results/bloch_corrected/`. At the former
 > 15-4-15 operating point, the corrected eight-mode result is 25.20--41.32 dB
 > (16.11 dB ripple), so the point still fails the 3 dB flatness target. Port
@@ -422,9 +423,12 @@ The principal analysis scripts are in `scripts/`, particularly:
 
 The physical Touchstone exports and fitted parameters are in `hfss_inputs/`.
 The latest three-pattern passive comparison is in
-`results/step_21_hfss_pattern_comparison`, and the physical 15-4-15 nonlinear
-result is in `results/step_22_15_4_15_physical_nonlinear_scan`.
+`results/bloch_corrected/step_21_hfss_pattern_comparison`, and the physical
+pattern nonlinear results are in the three
+`results/bloch_corrected/step_22_*_physical_nonlinear_scan` directories.
 The controlled mode-ablation data and figure are in
-`results/step_23_15_4_15_mode_ablation`.
+`results/bloch_corrected/step_23_15_4_15_mode_ablation`.
 The split `s2`/`i2` curves and linear phase-mismatch diagnosis are in
-`results/step_24_15_4_15_harmonic_diagnosis`.
+`results/bloch_corrected/step_24_15_4_15_harmonic_diagnosis`. The selected
+16-2-16 design and final dense validation are in
+`results/bloch_corrected/step_25_16_2_16_refinement`.

@@ -40,9 +40,10 @@ dispersion and impedance, but not nonlinear Bloch-mode overlap factors. The
 coupled-envelope model propagates forward nonlinear modes only; its optional
 reflection term is not an independent backward-wave nonlinear solution.
 
-Corrected results are written below `results/bloch_corrected/`; historical
-result folders are preserved for comparison. Port-launch de-embedding is still
-unavailable in the supplied 50-ohm-renormalized exports. See
+Presentation and reproducibility results are kept below
+`results/bloch_corrected/`. Superseded pre-Bloch generated outputs were removed
+from the current tree and remain recoverable from Git history. Port-launch
+de-embedding is still unavailable in the supplied 50-ohm-renormalized exports. See
 [`CLAUDE_HANDOFF.md`](CLAUDE_HANDOFF.md) for the detailed audit brief,
 assumptions, current problems, and results.
 
@@ -51,7 +52,7 @@ assumptions, current problems, and results.
 - `scripts/`: fitting, validation, optimization, and nonlinear diagnostics;
 - `code/`: analysis notebook and shared project utilities;
 - `hfss_inputs/`: compact HFSS exports, configurations, and fitted parameters;
-- `results/`: generated figures and numerical outputs for each analysis step;
+- `results/`: corrected presentation figures and numerical evidence;
 - `tests/`: consistency and regression tests;
 - `models/`: serialized imported-amplifier model data;
 - `tutorials/`: reference notebooks used by the workflow.

@@ -1,0 +1,5 @@
+bloch_phase_deg,kinetic_input_GHz,eigenfrequency_GHz,abcd_frequency_GHz,eigenmode_minus_abcd_percent,max_delta_freq_percent,status
+75.0,4.8446,4.81245,5.013156996146875,-4.003604840246147,263.22,mode_tracking_unstable
+90.0,5.7661,5.77295,6.0130562134720815,-3.993081137910046,1.0309,provisional_usable
+120.0,7.7,7.65937,8.007790970902219,-4.351024797828398,1.2426,provisional_usable
+150.0,9.645,9.62298,9.991733150888985,-3.6905824577208213,36.771,mode_tracking_unstable

@@ -1,0 +1,18 @@
+{
+  "status": "preliminary_qualitative_support",
+  "geometry": "16-2-16",
+  "supercell_length_um": 68.0,
+  "periodic_boundary": "partitioned matching end-face lattice pairs",
+  "kinetic_boundary_workaround": "The frequency-dependent sheet reactance was evaluated at a discrete KineticFreq and iterated toward the eigenfrequency.",
+  "usable_phases_deg": [
+    90.0,
+    120.0
+  ],
+  "unstable_phases_deg": [
+    75.0,
+    150.0
+  ],
+  "mean_usable_eigenmode_minus_abcd_percent": -4.172052967869222,
+  "conclusion": "The independent periodic eigenmode calculation follows the ABCD Bloch dispersion trend, with the two provisionally usable points about 4--5% below the ABCD prediction.",
+  "limitation": "No point met the requested 0.5% adaptive convergence criterion; 75 and 150 degrees also showed severe mode-tracking instability. This is not a quantitative validation or experimental validation."
+}
