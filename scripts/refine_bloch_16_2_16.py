@@ -73,7 +73,9 @@ def score(row: dict[str, object]) -> tuple[float, ...]:
 
 def write_rows(path: Path, rows: list[dict[str, object]]) -> None:
     with path.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(
+            handle, fieldnames=list(rows[0]), lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
 
@@ -107,6 +109,7 @@ def main() -> None:
     )
     analysis = TWPAnalysis(twpa=twpa, f_arange=(0.2, 30.0, 0.002), unit="GHz")
     extraction_provenance: dict[str, object] | None = None
+    failure_rows: list[dict[str, object]] = []
 
     def prepare(repeats: int, idc: float, ip: float) -> None:
         nonlocal extraction_provenance
@@ -134,6 +137,7 @@ def main() -> None:
         *,
         model: str = "general",
         mode_config: str = "all_8_modes",
+        stage: str = "unspecified",
     ) -> tuple[dict[str, object], np.ndarray] | None:
         try:
             result = analysis.gain(
@@ -146,9 +150,45 @@ def main() -> None:
                 save=False,
             )
             gain = np.asarray(result["gain_db"], dtype=float)
-        except Exception:
+        except Exception as exc:
+            failure_rows.append(
+                {
+                    "stage": stage,
+                    "failure_kind": "exception",
+                    "exception_type": type(exc).__name__,
+                    "message": str(exc),
+                    "supercell_repeats": int(repeats),
+                    "pump_GHz": float(pump),
+                    "Idc_A": float(idc),
+                    "Ip0_A": float(ip),
+                    "model": model,
+                    "mode_config": mode_config,
+                    "signal_frequencies_GHz": (
+                        f"{float(signals[0]):.6g}:{float(signals[-1]):.6g}:"
+                        f"{float(signals[1] - signals[0]):.6g}"
+                    ),
+                }
+            )
             return None
         if not np.all(np.isfinite(gain)):
+            bad_frequencies = signals[~np.isfinite(gain)]
+            failure_rows.append(
+                {
+                    "stage": stage,
+                    "failure_kind": "non_finite_gain",
+                    "exception_type": "",
+                    "message": f"{len(bad_frequencies)} non-finite gain samples",
+                    "supercell_repeats": int(repeats),
+                    "pump_GHz": float(pump),
+                    "Idc_A": float(idc),
+                    "Ip0_A": float(ip),
+                    "model": model,
+                    "mode_config": mode_config,
+                    "signal_frequencies_GHz": ",".join(
+                        f"{float(value):.6g}" for value in bad_frequencies
+                    ),
+                }
+            )
             return None
         row = {
             "supercell_repeats": int(repeats),
@@ -163,6 +203,8 @@ def main() -> None:
     def evaluate(
         configurations: set[tuple[int, float, float, float]],
         signals: np.ndarray,
+        *,
+        stage: str,
     ) -> list[dict[str, object]]:
         grouped: dict[tuple[int, float, float], list[float]] = defaultdict(list)
         for repeats, idc, ip, pump in configurations:
@@ -171,7 +213,9 @@ def main() -> None:
         for (repeats, idc, ip), pumps in sorted(grouped.items()):
             prepare(repeats, idc, ip)
             for pump in sorted(set(pumps)):
-                solved = solve_prepared(repeats, idc, ip, pump, signals)
+                solved = solve_prepared(
+                    repeats, idc, ip, pump, signals, stage=stage
+                )
                 if solved is not None:
                     rows.append(solved[0])
         rows.sort(key=score, reverse=True)
@@ -189,7 +233,7 @@ def main() -> None:
         for pump in pumps
     }
     print(f"Stage 1: evaluating {len(stage1)} operating points", flush=True)
-    stage1_rows = evaluate(stage1, stage1_signals)
+    stage1_rows = evaluate(stage1, stage1_signals, stage="regional")
     if not stage1_rows:
         raise RuntimeError("No finite stage-1 points")
     write_rows(output / "01_regional_scan.csv", stage1_rows)
@@ -208,7 +252,7 @@ def main() -> None:
                             stage2.add((repeats, idc, ip, pump))
     stage2_signals = np.arange(4.0, 8.0001, 0.05)
     print(f"Stage 2: evaluating {len(stage2)} refined points", flush=True)
-    stage2_rows = evaluate(stage2, stage2_signals)
+    stage2_rows = evaluate(stage2, stage2_signals, stage="local_refinement")
     if not stage2_rows:
         raise RuntimeError("No finite stage-2 points")
     write_rows(output / "02_local_refinement.csv", stage2_rows)
@@ -231,7 +275,7 @@ def main() -> None:
                     )
                 )
     print(f"Stage 3: evaluating {len(stage3)} fine-pump points", flush=True)
-    stage3_rows = evaluate(stage3, stage2_signals)
+    stage3_rows = evaluate(stage3, stage2_signals, stage="fine_pump")
     if not stage3_rows:
         raise RuntimeError("No finite stage-3 points")
     write_rows(output / "03_fine_pump_scan.csv", stage3_rows)
@@ -246,7 +290,9 @@ def main() -> None:
         ip = float(seed["Ip0_A"])
         pump = float(seed["pump_GHz"])
         prepare(repeats, idc, ip)
-        solved = solve_prepared(repeats, idc, ip, pump, final_signals)
+        solved = solve_prepared(
+            repeats, idc, ip, pump, final_signals, stage="dense_finalists"
+        )
         if solved is not None:
             finalists.append(solved[0])
             final_curves.append(solved[1])
@@ -257,7 +303,7 @@ def main() -> None:
         raise RuntimeError("No finite finalists")
     write_rows(output / "04_dense_finalists.csv", finalists)
     with (output / "05_dense_gain_curves.csv").open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(
             ["signal_GHz", *[f"finalist_{i + 1}_gain_dB" for i in range(len(finalists))]]
         )
@@ -274,7 +320,13 @@ def main() -> None:
     propagation_models: dict[str, dict[str, object]] = {}
     for model in ("general_ideal", "general_loss_only", "general"):
         solved = solve_prepared(
-            repeats, idc, ip, pump, final_signals, model=model
+            repeats,
+            idc,
+            ip,
+            pump,
+            final_signals,
+            model=model,
+            stage="propagation_model_sensitivity",
         )
         if solved is not None:
             propagation_models[model] = solved[0]
@@ -306,6 +358,7 @@ def main() -> None:
             pump,
             final_signals,
             mode_config=label,
+            stage="mode_ablation",
         )
         if solved is not None:
             ablation[label] = solved[0]
@@ -328,6 +381,10 @@ def main() -> None:
             "fine_pump": len(stage3_rows),
             "dense_finalists": len(finalists),
         },
+        "solver_failures": {
+            "count": len(failure_rows),
+            "diagnostic_file": "08_solver_failures.csv",
+        },
         "selected": best,
         "strict_pass": bool(best["strict_pass"]),
         "top_dense_finalists": finalists,
@@ -337,11 +394,34 @@ def main() -> None:
         "hfss_cell_fit_provenance": cell_provenance,
         "cautions": [
             "A result at 11.0 GHz is on the lowest pump boundary allowed by the measured idler band.",
+            "The scalar Istar=2 mA has not been calibrated to the fabricated film and line cross-section.",
+            "The peak-versus-RMS convention of twpasolver current amplitudes requires independent verification.",
             "Bloch-mode nonlinear overlap factors are not available from the current HFSS exports.",
-            "The result remains a forward-mode coupled-envelope prediction, not a full nonlinear electromagnetic solve.",
+            "The result uses forward nonlinear envelopes; the optional reflection term is not an independent backward-wave nonlinear solution.",
+            "The current lossless HFSS exports cannot validate dissipative material loss or intrinsic unrenormalized port impedance.",
         ],
     }
     (output / "06_assessment.json").write_text(json.dumps(report, indent=2) + "\n")
+
+    failure_fields = [
+        "stage",
+        "failure_kind",
+        "exception_type",
+        "message",
+        "supercell_repeats",
+        "pump_GHz",
+        "Idc_A",
+        "Ip0_A",
+        "model",
+        "mode_config",
+        "signal_frequencies_GHz",
+    ]
+    with (output / "08_solver_failures.csv").open("w", newline="") as handle:
+        writer = csv.DictWriter(
+            handle, fieldnames=failure_fields, lineterminator="\n"
+        )
+        writer.writeheader()
+        writer.writerows(failure_rows)
 
     fig, ax = plt.subplots(figsize=(10, 6))
     for index, (row, gain) in enumerate(zip(finalists[:5], final_curves[:5]), 1):

@@ -13,7 +13,7 @@ used as the Bloch propagation phase.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, MutableMapping
+from typing import Any, Literal, MutableMapping
 
 import numpy as np
 
@@ -80,18 +80,22 @@ def extract_bloch_parameters(s: np.ndarray, z0: float = 50.0) -> BlochParameters
 
     for index, matrix in enumerate(reciprocal_abcd):
         candidates = np.linalg.eigvals(matrix)
-        scored: list[tuple[float, float, complex]] = []
-        target = guide[index] if previous_phase is None else previous_phase
-        for value in candidates:
-            branch = _phase_candidate(float(np.angle(value)), float(guide[index]))
-            # S21 selects the band number. Continuity breaks the degeneracy at
-            # a band edge, while |lambda| selects the decaying forward mode in
-            # a stopband.
-            continuity = abs(branch - target)
-            guide_error = abs(branch - guide[index])
-            stopband_preference = -max(float(np.log(abs(value))), 0.0)
-            scored.append((guide_error + 1e-3 * continuity, stopband_preference, value))
-        _, _, selected = min(scored, key=lambda item: (item[0], item[1]))
+        log_magnitudes = np.log(np.abs(candidates))
+        if np.ptp(log_magnitudes) > 1e-9:
+            # ABCD matrices transfer port-2 fields back to port 1. The forward
+            # decaying wave therefore has |lambda| > 1. Magnitude must decide
+            # explicitly off the unit circle: using phase as the primary key
+            # can flip reciprocal eigenvalues at a stopband through roundoff.
+            selected = candidates[int(np.argmax(log_magnitudes))]
+        else:
+            target = guide[index] if previous_phase is None else previous_phase
+            scored: list[tuple[float, complex]] = []
+            for value in candidates:
+                branch = _phase_candidate(float(np.angle(value)), float(guide[index]))
+                continuity = abs(branch - target)
+                guide_error = abs(branch - guide[index])
+                scored.append((guide_error + 1e-3 * continuity, value))
+            _, selected = min(scored, key=lambda item: item[0])
         selected_phase = _phase_candidate(float(np.angle(selected)), float(guide[index]))
         phase[index] = selected_phase
         eigenvalue[index] = selected
@@ -129,16 +133,26 @@ def apply_bloch_parameters(
     cells_per_supercell: int,
     *,
     z0: float = 50.0,
+    alpha_policy: Literal["zero_loss", "effective_bloch"] = "zero_loss",
 ) -> dict[str, float | int | list[float] | str]:
     """Replace solver parameters with measured Bloch data in the HFSS band.
 
-    ``k`` and ``alpha`` remain expressed per physical base cell, matching
-    ``twpasolver``'s spatial coordinate.  ``gammas`` is the reflection between
-    the solver reference impedance and the forward Bloch impedance, rather
-    than S11 of a particular finite-length device.
+    ``k`` remains expressed per physical base cell, matching ``twpasolver``'s
+    spatial coordinate. ``gammas`` is the reflection between the solver
+    reference impedance and the forward Bloch impedance, rather than S11 of a
+    particular finite-length device.
+
+    Bloch evanescence is stored separately in ``data["bloch_evanescence"]``.
+    With the default ``zero_loss`` policy, solver ``alpha`` is set to zero in
+    the measured band because this project's HFSS materials are lossless and
+    ``alpha`` is a dissipative-loss term in the coupled-mode equations. The
+    ``effective_bloch`` policy maps evanescence to ``alpha`` only for explicit
+    sensitivity comparisons; it is not interpreted as material loss.
     """
     if cells_per_supercell <= 0:
         raise ValueError("cells_per_supercell must be positive")
+    if alpha_policy not in {"zero_loss", "effective_bloch"}:
+        raise ValueError(f"Unsupported alpha_policy {alpha_policy!r}")
     frequencies = np.asarray(data["freqs"], dtype=float)
     samples = np.asarray(sample_frequencies, dtype=float)
     if samples.ndim != 1 or len(samples) != len(sample_s):
@@ -153,20 +167,34 @@ def apply_bloch_parameters(
     k = np.asarray(data["k"], dtype=float).copy()
     alpha = np.asarray(data["alpha"], dtype=float).copy()
     gammas = np.asarray(data["gammas"], dtype=complex).copy()
+    evanescence = np.zeros_like(frequencies)
     k[valid] = np.interp(target, samples, bloch.phase) / cells_per_supercell
-    alpha[valid] = np.interp(target, samples, bloch.attenuation) / cells_per_supercell
+    evanescence[valid] = (
+        np.interp(target, samples, bloch.attenuation) / cells_per_supercell
+    )
+    if alpha_policy == "zero_loss":
+        alpha[valid] = 0.0
+    else:
+        alpha[valid] = evanescence[valid]
     gammas[valid] = np.interp(target, samples, bloch.reflection.real) + 1j * np.interp(
         target, samples, bloch.reflection.imag
     )
     data["k"] = k
     data["alpha"] = alpha
     data["gammas"] = gammas
+    data["bloch_evanescence"] = evanescence
 
     return {
         "method": "ABCD eigenvalue Bloch extraction",
         "frequency_range_GHz": [float(samples[0]), float(samples[-1])],
         "cells_per_supercell": int(cells_per_supercell),
         "reference_impedance_ohm": float(z0),
+        "solver_alpha_policy": alpha_policy,
+        "solver_alpha_interpretation": (
+            "zero dissipative loss"
+            if alpha_policy == "zero_loss"
+            else "effective Bloch evanescence sensitivity"
+        ),
         "maximum_reciprocity_error": float(np.max(np.abs(bloch.reciprocity_error))),
         "maximum_bloch_reflection_magnitude": float(np.max(np.abs(bloch.reflection))),
         "maximum_attenuation_neper_per_supercell": float(np.max(bloch.attenuation)),

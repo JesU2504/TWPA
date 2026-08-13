@@ -3,20 +3,40 @@
 > **Update after review (2026-08-12):** The production scripts no longer add an
 > HFSS-minus-lumped correction derived from finite-network S21 phase. They now
 > extract branch-continuous complex Bloch eigenvalues and Bloch impedance from
-> each measured supercell ABCD matrix and replace solver `k`, `alpha`, and
-> `gammas` within 3--27 GHz. Historical results described below are preserved;
+> each measured supercell ABCD matrix and replace solver `k` and `gammas`
+> within 3--27 GHz. Extracted stopband evanescence is stored separately rather
+> than treated as dissipative `alpha`, because the supplied HFSS model is
+> lossless. Historical results described below are preserved;
 > corrected outputs are under `results/bloch_corrected/`. At the former
 > 15-4-15 operating point, the corrected eight-mode result is 25.20--41.32 dB
 > (16.11 dB ripple), so the point still fails the 3 dB flatness target. Port
 > launch de-embedding still requires a new HFSS export.
 >
 > **16-2-16 refinement update:** A later Bloch-corrected eight-mode refinement
-> selected 950 supercells (64.6 mm), a 12.61 GHz pump, 200 uA DC bias, and
-> 120 uA pump current. On a 0.01 GHz signal grid it predicts 23.61--24.94 dB
-> gain over 4--8 GHz, or 1.33 dB ripple. All ten dense finalists satisfy the
+> selected 950 supercells (64.6 mm), a 12.66 GHz pump, 175 uA DC bias, and
+> 150 uA pump current. On a 0.01 GHz signal grid it predicts 24.50--25.87 dB
+> gain over 4--8 GHz, or 1.37 dB ripple. All ten dense finalists satisfy the
 > 17 dB minimum and 3 dB ripple requirements. The selected point also passes
 > the ideal, loss-only, reflection-enabled, and controlled mode-ablation checks.
 > Results are in `results/bloch_corrected/step_25_16_2_16_refinement/`.
+>
+> **Independent-review corrections (2026-08-13):** A synthetic periodically
+> loaded stopband test exposed and fixed a Bloch-eigenvalue branch error. The
+> ABCD convention used here requires the `|lambda| > 1` transfer eigenvalue for
+> forward spatial decay. Stopband evanescence and dissipative loss are now
+> separate quantities, and the 16-2-16 refinement writes every caught solver
+> exception or non-finite result to `08_solver_failures.csv`. A targeted check
+> at the previously selected 12.61 GHz operating point found no gain change
+> when the former evanescence-as-loss mapping was removed, to numerical
+> precision. The full corrected search nevertheless selected the nearby
+> 12.66 GHz point because the branch correction changes comparisons involving
+> harmonics that cross a stopband. All 1,154 staged search points, ten dense
+> finalists, propagation sensitivities, and mode ablations completed with zero
+> recorded solver failures. The remaining limitations are physical:
+> `Istar = 2 mA` and the solver's current
+> amplitude convention need independent calibration; nonlinear Bloch-mode
+> overlap factors are unavailable; and the nonlinear model has forward
+> envelopes only.
 
 ## Purpose of this review
 
