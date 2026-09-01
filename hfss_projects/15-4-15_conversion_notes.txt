@@ -1,0 +1,36 @@
+15-4-15 HFSS cascade project
+
+Source file
+  16-2-16_super_cell_cascade_validation.aedt (original source, not included)
+
+New file
+  hfss_projects/15-4-15_super_cell_cascade_validation.aedt
+
+Geometry changes
+  left_cells = 15
+    Number of long-stub cells before the loaded section.
+
+  loaded_cells = 4
+    Number of short-stub cells in the loaded section.
+
+  right_cells = 15
+    Number of long-stub cells after the loaded section.
+
+  stub_length = 12.1 um
+    Length of the long stub. This is the paper value.
+
+  short_stub_length = 3.9 um
+    Length of the short stub. This was not changed.
+
+What stays the same
+  Total cells per supercell = 15 + 4 + 15 = 34.
+  Cell pitch = 2 um.
+  Supercell length = 68 um.
+  Cascade copies remain x2, x4, and x8.
+  Materials, layer stack, ports, boundaries, and sweep settings were not changed.
+
+Important before using the results
+  The copied AEDT file may still contain saved solution data from 16-2-16.
+  In HFSS, clear the generated solution data for every design, validate the
+  project, and run all adaptive solutions and frequency sweeps again. Only the
+  new runs are valid for the 15-4-15 geometry.

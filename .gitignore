@@ -1,0 +1,28 @@
+# Local environments, caches, and generated figure exports
+.venv/
+.cache/
+figures/
+__pycache__/
+*.py[cod]
+*.nbc
+*.nbi
+*.egg-info/
+build/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+*.swp
+
+# HFSS solve databases/locks are generated; the source AEDT project is retained.
+*.aedtresults/
+*.aedt.lock
+*.aedtz
+
+# Reference literature is linked rather than redistributed.
+/papers_and_others/*.pdf
+/hfss_inputs/paper_figures/
+/data/reference/paper_fig*.svg
+
+# Presentation files are distributed separately from the source repository.
+/*.pptx

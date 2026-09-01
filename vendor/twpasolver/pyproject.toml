@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "twpasolver"
+version = "0.0.1"
+description = "Preserved installed twpasolver source used by the final TWPA slides"
+requires-python = ">=3.10,<3.13"
+license = {file = "LICENSE"}
+dependencies = ["CyRK>=0.8.6,<0.9.0", "h5py>=3.10,<4", "matplotlib>=3.7", "networkx<=3", "numba>=0.59", "numpy>=1.26", "pydantic>=2.6.3", "scikit-rf>=0.32", "scipy>=1.12", "sympy>=1.14,<2"]
+
+[tool.setuptools.packages.find]
+include = ["twpasolver*"]

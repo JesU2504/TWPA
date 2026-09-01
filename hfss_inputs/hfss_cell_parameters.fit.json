@@ -1,0 +1,35 @@
+{
+  "fit_band_GHz": [
+    4.0,
+    14.0
+  ],
+  "cells": {
+    "unloaded": {
+      "stub_length_um": 12.0,
+      "L_pH": 55.293422258173955,
+      "C_fF": 29.780743113650452,
+      "Lf_pH": 123.846759188166,
+      "loss_tangent": 0.0,
+      "Z0_ohm": 43.08925347829123,
+      "fit_s21_rmse_db": 0.0005798699397446769,
+      "fit_phase_rmse_deg": 0.00535704728634735
+    },
+    "loaded": {
+      "stub_length_um": 3.9,
+      "L_pH": 54.102868806472884,
+      "C_fF": 10.978262398510854,
+      "Lf_pH": 49.277609882912536,
+      "loss_tangent": 0.0,
+      "Z0_ohm": 70.20100727735449,
+      "fit_s21_rmse_db": 1.5266710872876778e-05,
+      "fit_phase_rmse_deg": 0.002501306531699172
+    }
+  },
+  "acceptance_gates": {
+    "unloaded_Z0_selected_43p09ohm_pm5pct": true,
+    "loaded_Z0_selected_70p20ohm_pm5pct": true,
+    "impedance_ratio_selected_1p629_pm5pct": true,
+    "S21_fit_rmse_below_0p5db": true,
+    "phase_fit_rmse_below_5deg": true
+  }
+}

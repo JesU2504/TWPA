@@ -1,0 +1,22 @@
+{
+  "figure_reproduced": "Fig. S.5 / Eq. (S.1), Howe et al. 2507.07706, Appendix B",
+  "method": "Eq. (S.1) is a disclosed closed-form formula, reproduced exactly (not digitized)",
+  "our_device_gain_source": "results/bloch_corrected/step_34_howe_fig3_hfss_bloch_reproduction/04_gain_profiles.csv",
+  "our_device_gamma_source": "engineered.data['gammas'] (Bloch-extracted S11/S22 of the real 15-4-15 HFSS supercell)",
+  "eta_assumption": "eta=1 (lossless), self-consistent with the project's documented zero-loss HFSS/Bloch policy",
+  "our_pump_GHz": 14.1,
+  "fine_numeric_check": {
+    "signal_window_GHz": [
+      6.0,
+      7.999999999999957
+    ],
+    "step_GHz": 0.01,
+    "n_points": 201,
+    "solve_time_s": 18.421154022216797,
+    "observed_peak_to_peak_ripple_dB": 4.095350284055932,
+    "mean_gain_in_window_dB": 32.36826254162189,
+    "gamma_mag_in_window": 0.018999592649758826,
+    "analytic_ripple_prediction_dB": 6.336246023711226
+  },
+  "our_device_ripple_diverges_eq_s1": true
+}

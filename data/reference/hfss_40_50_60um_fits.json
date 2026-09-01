@@ -1,0 +1,42 @@
+{
+  "method": "fit_hfss_unit_cells.fit_cell: low-frequency ABCD inductance plus 4-14 GHz L-C-Lf fit",
+  "rows": [
+    {
+      "label": "40um",
+      "stub_length_um": 40.0,
+      "L_pH": 55.06053996648913,
+      "C_fF": 96.59156354335477,
+      "Lf_pH": 437.48867683219487,
+      "loss_tangent": 0.0,
+      "Z0_ohm": 23.875398826899108,
+      "fit_s21_rmse_db": 0.0004394014968743198,
+      "fit_phase_rmse_deg": 0.014210943962250786
+    },
+    {
+      "label": "50um",
+      "stub_length_um": 50.0,
+      "L_pH": 55.374782102575395,
+      "C_fF": 118.20836992023999,
+      "Lf_pH": 553.677721387477,
+      "loss_tangent": 0.0,
+      "Z0_ohm": 21.643719699716673,
+      "fit_s21_rmse_db": 0.0005652339107079902,
+      "fit_phase_rmse_deg": 0.019915666401503235
+    },
+    {
+      "label": "60um",
+      "stub_length_um": 60.0,
+      "L_pH": 54.83271145769709,
+      "C_fF": 119.03347260082994,
+      "Lf_pH": 546.7504023528318,
+      "loss_tangent": 0.0,
+      "Z0_ohm": 21.462747151682397,
+      "fit_s21_rmse_db": 0.0007003550260545281,
+      "fit_phase_rmse_deg": 0.019434945037771163
+    }
+  ],
+  "quality_gates": {
+    "all_s21_rmse_below_0p5dB": true,
+    "all_phase_rmse_below_5deg": true
+  }
+}

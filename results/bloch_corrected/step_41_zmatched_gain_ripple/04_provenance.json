@@ -1,0 +1,25 @@
+{
+  "purpose": "Compare gain ripple between the original and impedance-matched devices",
+  "our_pump_GHz": 16.0,
+  "median_gamma_inband_5_9GHz": 0.06887789478035794,
+  "fine_numeric_check": {
+    "signal_window_GHz": [
+      7.0,
+      8.999999999999957
+    ],
+    "solve_time_s": 20.437147855758667,
+    "observed_peak_to_peak_ripple_dB": 2.7415467389081627,
+    "mean_gain_in_window_dB": 23.478942007575018,
+    "gamma_mag_in_window": 0.07257104648990559,
+    "analytic_ripple_prediction_dB": NaN
+  },
+  "comparison_to_original_device_step37": {
+    "original_window_GHz": [
+      6.0,
+      7.999999999999957
+    ],
+    "original_observed_peak_to_peak_ripple_dB": 4.095350284055932,
+    "original_gamma_mag_in_window": 0.018999592649758826,
+    "note": "Different signal windows (mid-plateau of each device's own dome), so this is a like-for-like 'ripple in the flat part of the gain profile' comparison, not identical frequencies."
+  }
+}

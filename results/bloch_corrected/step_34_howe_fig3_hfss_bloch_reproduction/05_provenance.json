@@ -1,0 +1,147 @@
+{
+  "amplifier_config": {
+    "Idc_A": 0.00022,
+    "Ip0_A": 0.0001,
+    "Is0_A": 1.4e-06,
+    "Istar_A": 0.002,
+    "base_frequency_start_GHz": 0.2,
+    "base_frequency_step_GHz": 0.002,
+    "base_frequency_stop_GHz": 30.0,
+    "centered_cells": false,
+    "design_name": "Howe-style 3WM HFSS handoff",
+    "loaded_cells": 4,
+    "mixing_process": "3WM",
+    "pump_scan_start_GHz": 12.5,
+    "pump_scan_step_GHz": 0.1,
+    "pump_scan_stop_GHz": 14.0,
+    "readout_band_GHz": [
+      4.0,
+      8.0
+    ],
+    "signal_start_GHz": 2.0,
+    "signal_step_GHz": 0.1,
+    "signal_stop_GHz": 10.0,
+    "supercells": 1200,
+    "unloaded_cells_each_side": 15
+  },
+  "bloch_extraction": {
+    "cells_per_supercell": 34,
+    "frequency_range_GHz": [
+      1.0,
+      27.0
+    ],
+    "maximum_attenuation_neper_per_supercell": 0.2065797472113896,
+    "maximum_bloch_reflection_magnitude": 1.0,
+    "maximum_reciprocity_error": 0.0007164427651773497,
+    "method": "ABCD eigenvalue Bloch extraction",
+    "reference_impedance_ohm": 50.0,
+    "solver_alpha_interpretation": "zero dissipative loss",
+    "solver_alpha_policy": "zero_loss"
+  },
+  "cell_placeholder_provenance": {
+    "amplifier_config": {
+      "Idc_A": 0.00022,
+      "Ip0_A": 0.0001,
+      "Is0_A": 1.4e-06,
+      "Istar_A": 0.002,
+      "base_frequency_start_GHz": 0.2,
+      "base_frequency_step_GHz": 0.002,
+      "base_frequency_stop_GHz": 30.0,
+      "centered_cells": false,
+      "design_name": "Howe-style 3WM HFSS handoff",
+      "loaded_cells": 4,
+      "mixing_process": "3WM",
+      "pump_scan_start_GHz": 12.5,
+      "pump_scan_step_GHz": 0.1,
+      "pump_scan_stop_GHz": 14.0,
+      "readout_band_GHz": [
+        4.0,
+        8.0
+      ],
+      "signal_start_GHz": 2.0,
+      "signal_step_GHz": 0.1,
+      "signal_stop_GHz": 10.0,
+      "supercells": 1200,
+      "unloaded_cells_each_side": 15
+    },
+    "amplifier_config_file": "hfss_inputs/amplifier_config.json",
+    "cell_input": {
+      "acceptance_checks": {
+        "S21_fit_rmse_below_0p5db": true,
+        "impedance_ratio_selected_1p629_pm5pct": true,
+        "loaded_Z0_selected_70p20ohm_pm5pct": true,
+        "phase_fit_rmse_below_5deg": true,
+        "unloaded_Z0_selected_43p09ohm_pm5pct": true
+      },
+      "all_hfss_acceptance_checks_pass": true,
+      "hfss_validated": true,
+      "input_file": "hfss_inputs/hfss_cell_parameters.csv",
+      "sources": [
+        "HFSS"
+      ]
+    },
+    "cells": {
+      "loaded": {
+        "C_fF": 10.978262398510854,
+        "L_pH": 54.102868806472884,
+        "Lf_pH": 49.277609882912536,
+        "Z0_ohm": 70.20100727735449,
+        "cell_type": "loaded",
+        "fit_phase_rmse_deg": 0.002501306531699172,
+        "fit_s21_rmse_db": 1.5266710872876778e-05,
+        "loss_tangent": 0.0,
+        "source": "HFSS",
+        "stub_length_um": 3.9
+      },
+      "unloaded": {
+        "C_fF": 29.780743113650452,
+        "L_pH": 55.293422258173955,
+        "Lf_pH": 123.846759188166,
+        "Z0_ohm": 43.08925347829123,
+        "cell_type": "unloaded",
+        "fit_phase_rmse_deg": 0.00535704728634735,
+        "fit_s21_rmse_db": 0.0005798699397446769,
+        "loss_tangent": 0.0,
+        "source": "HFSS",
+        "stub_length_um": 12.0
+      }
+    },
+    "status": "HFSS extracted",
+    "total_cells": 40800,
+    "warning": null
+  },
+  "cell_placeholder_role": "hfss_inputs/hfss_cell_parameters.csv (single-cell fit at stub_length=12.0 um, not the corrected 12.1 um) is used only to instantiate twpasolver's structural cell count (N_tot) and current-nonlinearity scaling; it contributes no value shown in any panel or CSV. All reported engineered-line dispersion, gain, bandwidth, and GBP values come only from the 15-4-15 HFSS supercell measurement (apply_bloch_parameters), clipped to its 1-27 GHz measured band.",
+  "data_source": "real HFSS 15-4-15 supercell full-wave simulation, Bloch-corrected",
+  "figure_reproduced": "Fig. 3, Howe et al. 2507.07706 (Simulating a full device)",
+  "hfss_stub_length_um": 12.1,
+  "hfss_supercell_files": [
+    "hfss_inputs/supercell_15_4_15_low_1_3GHz.s2p",
+    "hfss_inputs/supercell_15_4_15_fine_3_14GHz.s2p",
+    "hfss_inputs/supercell_15_4_15_aux_14_27GHz.s2p"
+  ],
+  "max_GBP_dB_GHz": 141.84408698553779,
+  "max_mean_B3dB_gain_dB": 33.51948121231977,
+  "panel_c_signal_sweep_GHz": [
+    2.5,
+    13.99999999999996,
+    0.04999999999999982
+  ],
+  "panel_c_validity_mask": "idler_GHz = pump_GHz - signal_GHz >= 1.0 (HFSS lower band edge)",
+  "pump_max_GBP_GHz": 14.099999999999994,
+  "pump_max_mean_B3dB_gain_GHz": 14.399999999999993,
+  "pump_sweep_GHz": [
+    12.5,
+    17.499999999999982,
+    0.09999999999999964
+  ],
+  "reported_engineered_dispersion_band_GHz": [
+    1.0,
+    27.0
+  ],
+  "signal_sweep_GHz": [
+    2.5,
+    11.499999999999968,
+    0.04999999999999982
+  ],
+  "solver": "twpasolver.TWPAnalysis, model=minimal_3wm"
+}
