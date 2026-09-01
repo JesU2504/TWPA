@@ -2,8 +2,7 @@
 # fresh `--recompute` produce byte-identical files on Linux, macOS, and Windows.
 #
 # Without this, a Windows clone with core.autocrlf=true rewrites tracked text
-# files on checkout, leaving a repo-wide dirty tree and breaking
-# `git diff --exit-code` in the reproduction workflow.
+# files on checkout, leaving a repo-wide dirty tree before the pipeline even runs.
 
 # Source and metadata: normalize to LF everywhere. The JSON writers in
 # code/io_utils.py and the scripts pass newline="\n" so regenerated files match.
@@ -16,6 +15,7 @@
 *.json  text eol=lf
 .gitattributes text eol=lf
 .gitignore     text eol=lf
+Brewfile       text eol=lf
 
 # Generated tables and Touchstone exports: byte-preserve, no EOL conversion.
 # The csv module writes CRLF on every platform, and the committed .s2p exports
