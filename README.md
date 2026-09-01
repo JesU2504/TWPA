@@ -91,9 +91,10 @@ Digitized curves in `data/reference/` support comparisons
 with published impedance and gain results. Calculation details, data sources, and
 verification procedures are documented in [`docs/FIGURE_WORKFLOW.md`](docs/FIGURE_WORKFLOW.md).
 
-Figures for reports and presentations can be regenerated with
-`scripts/reproduce_figures.py`; they are one application of the modelling workflow.
-Presentation files are distributed separately from the source repository.
+[`KI-TWPA_3WM.pptx`](KI-TWPA_3WM.pptx) presents the project and its current results.
+The deck includes material created by hand and is not generated or modified by the
+code. `scripts/reproduce_figures.py` regenerates the numerical plot images from the
+saved model data for use in reports and presentations.
 
 ## License
 

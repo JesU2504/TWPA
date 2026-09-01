@@ -97,8 +97,10 @@
     "source_hashes_verified": true,
     "deck_unchanged": true,
     "git_history_rewritten": true,
-    "presentation_excluded_from_public_tree": true,
+    "presentation_excluded_from_public_tree": false,
     "presentation_private_backup_sha256": "e5108f274a1308f6e1dfb8473b56a8ec6b5788b2572eaf8dfda35786b1743d0d",
-    "deckless_verification_passed": true
+    "deckless_verification_passed": true,
+    "presentation_included_unchanged": true,
+    "presentation_not_generated_by_pipeline": true
   }
 }

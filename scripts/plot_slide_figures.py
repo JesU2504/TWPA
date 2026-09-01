@@ -1,17 +1,11 @@
-"""Numerical figure exports and checks against archived chart values.
-
-Frozen chart values provide the verification baseline. When a presentation is
-supplied separately, its illustrations and screenshots can also be exported."""
+"""Numerical figure exports and checks against archived chart values."""
 
 from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import re
-import xml.etree.ElementTree as ET
-import zipfile
 from pathlib import Path
 
 import matplotlib
@@ -64,55 +58,9 @@ def downsample(values, stride):
     return values[idx]
 
 
-def export_embedded_assets(deck_path):
-    ns = {
-        "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
-        "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
-    }
-    asset_dir = OUTPUT / "embedded"
-    asset_dir.mkdir(exist_ok=True)
-    with zipfile.ZipFile(deck_path) as deck:
-        for name in deck.namelist():
-            if name.startswith("ppt/media/"):
-                (asset_dir / Path(name).name).write_bytes(deck.read(name))
-        manifest = []
-        relns = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-        rels = {
-            r.get("Id"): r.get("Target")
-            for r in ET.fromstring(deck.read("ppt/_rels/presentation.xml.rels"))
-        }
-        presentation = ET.fromstring(deck.read("ppt/presentation.xml"))
-        for i, sid in enumerate(presentation.findall(".//p:sldId", ns), 1):
-            slidefile = "ppt/" + rels[sid.get("{" + relns + "}id")]
-            xml = ET.fromstring(deck.read(slidefile))
-            part = Path(slidefile).name
-            slide_rels = ET.fromstring(deck.read(f"ppt/slides/_rels/{part}.rels"))
-            manifest.append(
-                {
-                    "slide": i,
-                    "xml_part": part,
-                    "text": " ".join(t.text or "" for t in xml.findall(".//a:t", ns)),
-                    "assets": sorted(
-                        {
-                            Path(r.get("Target")).name
-                            for r in slide_rels
-                            if r.get("Type", "").endswith("/image")
-                        }
-                    ),
-                    "note": "Includes off-canvas/hidden assets; native shapes remain in the PPTX.",
-                }
-            )
-    (OUTPUT / "embedded_assets.json").write_text(json.dumps(manifest, indent=2))
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--verify", action="store_true")
-    parser.add_argument(
-        "--deck",
-        type=Path,
-        help="optional presentation used only to export embedded media and record its checksum",
-    )
     args = parser.parse_args()
     OUTPUT.mkdir(exist_ok=True)
     plt.rcParams.update({"font.size": 12, "axes.spines.top": False, "axes.spines.right": False})
@@ -258,9 +206,6 @@ def main():
         ax.legend()
         checks[f"step_{number}_ripple_dB"] = ripple
     save(fig, "slide_25_reflection_ripple")
-    if args.deck:
-        export_embedded_assets(args.deck)
-        checks["deck_sha256"] = hashlib.sha256(args.deck.read_bytes()).hexdigest()
     checks["missing_raw_exports"] = [
         f"kinetic_{n}um_{band}.s2p"
         for n in (40, 50, 60)

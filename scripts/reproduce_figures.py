@@ -24,7 +24,7 @@ def main():
     parser.add_argument(
         "--verify",
         action="store_true",
-        help="check results against the frozen final-deck chart data",
+        help="check results against the archived reference chart data",
     )
     args = parser.parse_args()
     cache = ROOT / ".cache"

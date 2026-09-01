@@ -23,6 +23,3 @@ Thumbs.db
 /papers_and_others/*.pdf
 /hfss_inputs/paper_figures/
 /data/reference/paper_fig*.svg
-
-# Presentation files are distributed separately from the source repository.
-/*.pptx

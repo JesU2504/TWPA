@@ -2,11 +2,11 @@
 
 ## Scope
 
-The numerical verification baseline was extracted from a separately distributed
-25-slide presentation with SHA-256
+The final 25-slide presentation is included as `KI-TWPA_3WM.pptx`, SHA-256
 `e5108f274a1308f6e1dfb8473b56a8ec6b5788b2572eaf8dfda35786b1743d0d`.
-The presentation is not included or required. Cell fitting and gain calculations
-start from saved electromagnetic exports; HFSS execution is a separate step.
+It contains hand-authored material and is not generated or modified by the pipeline.
+The numerical verification baseline was extracted from its charts. Cell fitting and
+gain calculations start from saved electromagnetic exports; HFSS execution is a separate step.
 
 ## Execution order
 
@@ -34,8 +34,8 @@ start from saved electromagnetic exports; HFSS execution is a separate step.
    device gain grid and profiles under step 40, using the corresponding exports.
 9. `compare_zmatched_gain_ripple.py`: calculate the redesigned eight-mode ripple
     and compare its metrics with the baseline under step 41.
-10. `plot_slide_figures.py`: create the five standalone plot groups and run the
-    optional numerical checks. Deck assets are exported only when `--deck` is supplied.
+10. `plot_slide_figures.py`: create the five standalone plot groups from saved
+    numerical data and run the optional numerical checks.
 
 Without `--recompute`, the pipeline plots saved numerical results. Individual
 calculation scripts also produce supporting diagnostic panels.
@@ -95,16 +95,12 @@ band, where the analytic cell fallback is used.
 Scalar nonlinear parameters, forward coupled envelopes, and reflection treatment
 remain model assumptions; numerical reproducibility is not hardware validation.
 
-## Illustrations
+## Presentation
 
-The separately distributed presentation is the source for photos, logos, conceptual
-wave images, HFSS screenshots, equation graphics, and native PowerPoint diagrams.
-These assets are not part of the repository. If the presentation is available locally,
-its embedded media can be exported without modifying the file:
-
-```bash
-.venv/bin/python scripts/plot_slide_figures.py --deck /path/to/presentation.pptx
-```
+The presentation combines regenerated numerical plots with hand-authored text,
+diagrams, screenshots, and other visual material. The repository does not attempt
+to rebuild the PowerPoint file. Running the figure workflow writes PNG and PDF plots
+to `figures/`; updating the corresponding slides remains a manual step.
 
 ## Reference data and optional extraction
 
@@ -139,6 +135,6 @@ See `HFSS_MODEL_SPEC.md` and `HFSS_STUB_LENGTH_SWEEP_SPEC.md` in this directory.
 `--verify` compares recalculated/replotted chart values against a frozen extraction
 of the presentation's native charts. It checks the 12 impedance points and fitted
 trend, the three gain series, peak gain, and the two appendix ripple values.
-When `--deck` is supplied, its media are copied byte-for-byte and its checksum is
-reported in `figures/verification.json`. These checks catch a wrong source curve, wrong pump,
+The presentation is not opened or changed during verification. These checks catch a
+wrong source curve, wrong pump,
 missing dependency, or numerical drift; they do not establish physical accuracy.
