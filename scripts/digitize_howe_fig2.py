@@ -12,16 +12,14 @@ within 1.5% of the published 78.0 and 48.0 ohm reference points."""
 from __future__ import annotations
 
 import argparse
-import sys
 from pathlib import Path
+
+from _bootstrap import ROOT
 
 import numpy as np
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "code"))
-
-from io_utils import write_csv_rows  # noqa: E402
+from io_utils import write_csv_rows
 
 OUTPUT = ROOT / "results" / "bloch_corrected" / "step_32_fig2_z0_comparison"
 

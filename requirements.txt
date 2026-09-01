@@ -1,6 +1,5 @@
-# Python 3.12; exact installed dependency versions used for verification.
-# The solver itself is preserved locally rather than resolved by version alone.
-./vendor/twpasolver
+# Python 3.12; exact dependency versions used for verification.
+# scripts/_bootstrap.py loads the solver from vendor/twpasolver.
 annotated-types==0.8.0
 contourpy==1.3.3
 cycler==0.12.1

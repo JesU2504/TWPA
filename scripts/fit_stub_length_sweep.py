@@ -8,20 +8,16 @@ duplicated the 3.0 µm variation. Outputs are stored in result step 39."""
 from __future__ import annotations
 
 import csv
-import json
-import sys
 from pathlib import Path
+
+from _bootstrap import ROOT
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-sys.path.insert(0, str(ROOT / "code"))
-
-from fit_hfss_unit_cells import fit_cell  # noqa: E402
-from io_utils import write_csv_rows  # noqa: E402
-from plotting import save_figure  # noqa: E402
+from fit_hfss_unit_cells import fit_cell
+from io_utils import write_csv_rows, write_json
+from plotting import save_figure
 
 INPUTS = ROOT / "hfss_inputs"
 OUTPUT = ROOT / "results" / "bloch_corrected" / "step_39_stub_length_50_80ohm_sweep"
@@ -299,7 +295,7 @@ def main() -> None:
             "note": "From linearly extrapolating the 7-point 01_our_data.csv fit before this HFSS sweep existed",
         },
     }
-    (OUTPUT / "03_provenance.json").write_text(json.dumps(provenance, indent=2))
+    write_json(OUTPUT / "03_provenance.json", provenance)
 
     print()
     print(

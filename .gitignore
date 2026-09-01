@@ -1,7 +1,9 @@
 # Local environments, caches, and generated figure exports
 .venv/
 .cache/
-figures/
+figures/*
+!figures/*.png
+results/**/*.pdf
 __pycache__/
 *.py[cod]
 *.nbc

@@ -1,0 +1,22 @@
+name: Reproduce numerical results
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pip install ruff==0.16.5
+      - run: python scripts/check_environment.py
+      - run: ruff check code scripts
+      - run: ruff format --check code scripts
+      - run: python scripts/reproduce_figures.py --recompute --verify

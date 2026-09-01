@@ -6,15 +6,15 @@
     "reason": "kinetic_3p5um_debug.s2p was found byte-identical to kinetic_3um_debug.s2p -- a mis-exported HFSS variation, not real 3.5um data. Excluded until re-exported."
   },
   "inductance_range_pH": [
-    53.55865101793661,
-    55.35810288078309
+    53.5586510179,
+    55.3581028808
   ],
   "inductance_approximately_constant": true,
-  "length_for_Z0_50ohm_um": 8.339077715637043,
-  "length_for_Z0_80ohm_um": 2.7750323853939234,
+  "length_for_Z0_50ohm_um": 8.33907771564,
+  "length_for_Z0_80ohm_um": 2.77503238539,
   "paper_digitized_curve_source": "results/bloch_corrected/step_32_fig2_z0_comparison/01b_paper_digitized_Z0_curve.csv",
-  "paper_length_for_Z0_50ohm_um": 10.982547540983608,
-  "paper_length_for_Z0_80ohm_um": 3.6618670750382845,
+  "paper_length_for_Z0_50ohm_um": 10.982547541,
+  "paper_length_for_Z0_80ohm_um": 3.66186707504,
   "prior_rough_estimate_um": {
     "Z0_50ohm": [
       8.38,

@@ -1,9 +1,9 @@
 """Copy archived digitized reference data into the calculation output directories."""
 
 import csv
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from _bootstrap import ROOT
+
 REFERENCE = ROOT / "data/reference"
 
 

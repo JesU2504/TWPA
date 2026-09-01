@@ -1,11 +1,9 @@
 """Long-stub fits with a documented fallback when raw HFSS exports are absent."""
 
 import csv
-from pathlib import Path
 
+from _bootstrap import ROOT
 from fit_hfss_unit_cells import fit_cell
-
-ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():

@@ -30,9 +30,9 @@
       1.0,
       27.0
     ],
-    "maximum_attenuation_neper_per_supercell": 3.9484143928554514,
+    "maximum_attenuation_neper_per_supercell": 3.94841439286,
     "maximum_bloch_reflection_magnitude": 1.0,
-    "maximum_reciprocity_error": 0.0007130623009097281,
+    "maximum_reciprocity_error": 0.00071306230091,
     "method": "ABCD eigenvalue Bloch extraction",
     "reference_impedance_ohm": 50.0,
     "solver_alpha_interpretation": "zero dissipative loss",
@@ -46,23 +46,23 @@
     "hfss_inputs/supercell_15_4_15_zmatched_aux_14_27GHz.s2p"
   ],
   "loaded_cell_fit": {
-    "C_fF": 8.517433713548682,
-    "L_pH": 54.21407176663553,
-    "Lf_pH": 43.66280657854505
+    "C_fF": 8.51743371355,
+    "L_pH": 54.2140717666,
+    "Lf_pH": 43.6628065785
   },
-  "max_GBP_dB_GHz": 186.65606488761526,
-  "max_mean_B3dB_gain_dB": 33.95632037145826,
-  "pump_max_GBP_GHz": 15.999999999999995,
-  "pump_max_mean_B3dB_gain_GHz": 16.39999999999999,
+  "max_GBP_dB_GHz": 186.656064888,
+  "max_mean_B3dB_gain_dB": 33.9563203715,
+  "pump_max_GBP_GHz": 16.0,
+  "pump_max_mean_B3dB_gain_GHz": 16.4,
   "pump_sweep_GHz": [
     14.6,
-    19.59999999999998,
-    0.09999999999999964
+    19.6,
+    0.1
   ],
   "signal_sweep_GHz": [
     2.5,
-    11.499999999999968,
-    0.04999999999999982
+    11.5,
+    0.05
   ],
   "solver": "twpasolver.TWPAnalysis, model=minimal_3wm",
   "stopband_diagnostic": {
@@ -79,8 +79,8 @@
     "unloaded": 8.34
   },
   "unloaded_cell_fit": {
-    "C_fF": 21.613487111039642,
-    "L_pH": 53.92248518814828,
-    "Lf_pH": 83.95339185541867
+    "C_fF": 21.613487111,
+    "L_pH": 53.9224851881,
+    "Lf_pH": 83.9533918554
   }
 }

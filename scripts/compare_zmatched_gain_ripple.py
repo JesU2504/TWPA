@@ -9,9 +9,9 @@ from __future__ import annotations
 
 import csv
 import json
-import sys
 import time
-from pathlib import Path
+
+from _bootstrap import ROOT
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,15 +19,11 @@ from twpasolver import TWPAnalysis
 from twpasolver.models import TWPA, LCLfBaseCell
 from twpasolver.modes_rwa import ModeArrayFactory
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-sys.path.insert(0, str(ROOT / "code"))
-
-from fit_hfss_unit_cells import fit_cell  # noqa: E402
-from gain_ripple import db_to_linear_power, gain_ripple_db  # noqa: E402
-from hfss_bloch import apply_bloch_parameters  # noqa: E402
-from io_utils import read_touchstone, write_csv_rows  # noqa: E402
-from plotting import save_figure  # noqa: E402
+from fit_hfss_unit_cells import fit_cell
+from gain_ripple import db_to_linear_power, gain_ripple_db
+from hfss_bloch import apply_bloch_parameters
+from io_utils import read_touchstone, write_csv_rows, write_json
+from plotting import save_figure
 
 INPUTS = ROOT / "hfss_inputs"
 OUTPUT = ROOT / "results" / "bloch_corrected" / "step_41_zmatched_gain_ripple"
@@ -251,7 +247,6 @@ def main() -> None:
                 float(FINE_RIPPLE_WINDOW_GHZ[0]),
                 float(FINE_RIPPLE_WINDOW_GHZ[-1]),
             ],
-            "solve_time_s": elapsed_s,
             "observed_peak_to_peak_ripple_dB": numeric_ripple_pp_db,
             "mean_gain_in_window_dB": mean_gain_window_db,
             "gamma_mag_in_window": float(gamma_window),
@@ -263,10 +258,10 @@ def main() -> None:
                 "observed_peak_to_peak_ripple_dB"
             ],
             "original_gamma_mag_in_window": original_check["gamma_mag_in_window"],
-            "note": "Different signal windows (mid-plateau of each device's own dome), so this is a like-for-like 'ripple in the flat part of the gain profile' comparison, not identical frequencies.",
+            "note": "Each value uses the middle of its device's gain plateau; the windows differ.",
         },
     }
-    (OUTPUT / "04_provenance.json").write_text(json.dumps(provenance, indent=2))
+    write_json(OUTPUT / "04_provenance.json", provenance)
 
     print(f"\nMedian |Gamma| in-band (5-9 GHz): {median_gamma_inband:.4f}")
     print(

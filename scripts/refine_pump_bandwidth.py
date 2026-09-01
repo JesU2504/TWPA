@@ -5,20 +5,16 @@ from __future__ import annotations
 
 import csv
 import json
-import sys
-from pathlib import Path
+
+from _bootstrap import ROOT
 
 import numpy as np
 from twpasolver import TWPAnalysis
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "code"))
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from device_models import build_twpa_from_hfss  # noqa: E402
-from hfss_bloch import apply_bloch_parameters  # noqa: E402
-from io_utils import read_touchstone, write_csv_rows  # noqa: E402
-from reproduce_howe_fig3_hfss_bloch import recompute_k_star  # noqa: E402
+from device_models import build_twpa_from_hfss
+from hfss_bloch import apply_bloch_parameters
+from io_utils import read_touchstone, write_csv_rows, write_json
+from reproduce_howe_fig3_hfss_bloch import recompute_k_star
 
 INPUTS = ROOT / "hfss_inputs"
 OUTPUT = ROOT / "results" / "refined_pump"
@@ -100,9 +96,7 @@ def main():
         ["signal_GHz", "gain_dB"],
         [SIGNALS_GHZ, gain_db],
     )
-    (OUTPUT / "refined_result.json").write_text(
-        json.dumps({"best": best, "bloch": bloch}, indent=2, default=str)
-    )
+    write_json(OUTPUT / "refined_result.json", {"best": best, "bloch": bloch})
     print(json.dumps(best, indent=2))
 
 

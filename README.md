@@ -10,7 +10,7 @@ how periodic loading changes dispersion, where phase matching occurs, and how th
 pump and DC bias affect gain and bandwidth. The current model studies a NbTiN
 microstrip line with capacitive stubs and a 15–4–15 loading pattern.
 
-## From geometry to gain
+## Model
 
 HFSS provides the passive microwave response. Single-cell S-parameters are converted
 to ABCD matrices and fitted to an equivalent circuit with inductance `L`, capacitance
@@ -37,12 +37,18 @@ Changing the electromagnetic geometry requires new HFSS exports. The available
 project and setup specifications are in `hfss_projects/` and
 [`docs/HFSS_MODEL_SPEC.md`](docs/HFSS_MODEL_SPEC.md).
 
-With Python 3.12, install the dependencies from the repository root:
+The scripts require Python 3.12. On macOS, install the OpenMP runtime first:
 
 ```bash
+brew bundle
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/check_environment.py
 ```
+
+`requirements.txt` contains only packages from PyPI. The scripts load the preserved
+solver directly from `vendor/twpasolver`. See the
+[environment notes](docs/ENVIRONMENT.md) if CyRK cannot find `libomp` on macOS.
 
 Fit the baseline cells and calculate the HFSS–Bloch amplifier response:
 
@@ -73,15 +79,16 @@ included in `vendor/twpasolver/`, with its license and provenance.
 
 ## Model scope
 
-The current HFSS exports cover 1–27 GHz. The model treats dissipative loss as zero
-and keeps stopband evanescence separate from material attenuation. Extended-mode
-calculations use an analytic cell model outside the exported frequency range.
-The nonlinear current scale is an input parameter; agreement between reruns does
-not establish agreement with a fabricated device.
+The current HFSS exports cover 1–27 GHz. Dissipative loss is set to zero, while
+stopband evanescence is retained. Extended-mode calculations use an analytic cell
+model outside that band, and the nonlinear current scale is an input parameter.
+These choices limit comparisons with fabricated devices.
 
 The 40/50/60 µm points in the extended stub study currently use archived fits because
 their raw exports are unavailable. This does not affect the baseline supercell inputs.
-The available AEDT project requires a fresh solve before its cached results can be used.
+Regenerating the electromagnetic inputs requires Ansys HFSS. The included AEDT project
+documents the setup but has not been independently revalidated; clear its cached
+solutions before a new solve.
 
 ## Results and references
 
@@ -94,7 +101,8 @@ verification procedures are documented in [`docs/FIGURE_WORKFLOW.md`](docs/FIGUR
 [`KI-TWPA_3WM.pptx`](KI-TWPA_3WM.pptx) presents the project and its current results.
 The deck includes material created by hand and is not generated or modified by the
 code. `scripts/reproduce_figures.py` regenerates the numerical plot images from the
-saved model data for use in reports and presentations.
+saved model data for use in reports and presentations. The five expected PNG plots
+are committed under [`figures/`](figures/) for visual comparison.
 
 ## License
 

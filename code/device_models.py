@@ -10,6 +10,14 @@ from typing import Any
 import numpy as np
 from twpasolver.models import TWPA, LCLfBaseCell
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def repository_path(path: Path) -> str:
+    """POSIX path relative to the repository root."""
+    return path.resolve().relative_to(ROOT).as_posix()
+
+
 HFSS_CELL_COLUMNS = (
     "cell_type",
     "stub_length_um",
@@ -73,11 +81,10 @@ def load_hfss_cell_parameters(
         )
     checks = hfss_cell_acceptance_checks(rows)
     metadata = {
-        "input_file": str(path.resolve()),
+        "input_file": repository_path(path),
         "hfss_validated": hfss_validated,
         "sources": sorted(sources),
-        "acceptance_checks": checks,
-        "all_hfss_acceptance_checks_pass": bool(hfss_validated and all(checks.values())),
+        "fit_within_tolerance": bool(hfss_validated and all(checks.values())),
     }
     return rows, metadata
 
@@ -175,7 +182,7 @@ def build_twpa_from_hfss(
         if input_metadata["hfss_validated"]
         else "These parameters are placeholders and are not HFSS results.",
         "cell_input": input_metadata,
-        "amplifier_config_file": str(config_path.resolve()),
+        "amplifier_config_file": repository_path(config_path),
         "amplifier_config": config,
         "cells": rows,
         "total_cells": twpa.N_tot,

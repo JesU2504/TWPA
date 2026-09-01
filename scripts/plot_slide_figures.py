@@ -6,15 +6,14 @@ import argparse
 import csv
 import json
 import re
-from pathlib import Path
 
+from _bootstrap import ROOT
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
 REF = ROOT / "data/reference"
 RESULTS = ROOT / "results/bloch_corrected"
 OUTPUT = ROOT / "figures"

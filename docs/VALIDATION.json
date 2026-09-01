@@ -1,106 +1,26 @@
 {
-  "date": "2026-08-31",
-  "execution": "Full recalculation with generated results removed; exit code 0. Python 3.12 and the included solver source.",
-  "full_recompute": true,
+  "date": "2026-09-01",
+  "environment": "Python 3.12.12, macOS 14.5, Apple silicon",
+  "command": "python scripts/reproduce_figures.py --recompute --verify",
   "hfss_executed": false,
-  "fresh_dependency_install_tested": false,
-  "known_gap": "Six long-stub exports unavailable; archived fitted values used with a warning.",
-  "slide_checks": {
-    "impedance_point_max_error_ohm": 0.0,
-    "impedance_fit_max_error_ohm": 9.947598300641403e-14,
-    "experiment_chart_max_error": 0.0,
-    "simulation_chart_max_error": 0.0,
-    "model_chart_max_error": 0.0,
-    "model_peak_gain_dB": 33.74288885209461,
-    "selected_pump_GHz": 13.86500000000001,
-    "bandwidth_3dB_GHz": 3.1599999999999326,
-    "step_37_ripple_dB": 4.095350284055932,
-    "step_41_ripple_dB": 2.7415467389081627,
-    "deck_sha256": "e5108f274a1308f6e1dfb8473b56a8ec6b5788b2572eaf8dfda35786b1743d0d",
-    "missing_raw_exports": [
-      "kinetic_40um_debug.s2p",
-      "kinetic_40um_lowfreq.s2p",
-      "kinetic_50um_debug.s2p",
-      "kinetic_50um_lowfreq.s2p",
-      "kinetic_60um_debug.s2p",
-      "kinetic_60um_lowfreq.s2p"
-    ]
+  "checks": {
+    "impedance_points": "pass",
+    "impedance_fit": "pass",
+    "gain_curves": "pass",
+    "peak_gain_dB": 33.7429,
+    "pump_GHz": 13.865,
+    "bandwidth_3dB_GHz": 3.16,
+    "baseline_ripple_dB": 4.095,
+    "redesign_ripple_dB": 2.742
   },
-  "visual_check": "All five generated PNG figure groups inspected; axes, legends, gain contour and curves are legible.",
-  "numerical_comparisons_with_reference_results": [
-    {
-      "table": "results/bloch_corrected/step_34_howe_fig3_hfss_bloch_reproduction/01_dispersion.csv",
-      "shape": [
-        13000,
-        3
-      ],
-      "max_absolute_difference": 0.0,
-      "nan_mask_identical": true
-    },
-    {
-      "table": "results/bloch_corrected/step_34_howe_fig3_hfss_bloch_reproduction/01b_dispersion_bare_reference.csv",
-      "shape": [
-        14900,
-        2
-      ],
-      "max_absolute_difference": 0.0,
-      "nan_mask_identical": true
-    },
-    {
-      "table": "results/bloch_corrected/step_34_howe_fig3_hfss_bloch_reproduction/02c_gain_heatmap_extended_x14.csv",
-      "shape": [
-        231,
-        52
-      ],
-      "max_absolute_difference": 0.0,
-      "nan_mask_identical": true
-    },
-    {
-      "table": "results/bloch_corrected/step_34_howe_fig3_hfss_bloch_reproduction/02d_phase_mismatch_extended_x14.csv",
-      "shape": [
-        231,
-        52
-      ],
-      "max_absolute_difference": 0.0,
-      "nan_mask_identical": true
-    },
-    {
-      "table": "results/bloch_corrected/step_37_gain_ripple_analytic/06_fine_numeric_ripple_check.csv",
-      "shape": [
-        201,
-        2
-      ],
-      "max_absolute_difference": 0.0,
-      "nan_mask_identical": true
-    },
-    {
-      "table": "results/bloch_corrected/step_41_zmatched_gain_ripple/03_fine_numeric_ripple_check.csv",
-      "shape": [
-        201,
-        2
-      ],
-      "max_absolute_difference": 0.0,
-      "nan_mask_identical": true
-    }
+  "rerun_max_absolute_difference": 1.42e-14,
+  "missing_hfss_exports": [
+    "kinetic_40um_debug.s2p",
+    "kinetic_40um_lowfreq.s2p",
+    "kinetic_50um_debug.s2p",
+    "kinetic_50um_lowfreq.s2p",
+    "kinetic_60um_debug.s2p",
+    "kinetic_60um_lowfreq.s2p"
   ],
-  "reference_cleanup": {
-    "date": "2026-08-31",
-    "full_recompute_without_results_or_paper_images": true,
-    "slide_verification_passed": true,
-    "result_tables_compared": 28,
-    "comparison_atol": 1e-12,
-    "comparison_rtol": 1e-12,
-    "maximum_absolute_difference": 1.4210854715202004e-14,
-    "reference_output_headers_preserved": true,
-    "touchstone_files_with_only_source_path_comment_removed": 24,
-    "optional_external_source_extraction_matches_archived_curves": true,
-    "source_hashes_verified": true,
-    "deck_unchanged": true,
-    "git_history_rewritten": true,
-    "presentation_excluded_from_public_tree": false,
-    "presentation_private_backup_sha256": "e5108f274a1308f6e1dfb8473b56a8ec6b5788b2572eaf8dfda35786b1743d0d",
-    "deckless_verification_passed": true,
-    "presentation_included_unchanged": true,
-    "presentation_not_generated_by_pipeline": true
-  }
+  "presentation_sha256": "e5108f274a1308f6e1dfb8473b56a8ec6b5788b2572eaf8dfda35786b1743d0d"
 }

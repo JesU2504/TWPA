@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from _bootstrap import ROOT
 import numpy as np
 
 CELL_DEFINITIONS: dict[str, dict[str, float | str]] = {
@@ -178,8 +179,10 @@ def acceptance_gates(fitted_cells: dict[str, dict[str, float]]) -> dict[str, boo
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input-dir", type=Path, default=Path("hfss_inputs"))
-    parser.add_argument("--output", type=Path, default=Path("hfss_inputs/hfss_cell_parameters.csv"))
+    parser.add_argument("--input-dir", type=Path, default=ROOT / "hfss_inputs")
+    parser.add_argument(
+        "--output", type=Path, default=ROOT / "hfss_inputs/hfss_cell_parameters.csv"
+    )
     args = parser.parse_args()
 
     fitted_cells = {

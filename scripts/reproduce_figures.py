@@ -9,9 +9,8 @@ import os
 import subprocess
 import sys
 from datetime import datetime, timezone
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from _bootstrap import ROOT
 
 
 def main():
@@ -35,7 +34,6 @@ def main():
         MPLCONFIGDIR=str(cache / "matplotlib"),
         NUMBA_CACHE_DIR=str(cache / "numba"),
         XDG_CACHE_HOME=str(cache),
-        PYTHONPATH=str(ROOT / "vendor/twpasolver"),
     )
     tasks = []
     if args.recompute:

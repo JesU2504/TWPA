@@ -10,24 +10,20 @@ Outputs are stored in result step 37."""
 from __future__ import annotations
 
 import csv
-import json
-import sys
 import time
-from pathlib import Path
+
+from _bootstrap import ROOT
 
 import matplotlib.pyplot as plt
 import numpy as np
 from twpasolver import TWPAnalysis
 from twpasolver.modes_rwa import ModeArrayFactory
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "code"))
-
-from device_models import build_twpa_from_hfss  # noqa: E402
-from gain_ripple import db_to_linear_power, gain_ripple_db  # noqa: E402
-from hfss_bloch import apply_bloch_parameters  # noqa: E402
-from io_utils import read_touchstone, write_csv_rows  # noqa: E402
-from plotting import save_figure  # noqa: E402
+from device_models import build_twpa_from_hfss
+from gain_ripple import db_to_linear_power, gain_ripple_db
+from hfss_bloch import apply_bloch_parameters
+from io_utils import read_touchstone, write_csv_rows, write_json
+from plotting import save_figure
 
 INPUTS = ROOT / "hfss_inputs"
 OUTPUT = ROOT / "results" / "bloch_corrected" / "step_37_gain_ripple_analytic"
@@ -260,7 +256,7 @@ def main() -> None:
         "method": "Eq. (S.1) is a disclosed closed-form formula, reproduced exactly (not digitized)",
         "our_device_gain_source": str((STEP34 / "04_gain_profiles.csv").relative_to(ROOT)),
         "our_device_gamma_source": "engineered.data['gammas'] (Bloch-extracted S11/S22 of the real 15-4-15 HFSS supercell)",
-        "eta_assumption": "eta=1 (lossless), self-consistent with the project's documented zero-loss HFSS/Bloch policy",
+        "eta_assumption": "eta=1; dissipative loss omitted",
         "our_pump_GHz": OUR_GBP_OPTIMAL_PUMP_GHZ,
         "fine_numeric_check": {
             "signal_window_GHz": [
@@ -269,7 +265,6 @@ def main() -> None:
             ],
             "step_GHz": 0.01,
             "n_points": len(FINE_RIPPLE_WINDOW_GHZ),
-            "solve_time_s": elapsed_s,
             "observed_peak_to_peak_ripple_dB": numeric_ripple_peak_to_peak_db,
             "mean_gain_in_window_dB": mean_gain_in_window_db,
             "gamma_mag_in_window": float(reflection_magnitude_in_window),
@@ -277,7 +272,7 @@ def main() -> None:
         },
         "our_device_ripple_diverges_eq_s1": bool(np.any(~np.isfinite(our_ripple_db))),
     }
-    (OUTPUT / "07_provenance.json").write_text(json.dumps(provenance_out, indent=2))
+    write_json(OUTPUT / "07_provenance.json", provenance_out)
 
     print(
         f"Numeric peak-to-peak ripple in {FINE_RIPPLE_WINDOW_GHZ[0]}-{FINE_RIPPLE_WINDOW_GHZ[-1]} GHz window: {numeric_ripple_peak_to_peak_db:.3f} dB"

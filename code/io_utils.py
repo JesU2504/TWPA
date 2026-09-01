@@ -3,10 +3,27 @@
 from __future__ import annotations
 
 import csv
+import json
 from pathlib import Path
 from typing import Iterable, Sequence
 
 import numpy as np
+
+
+def _rounded_numbers(value):
+    if isinstance(value, (float, np.floating)):
+        return float(f"{value:.12g}") if np.isfinite(value) else None
+    if isinstance(value, dict):
+        return {key: _rounded_numbers(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_rounded_numbers(item) for item in value]
+    return value
+
+
+def write_json(path: Path, value, *, sort_keys: bool = False) -> None:
+    """Write calculated metadata with twelve significant digits."""
+    path.write_text(json.dumps(_rounded_numbers(value), indent=2, sort_keys=sort_keys) + "\n")
+
 
 Z0_DEFAULT_OHM = 50.0
 

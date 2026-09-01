@@ -27,7 +27,7 @@ gain calculations start from saved electromagnetic exports; HFSS execution is a 
    grid. Outputs are under `results/bloch_corrected/step_34_.../`.
 6. `refine_pump_bandwidth.py`: sweep 13.80–13.92 GHz in 0.005 GHz steps, using
    0.01 GHz signal spacing; select the result nearest the target 3.15 GHz bandwidth.
-   Saved results select 13.865 GHz, 3.16 GHz bandwidth, and 33.7428888521 dB peak gain.
+   Saved results select 13.865 GHz, 3.16 GHz bandwidth, and 33.74 dB peak gain.
 7. `reproduce_howe_fig_s5_gain_ripple.py`: calculate the baseline eight-mode
    reflection ripple, plus its analytic diagnostic, under step 37.
 8. `reproduce_fig3_zmatched_supercell.py`: calculate the stub-only redesigned
@@ -86,14 +86,14 @@ every fifth point, retaining the final endpoint; the plotter does the same.
 The baseline ripple uses pump 14.10 GHz; the redesign uses pump 16 GHz.
 The displayed peak-to-peak values are 4.09535 dB and 2.74155 dB. Their mean gains
 and reflection coefficients refer to different mid-band signal windows, not an
-identical-frequency comparison. Lower ripple alone therefore does not establish
-a better gain design.
+identical-frequency comparison. The two ripple values should be compared together
+with gain and bandwidth.
 
 The model treats dissipative loss as zero; Bloch evanescence is retained separately.
 The extended mode calculations may sample frequencies above the 27 GHz measured
 band, where the analytic cell fallback is used.
 Scalar nonlinear parameters, forward coupled envelopes, and reflection treatment
-remain model assumptions; numerical reproducibility is not hardware validation.
+remain model assumptions. The verifier tests the calculation, not a fabricated device.
 
 ## Presentation
 
@@ -124,11 +124,9 @@ The next full pipeline run restores the archived curves.
 
 ## HFSS source availability
 
-The available AEDT project and conversion notes are under `hfss_projects/`.
-Cached solutions can belong to the previous geometry and require clearing before
-a new HFSS solve. The project has not been independently revalidated. The Python
-workflow uses the saved Touchstone exports.
-See `HFSS_MODEL_SPEC.md` and `HFSS_STUB_LENGTH_SWEEP_SPEC.md` in this directory.
+The Python workflow uses the saved Touchstone exports. The available AEDT project,
+manual setup, and cache handling are covered by `HFSS_MODEL_SPEC.md` and
+`HFSS_STUB_LENGTH_SWEEP_SPEC.md` in this directory.
 
 ## Verification
 
@@ -136,5 +134,4 @@ See `HFSS_MODEL_SPEC.md` and `HFSS_STUB_LENGTH_SWEEP_SPEC.md` in this directory.
 of the presentation's native charts. It checks the 12 impedance points and fitted
 trend, the three gain series, peak gain, and the two appendix ripple values.
 The presentation is not opened or changed during verification. These checks catch a
-wrong source curve, wrong pump,
-missing dependency, or numerical drift; they do not establish physical accuracy.
+wrong source curve, wrong pump, missing dependency, or numerical drift.

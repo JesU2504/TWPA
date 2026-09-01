@@ -1,11 +1,11 @@
 {
   "best": {
-    "pump_GHz": 13.86500000000001,
-    "mean_B3dB_gain_dB": 32.9123285438667,
-    "B3dB_bandwidth_GHz": 3.1599999999999326,
-    "peak_gain_dB": 33.74288885209461,
+    "pump_GHz": 13.865,
+    "mean_B3dB_gain_dB": 32.9123285439,
+    "B3dB_bandwidth_GHz": 3.16,
+    "peak_gain_dB": 33.7428888521,
     "target_bandwidth_GHz": 3.15,
-    "absolute_bandwidth_error_GHz": 0.00999999999993273
+    "absolute_bandwidth_error_GHz": 0.00999999999993
   },
   "bloch": {
     "method": "ABCD eigenvalue Bloch extraction",
@@ -17,8 +17,8 @@
     "reference_impedance_ohm": 50.0,
     "solver_alpha_policy": "zero_loss",
     "solver_alpha_interpretation": "zero dissipative loss",
-    "maximum_reciprocity_error": 0.0007164427651773497,
+    "maximum_reciprocity_error": 0.000716442765177,
     "maximum_bloch_reflection_magnitude": 1.0,
-    "maximum_attenuation_neper_per_supercell": 0.2065797472113896
+    "maximum_attenuation_neper_per_supercell": 0.206579747211
   }
 }

@@ -8,22 +8,18 @@ Result step 34 supplies the gain profiles used by the reflection calculation."""
 
 from __future__ import annotations
 
-import json
-import sys
-from pathlib import Path
+
+from _bootstrap import ROOT
 
 import matplotlib.pyplot as plt
 import numpy as np
 from twpasolver import TWPAnalysis
 from twpasolver.models import TWPA, LCLfBaseCell
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "code"))
-
-from device_models import build_twpa_from_hfss  # noqa: E402
-from hfss_bloch import apply_bloch_parameters  # noqa: E402
-from io_utils import read_touchstone, write_csv_rows  # noqa: E402
-from plotting import save_figure  # noqa: E402
+from device_models import build_twpa_from_hfss
+from hfss_bloch import apply_bloch_parameters
+from io_utils import read_touchstone, write_csv_rows, write_json
+from plotting import save_figure
 
 OUTPUT = ROOT / "results" / "bloch_corrected" / "step_34_howe_fig3_hfss_bloch_reproduction"
 INPUTS = ROOT / "hfss_inputs"
@@ -276,18 +272,12 @@ def main() -> None:
         ],
         "hfss_stub_length_um": 12.1,
         "reported_engineered_dispersion_band_GHz": [1.0, 27.0],
-        "cell_placeholder_role": (
-            "hfss_inputs/hfss_cell_parameters.csv (single-cell fit at "
-            "stub_length=12.0 um, not the corrected 12.1 um) is used only to "
-            "instantiate twpasolver's structural cell count (N_tot) and "
-            "current-nonlinearity scaling; it contributes no value shown in "
-            "any panel or CSV. All reported engineered-line dispersion, gain, "
-            "bandwidth, and GBP values come only from the 15-4-15 HFSS "
-            "supercell measurement (apply_bloch_parameters), clipped to its "
-            "1-27 GHz measured band."
+        "cell_model_role": (
+            "The 12.0 um single-cell fit sets cell count and nonlinear scaling. "
+            "The 12.1 um supercell exports set dispersion over 1-27 GHz."
         ),
         "amplifier_config": config,
-        "cell_placeholder_provenance": provenance,
+        "cell_model": provenance,
         "bloch_extraction": bloch_provenance,
         "solver": "twpasolver.TWPAnalysis, model=minimal_3wm",
         "pump_sweep_GHz": [
@@ -311,9 +301,7 @@ def main() -> None:
         "max_mean_B3dB_gain_dB": float(mean_gains_db[index_max_gain]),
         "max_GBP_dB_GHz": float(gbp_db_ghz[index_max_gbp]),
     }
-    (OUTPUT / "05_provenance.json").write_text(
-        json.dumps(provenance_out, indent=2, sort_keys=True, default=str) + "\n"
-    )
+    write_json(OUTPUT / "05_provenance.json", provenance_out, sort_keys=True)
 
     fig = plt.figure(figsize=(13.5, 7.5), constrained_layout=True)
     grid = fig.add_gridspec(2, 3, width_ratios=[1.0, 1.15, 1.0])

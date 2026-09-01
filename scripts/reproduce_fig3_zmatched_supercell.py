@@ -12,22 +12,18 @@ Outputs are stored in result step 40."""
 from __future__ import annotations
 
 import json
-import sys
-from pathlib import Path
+
+from _bootstrap import ROOT
 
 import matplotlib.pyplot as plt
 import numpy as np
 from twpasolver import TWPAnalysis
 from twpasolver.models import TWPA, LCLfBaseCell
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-sys.path.insert(0, str(ROOT / "code"))
-
-from fit_hfss_unit_cells import fit_cell  # noqa: E402
-from hfss_bloch import apply_bloch_parameters  # noqa: E402
-from io_utils import read_touchstone, write_csv_rows  # noqa: E402
-from plotting import save_figure  # noqa: E402
+from fit_hfss_unit_cells import fit_cell
+from hfss_bloch import apply_bloch_parameters
+from io_utils import read_touchstone, write_csv_rows, write_json
+from plotting import save_figure
 
 INPUTS = ROOT / "hfss_inputs"
 OUTPUT = ROOT / "results" / "bloch_corrected" / "step_40_zmatched_supercell_gain"
@@ -274,9 +270,7 @@ def main() -> None:
         "max_mean_B3dB_gain_dB": float(mean_gains_db[index_max_gain]),
         "max_GBP_dB_GHz": float(gbp_db_ghz[index_max_gbp]),
     }
-    (OUTPUT / "05_provenance.json").write_text(
-        json.dumps(provenance, indent=2, sort_keys=True, default=str)
-    )
+    write_json(OUTPUT / "05_provenance.json", provenance, sort_keys=True)
 
     fig, (ax_gain_heatmap, ax_gain_profiles) = plt.subplots(1, 2, figsize=(12, 5))
     mesh = ax_gain_heatmap.pcolormesh(
