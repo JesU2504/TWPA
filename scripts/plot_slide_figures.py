@@ -28,7 +28,7 @@ def table(path):
 
 
 def rows(path):
-    with path.open() as handle:
+    with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
 
 
@@ -63,7 +63,7 @@ def main():
     args = parser.parse_args()
     OUTPUT.mkdir(exist_ok=True)
     plt.rcParams.update({"font.size": 12, "axes.spines.top": False, "axes.spines.right": False})
-    chart = json.loads((REF / "final_slide_chart_series.json").read_text())
+    chart = json.loads((REF / "final_slide_chart_series.json").read_text(encoding="utf-8"))
     checks = {}
 
     extra = ROOT / "results/extended_stubs.csv"
@@ -122,7 +122,7 @@ def main():
     pumps = np.array(
         [
             float(re.search(r"pump_([\d.]+)GHz", h)[1])
-            for h in heatfile.read_text().splitlines()[0].split(",")[1:]
+            for h in heatfile.read_text(encoding="utf-8").splitlines()[0].split(",")[1:]
         ]
     )
     fig, ax = plt.subplots(figsize=(8, 5.5), layout="constrained")
@@ -181,7 +181,9 @@ def main():
             np.max(np.abs(data - np.column_stack([ref["x"], ref["y"]])))
         )
     checks["model_peak_gain_dB"] = float(np.max(model[:, 1]))
-    refined = json.loads((ROOT / "results/refined_pump/refined_result.json").read_text())["best"]
+    refined = json.loads(
+        (ROOT / "results/refined_pump/refined_result.json").read_text(encoding="utf-8")
+    )["best"]
     checks["selected_pump_GHz"] = refined["pump_GHz"]
     checks["bandwidth_3dB_GHz"] = refined["B3dB_bandwidth_GHz"]
 
@@ -211,7 +213,9 @@ def main():
         for band in ("debug", "lowfreq")
         if not (ROOT / "hfss_inputs" / f"kinetic_{n}um_{band}.s2p").exists()
     ]
-    (OUTPUT / "verification.json").write_text(json.dumps(checks, indent=2) + "\n")
+    (OUTPUT / "verification.json").write_text(
+        json.dumps(checks, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     if args.verify:
         assert checks["impedance_point_max_error_ohm"] < 1e-6, checks
         assert checks["impedance_fit_max_error_ohm"] < 1e-5, checks

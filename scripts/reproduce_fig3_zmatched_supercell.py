@@ -73,7 +73,7 @@ def load_measured_supercell_s_parameters() -> tuple[np.ndarray, np.ndarray]:
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    config = json.loads((INPUTS / "amplifier_config.json").read_text())
+    config = json.loads((INPUTS / "amplifier_config.json").read_text(encoding="utf-8"))
     initial_signal_current_a = float(config["Is0_A"])
 
     unloaded_8 = fit_cell(

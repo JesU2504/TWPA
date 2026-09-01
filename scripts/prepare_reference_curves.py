@@ -18,12 +18,12 @@ def main():
     for name, relative_path in destinations.items():
         destination = ROOT / relative_path
         destination.parent.mkdir(parents=True, exist_ok=True)
-        with (REFERENCE / name).open(newline="") as source:
+        with (REFERENCE / name).open(newline="", encoding="utf-8") as source:
             rows = list(csv.reader(source))
         # Archived gain traces use different labels; outputs share the solver's schema.
         if name != "paper_impedance_fig2.csv":
             rows[0] = ["signal_GHz", "gain_dB"]
-        with destination.open("w", newline="") as output:
+        with destination.open("w", newline="", encoding="utf-8") as output:
             csv.writer(output).writerows(rows)
         print(f"Reference data: {relative_path}")
 

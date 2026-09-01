@@ -93,7 +93,7 @@ def find_crossing_length(
 
 def load_paper_digitized_curve(path: Path) -> tuple[np.ndarray, np.ndarray]:
     """Length and impedance arrays from the digitized Fig. 2 CSV."""
-    rows = list(csv.DictReader(open(path)))
+    rows = list(csv.DictReader(path.open(newline="", encoding="utf-8")))
     lengths_um = np.array([float(row["finger_length_um"]) for row in rows])
     z0_ohm = np.array([float(row["Z0_ohm"]) for row in rows])
     return lengths_um, z0_ohm

@@ -61,13 +61,13 @@ def main():
         check=True,
     )
     report = ROOT / "figures/verification.json"
-    data = json.loads(report.read_text())
+    data = json.loads(report.read_text(encoding="utf-8"))
     data.update(
         mode="recompute" if args.recompute else "plot_cached_results",
         verified=args.verify,
         completed_utc=datetime.now(timezone.utc).isoformat(),
     )
-    report.write_text(json.dumps(data, indent=2) + "\n")
+    report.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"Figures: {ROOT / 'figures'}")
 
 

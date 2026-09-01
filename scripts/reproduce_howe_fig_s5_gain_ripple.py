@@ -138,7 +138,9 @@ def main() -> None:
     freqs_ghz = np.asarray(engineered.data["freqs"], dtype=float)
     reflection_magnitude_by_freq = np.abs(np.asarray(engineered.data["gammas"], dtype=complex))
 
-    gain_rows = list(csv.DictReader(open(STEP34 / "04_gain_profiles.csv")))
+    gain_rows = list(
+        csv.DictReader((STEP34 / "04_gain_profiles.csv").open(newline="", encoding="utf-8"))
+    )
     gbp_column = next(key for key in gain_rows[0] if "max_gbp" in key)
     signal_ghz = np.array([float(row["signal_GHz"]) for row in gain_rows])
     our_gain_db = np.array([float(row[gbp_column]) for row in gain_rows])

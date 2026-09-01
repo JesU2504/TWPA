@@ -87,7 +87,7 @@ def main():
     best["target_bandwidth_GHz"] = TARGET_BW_GHZ
     best["absolute_bandwidth_error_GHz"] = abs(best["B3dB_bandwidth_GHz"] - TARGET_BW_GHZ)
 
-    with open(OUTPUT / "refined_pump_sweep.csv", "w", newline="") as handle:
+    with (OUTPUT / "refined_pump_sweep.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)

@@ -1,1 +1,30 @@
-*.csv whitespace=cr-at-eol
+# Cross-platform reproducibility: pin line endings so a fresh checkout and a
+# fresh `--recompute` produce byte-identical files on Linux, macOS, and Windows.
+#
+# Without this, a Windows clone with core.autocrlf=true rewrites tracked text
+# files on checkout, leaving a repo-wide dirty tree and breaking
+# `git diff --exit-code` in the reproduction workflow.
+
+# Source and metadata: normalize to LF everywhere. The JSON writers in
+# code/io_utils.py and the scripts pass newline="\n" so regenerated files match.
+*.py    text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.toml  text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.json  text eol=lf
+.gitattributes text eol=lf
+.gitignore     text eol=lf
+
+# Generated tables and Touchstone exports: byte-preserve, no EOL conversion.
+# The csv module writes CRLF on every platform, and the committed .s2p exports
+# are CRLF; freezing them keeps regenerated output identical to what is tracked.
+*.csv   -text
+*.s2p   -text
+
+# Binary assets: never convert or diff as text.
+*.pptx  binary
+*.png   binary
+*.pdf   binary
+*.aedt  binary

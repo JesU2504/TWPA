@@ -55,7 +55,7 @@ def load_measured_supercell_s_parameters() -> tuple[np.ndarray, np.ndarray]:
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    config = json.loads((INPUTS / "amplifier_config.json").read_text())
+    config = json.loads((INPUTS / "amplifier_config.json").read_text(encoding="utf-8"))
     initial_signal_current_a = float(config["Is0_A"])
     # The second pump harmonic reaches 32 GHz, beyond the default 30 GHz grid.
     config["base_frequency_stop_GHz"] = 40.0
@@ -131,7 +131,9 @@ def main() -> None:
     freqs_ghz = np.asarray(engineered.data["freqs"], dtype=float)
     reflection_magnitude_by_freq = np.abs(np.asarray(engineered.data["gammas"], dtype=complex))
 
-    gain_rows = list(csv.DictReader(open(STEP40 / "04_gain_profiles.csv")))
+    gain_rows = list(
+        csv.DictReader((STEP40 / "04_gain_profiles.csv").open(newline="", encoding="utf-8"))
+    )
     gbp_column = next(key for key in gain_rows[0] if "max_gbp" in key)
     signal_ghz = np.array([float(row["signal_GHz"]) for row in gain_rows])
     our_gain_db = np.array([float(row[gbp_column]) for row in gain_rows])
@@ -235,7 +237,7 @@ def main() -> None:
     save_figure(fig, OUTPUT, "03_fine_numeric_ripple_check")
     plt.close(fig)
 
-    original_provenance = json.loads((STEP37 / "07_provenance.json").read_text())
+    original_provenance = json.loads((STEP37 / "07_provenance.json").read_text(encoding="utf-8"))
     original_check = original_provenance["fine_numeric_check"]
 
     provenance = {

@@ -8,7 +8,7 @@ from fit_hfss_unit_cells import fit_cell
 
 def main():
     target = ROOT / "data/reference/hfss_40_50_60um_fits.csv"
-    with target.open() as handle:
+    with target.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     missing = []
     for row in rows:
@@ -31,7 +31,7 @@ def main():
     # Put regenerated/fallback points in results; never overwrite the frozen reference.
     output = ROOT / "results/extended_stubs.csv"
     output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", newline="") as handle:
+    with output.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)

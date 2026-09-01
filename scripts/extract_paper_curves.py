@@ -65,7 +65,7 @@ def main():
     output = ROOT / "results/paper_curves"
     output.mkdir(parents=True, exist_ok=True)
     for name, data in [("paper_experiment_fig4a.csv", exp), ("paper_simulation_fig3d.csv", sim)]:
-        with (output / name).open("w", newline="") as handle:
+        with (output / name).open("w", newline="", encoding="utf-8") as handle:
             writer = csv.writer(handle)
             writer.writerow(["signal_GHz", "gain_dB"])
             writer.writerows(data)

@@ -47,9 +47,28 @@ python3.12 -m venv .venv
 .venv/bin/python scripts/check_environment.py
 ```
 
+On Linux, install `libomp` (for example `apt-get install libomp-dev`) and skip the
+`fix_cyrk_libomp.py` step. On Windows, use the PowerShell equivalents; `brew bundle`
+and `fix_cyrk_libomp.py` are macOS-only and the latter exits cleanly elsewhere:
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python scripts\check_environment.py
+.venv\Scripts\python scripts\reproduce_figures.py --recompute --verify
+```
+
+Configure Git to keep LF line endings before cloning on Windows
+(`git config --global core.autocrlf false`); the repository `.gitattributes` also
+pins line endings so a checkout is not rewritten on any platform. GitHub Actions
+runs the full `--recompute --verify` recalculation on Linux, macOS, and Windows.
+`--verify` compares recalculated values against the archived references within
+tolerance; small cross-platform numerical differences are expected.
+
 `requirements.txt` contains only packages from PyPI. The scripts load the preserved
 solver directly from `vendor/twpasolver`. See the
-[environment notes](docs/ENVIRONMENT.md) for details of the macOS CyRK repair.
+[environment notes](docs/ENVIRONMENT.md) for the macOS CyRK repair and other
+platform details.
 
 Fit the baseline cells and calculate the HFSS–Bloch amplifier response:
 

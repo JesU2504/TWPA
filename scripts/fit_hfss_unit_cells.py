@@ -51,7 +51,7 @@ def read_touchstone_ma(path: Path) -> tuple[np.ndarray, np.ndarray]:
     frequencies_hz: list[float] = []
     s_matrices: list[np.ndarray] = []
     option_line: str | None = None
-    for raw_line in path.read_text().splitlines():
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
         line = raw_line.strip()
         if not line or line.startswith("!"):
             continue
@@ -190,7 +190,7 @@ def main() -> None:
     }
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("w", newline="") as handle:
+    with args.output.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(OUTPUT_COLUMNS))
         writer.writeheader()
         for name in ("unloaded", "loaded"):
@@ -202,7 +202,7 @@ def main() -> None:
         "acceptance_gates": acceptance_gates(fitted_cells),
     }
     report_path = args.output.with_suffix(".fit.json")
-    report_path.write_text(json.dumps(report, indent=2) + "\n")
+    report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(report, indent=2))
     print(f"Wrote {args.output} and {report_path}")
 

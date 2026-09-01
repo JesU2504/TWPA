@@ -34,7 +34,8 @@ def cyrk_extensions() -> list[Path]:
 
 def main() -> None:
     if platform.system() != "Darwin":
-        raise RuntimeError("This repair is only needed on macOS")
+        print("CyRK OpenMP repair skipped: only needed on macOS")
+        return
 
     libomp = libomp_directory()
     changed = 0

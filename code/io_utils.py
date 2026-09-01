@@ -21,8 +21,15 @@ def _rounded_numbers(value):
 
 
 def write_json(path: Path, value, *, sort_keys: bool = False) -> None:
-    """Write calculated metadata with twelve significant digits."""
-    path.write_text(json.dumps(_rounded_numbers(value), indent=2, sort_keys=sort_keys) + "\n")
+    """Write calculated metadata with twelve significant digits.
+
+    ``newline="\\n"`` and UTF-8 keep the output byte-identical on Windows, where
+    ``Path.write_text`` would otherwise emit CRLF."""
+    path.write_text(
+        json.dumps(_rounded_numbers(value), indent=2, sort_keys=sort_keys) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def _csv_value(value):
@@ -43,7 +50,7 @@ def read_touchstone(path: Path, *, z0_ohm: float = Z0_DEFAULT_OHM) -> tuple[np.n
     matrices: list[np.ndarray] = []
     data_format: str | None = None
     reference: float | None = None
-    for raw_line in path.read_text().splitlines():
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
         line = raw_line.strip()
         if not line or line.startswith("!"):
             continue
@@ -76,7 +83,7 @@ def read_touchstone(path: Path, *, z0_ohm: float = Z0_DEFAULT_OHM) -> tuple[np.n
 def write_csv_rows(path: Path, header: Sequence[str], columns: Iterable[Iterable]) -> None:
     """Write stable CSV output from column iterables."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline="") as handle:
+    with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
         writer.writerow(header)
         writer.writerows(tuple(_csv_value(value) for value in row) for row in zip(*columns))

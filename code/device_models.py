@@ -44,7 +44,7 @@ def load_hfss_cell_parameters(
     The CSV must contain exactly one row per role and finite physical parameters.
     Non-HFSS source labels require allow_placeholder=True."""
     path = Path(path)
-    with path.open(newline="") as handle:
+    with path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
         missing = set(HFSS_CELL_COLUMNS) - set(reader.fieldnames or ())
         if missing:
@@ -124,7 +124,7 @@ def build_twpa_from_hfss(
     allow_placeholder is enabled."""
     rows, input_metadata = load_hfss_cell_parameters(cell_csv, allow_placeholder=allow_placeholder)
     config_path = Path(config_json)
-    config = json.loads(config_path.read_text())
+    config = json.loads(config_path.read_text(encoding="utf-8"))
     required_keys = {
         "unloaded_cells_each_side",
         "loaded_cells",

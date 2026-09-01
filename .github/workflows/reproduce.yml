@@ -6,17 +6,29 @@ on:
 
 jobs:
   reproduce:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-14, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
-      - run: sudo apt-get update && sudo apt-get install -y libomp-dev
+      - name: Install OpenMP runtime (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libomp-dev
+      - name: Install OpenMP runtime (macOS)
+        if: runner.os == 'macOS'
+        run: brew install libomp
       - run: python -m pip install -r requirements.txt
       - run: python -m pip install ruff==0.16.5
+      - name: Repair CyRK OpenMP path (macOS)
+        if: runner.os == 'macOS'
+        run: python scripts/fix_cyrk_libomp.py
       - run: python scripts/check_environment.py
       - run: ruff check code scripts
       - run: ruff format --check code scripts
