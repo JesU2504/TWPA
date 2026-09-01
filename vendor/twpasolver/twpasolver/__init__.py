@@ -61,7 +61,11 @@ multi-mode simulations with pump harmonics and frequency conversion processes.
 
 import importlib.metadata as im
 
-__version__ = im.version(__package__)
+try:
+    __version__ = im.version(__package__)
+except im.PackageNotFoundError:
+    # The repository loads this vendored copy directly, without installing it.
+    __version__ = "0.0.1"
 
 from twpasolver.analysis import TWPAnalysis
 from twpasolver.file_utils import read_file, save_to_file
