@@ -1,7 +1,7 @@
 {
   "purpose": "Compare gain ripple between the original and impedance-matched devices",
   "our_pump_GHz": 16.0,
-  "median_gamma_inband_5_9GHz": 0.0688778947804,
+  "median_gamma_inband_5_9GHz": 0.0687985880079,
   "fine_numeric_check": {
     "signal_window_GHz": [
       7.0,

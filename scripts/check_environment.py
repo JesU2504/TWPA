@@ -1,6 +1,7 @@
 """Check the Python runtime and imports needed by the calculation pipeline."""
 
 import importlib
+import os
 import platform
 
 from _bootstrap import ROOT
@@ -13,7 +14,13 @@ def main():
         try:
             importlib.import_module(module)
         except Exception as error:
-            print(f"::error title=Import failed::{module}: {error}")
+            if os.environ.get("GITHUB_ACTIONS"):
+                print(f"::error title=Import failed::{module}: {error}")
+            if module == "CyRK" and platform.system() == "Darwin":
+                print(
+                    "CyRK could not load its OpenMP runtime. Run "
+                    "`.venv/bin/python scripts/fix_cyrk_libomp.py`, then retry."
+                )
             raise
     print(f"Python {platform.python_version()} on {platform.platform()}")
     print(

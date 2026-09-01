@@ -43,12 +43,13 @@ The scripts require Python 3.12. On macOS, install the OpenMP runtime first:
 brew bundle
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/fix_cyrk_libomp.py
 .venv/bin/python scripts/check_environment.py
 ```
 
 `requirements.txt` contains only packages from PyPI. The scripts load the preserved
 solver directly from `vendor/twpasolver`. See the
-[environment notes](docs/ENVIRONMENT.md) if CyRK cannot find `libomp` on macOS.
+[environment notes](docs/ENVIRONMENT.md) for details of the macOS CyRK repair.
 
 Fit the baseline cells and calculate the HFSS–Bloch amplifier response:
 

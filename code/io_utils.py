@@ -25,6 +25,12 @@ def write_json(path: Path, value, *, sort_keys: bool = False) -> None:
     path.write_text(json.dumps(_rounded_numbers(value), indent=2, sort_keys=sort_keys) + "\n")
 
 
+def _csv_value(value):
+    if isinstance(value, (float, np.floating)) and np.isfinite(value):
+        return f"{value:.12g}"
+    return value
+
+
 Z0_DEFAULT_OHM = 50.0
 
 
@@ -68,9 +74,9 @@ def read_touchstone(path: Path, *, z0_ohm: float = Z0_DEFAULT_OHM) -> tuple[np.n
 
 
 def write_csv_rows(path: Path, header: Sequence[str], columns: Iterable[Iterable]) -> None:
-    """CSV output from column iterables, with parent directories created as needed."""
+    """Write stable CSV output from column iterables."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="") as handle:
         writer = csv.writer(handle)
         writer.writerow(header)
-        writer.writerows(zip(*columns))
+        writer.writerows(tuple(_csv_value(value) for value in row) for row in zip(*columns))

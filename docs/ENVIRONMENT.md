@@ -5,18 +5,18 @@ pinned dependencies also resolve in a clean Python 3.12 environment. GitHub Acti
 installs them on Linux and runs the complete recalculation.
 
 CyRK requires an OpenMP runtime. On Apple silicon, `brew bundle` installs `libomp`
-under `/opt/homebrew/opt/libomp/lib`. Check the installation with:
+under `/opt/homebrew/opt/libomp/lib`, but the CyRK 0.8.8 wheels do not search that
+directory. Repair every installed CyRK extension and check the environment with:
 
 ```bash
+.venv/bin/python scripts/fix_cyrk_libomp.py
 .venv/bin/python scripts/check_environment.py
 ```
 
-If CyRK still cannot resolve `@rpath/libomp.dylib`, inspect its extension with
-`otool -L`. The Homebrew path can be added with:
-
-```bash
-install_name_tool -add_rpath /opt/homebrew/opt/libomp/lib /path/to/cyrk-extension.so
-```
+The repair script obtains the Homebrew prefix, finds all CyRK `.so` files, and adds
+the missing runtime path with `install_name_tool`. It is safe to run again after
+reinstalling or upgrading CyRK. If an import still fails, inspect each extension
+with `otool -L` and `otool -l`.
 
 The `twpasolver 0.0.1` source and license are included under `vendor/twpasolver/`.
 `scripts/_bootstrap.py` loads that copy for both the main runner and individual
