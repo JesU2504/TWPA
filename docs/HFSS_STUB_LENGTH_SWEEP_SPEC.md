@@ -42,7 +42,7 @@ single-cell fits use 12.0 and 3.9 µm stubs; the supercell uses 12.1 µm long st
 
 | Variable | Existing values already in the project | **New values to add** |
 |---|---|---|
-| `stub_length` | `12.1um` (unloaded baseline), `3.9um` (loaded baseline) | `7um, 8um, 9um, 10um, 11um` (targeting Z0~50 ohm) and `2.5um, 3um, 3.5um` (targeting Z0~80 ohm) |
+| `stub_length` | `12.1um` (unloaded baseline), `3.9um` (loaded baseline) | `7um, 8um, 9um, 10um, 11um` (targeting Z0 ≈ 50 ohm) and `2.5um, 3um, 3.5um` (targeting Z0 ≈ 80 ohm) |
 
 Nothing else changes per variation -- same pitch, widths, materials, ports,
 mesh settings.
