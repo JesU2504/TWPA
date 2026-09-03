@@ -74,8 +74,8 @@ calculated effective phase mismatch from the same saved grid.
 
 For slide 18, the magenta experimental vector is the selected Fig. 4(a) path on
 page 6 of Howe et al., arXiv:2507.07706v1. The gray simulation is the red maximum-GBP
-path in Fig. 3(d), page 5. Extraction coordinate calibrations and the extracted
-CSVs are retained; the full paper and vector-page SVGs are not bundled. These are digitized figure
+path in Fig. 3(d), page 5. The digitized CSVs are retained in `data/reference/`;
+the full paper and its figure images are not bundled. These are digitized figure
 traces, not author-provided raw measurement data. The paper's two traces represent
 different cases; the model uses a different pump frequency from the experiment.
 The deck samples the experimental path every fourth point and the refined model
@@ -102,25 +102,16 @@ diagrams, screenshots, and other visual material. The repository does not attemp
 to rebuild the PowerPoint file. Running the figure workflow writes PNG and PDF plots
 to `figures/`; updating the corresponding slides remains a manual step.
 
-## Reference data and optional extraction
+## Reference data
 
 Full citations, source links, and attribution for the retained traces are listed in
-[`papers_and_others/README.md`](../papers_and_others/README.md). The default pipeline
-uses those numerical traces as fixed comparison inputs; `--recompute` recalculates
-the device model but does not redigitize the literature.
-
-The original extraction algorithms remain available for separately obtained source
-images. They require the same crop, SVG coordinates, and path encoding as the original
-digitization; arbitrary screenshots or SVG exports are not interchangeable:
-
-```bash
-.venv/bin/python scripts/digitize_howe_fig2.py --source /path/to/howe_fig2_panel_400dpi.png
-.venv/bin/python scripts/extract_paper_curves.py --source-dir /path/to/vector-pages
-```
-
-The second command expects `paper_fig3d.svg` and `paper_fig4a.svg`. These optional
-commands write to `results/`; they do not replace the archived inputs in `data/reference/`.
-The next full pipeline run restores the archived curves.
+[`papers_and_others/README.md`](../papers_and_others/README.md). The digitized
+comparison curves are committed under `data/reference/`; the pipeline copies them
+into `results/` via `prepare_reference_curves.py` and treats them as fixed inputs.
+`--recompute` recalculates the device model only and does not redigitize the
+literature. The digitization method for each curve is recorded in
+`papers_and_others/README.md`; the repository does not ship figure-extraction tools
+or the source figure images.
 
 ## HFSS source availability
 

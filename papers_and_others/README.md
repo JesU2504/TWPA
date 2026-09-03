@@ -42,8 +42,8 @@ The following files contain numerical traces digitized from Howe et al., version
 These are digitized published curves, not author-provided raw measurements.
 Credit for the source figures belongs to Howe et al.; the traces are supplied with
 the source's [CC BY 4.0 attribution](https://creativecommons.org/licenses/by/4.0/).
-The transformations are recorded above and in the optional extraction scripts.
-Experimental and simulated curves represent different operating cases.
+The transformations are recorded in the table above. Experimental and simulated
+curves represent different operating cases.
 
 The calculation pipeline copies these CSVs into `results/` and does not require
 paper PDFs or figure images. Full-text papers and standalone figure reproductions
